@@ -33,7 +33,7 @@
                 </header>
                 <div class="panel col-md-12">
                     <div class="tab-content">
-                        <div id="todays" class="tab-pane">
+                        <div id="todays" class="tab-pane active">
                             <div class="">
                                 <div class=" no-print">
                                     <a class="btn btn-info btn_width btn-xs" data-toggle="modal" href="#addAppointmentModal">
@@ -84,7 +84,7 @@
 
 
 
-                        <div id="patient" class="tab-pane">
+                        <div id="patient" class="tab-pane" >
                             <div class="">
                                 <div class="adv-table editable-table ">
                                     <?php if (!empty($appointment_patients)) { ?>
