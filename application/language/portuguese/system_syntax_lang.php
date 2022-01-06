@@ -759,3 +759,4 @@ $lang['enable_billet'] = 'Habilitar Boleto de Pagamento';
 $lang['enable_pix'] = 'Habilitar Pix de Pagamento';
 $lang['discounted_price'] = 'Preço com desconto';
 $lang['enable_warranty'] = 'habilitar garantia';
+$lang['appointments_today'] = 'Atendimentos para hoje';

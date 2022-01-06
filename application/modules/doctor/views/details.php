@@ -12,7 +12,7 @@
                 <header class="panel-heading tab-bg-dark-navy-blueee">
                     <ul class="nav nav-tabs">
                         <li class="">
-                            <a data-toggle="tab" href="#todays"><?php echo lang('todays'); ?> <?php echo lang('appointments'); ?></a>
+                            <a data-toggle="tab" href="#todays"> <?php echo lang('appointments_today'); ?></a>
                         </li>
                         <li class="">
                             <a data-toggle="tab" href="#patient"><?php echo lang('patient'); ?></a>
