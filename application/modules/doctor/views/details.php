@@ -270,7 +270,7 @@
                         </div>
 
 
-                        <div id="calendar" class="tab-pane active"> <div class="">
+                        <div id="calendar" class="tab-pane"> <div class="">
                                 <div class="panel-body">
                                     <aside>
                                         <section class="panel">
