@@ -15,21 +15,24 @@ class Doctor_model extends CI_model {
     }
 
     function getDoctor() {
-        $query = $this->db->get('doctor');
+        $this->db->where('role_id', '2');
+        $query = $this->db->get('users');
         return $query->result();
     }
 
     function getDoctorWithoutSearch($order, $dir) {
+        $this->db->where('role_id', '2');
         if ($order != null) {
             $this->db->order_by($order, $dir);
         } else {
             $this->db->order_by('id', 'desc');
         }
-        $query = $this->db->get('doctor');
+        $query = $this->db->get('users');
         return $query->result();
     }
 
     function getDoctorBySearch($search, $order, $dir) {
+        $this->db->where('role_id', '2');
         if ($order != null) {
             $this->db->order_by($order, $dir);
         } else {
