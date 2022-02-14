@@ -17,4 +17,4 @@ jobs:
         server: ${{ secrets.FTP_SERVER_TESTE }}
         username: ${{ secrets.FTP_USERNAME_TESTE}}
         password: ${{ secrets.FTP_PASSWORD_TESTE }}
-        server-dir: public_html/psicomob/
+        server-dir: psicomob/
