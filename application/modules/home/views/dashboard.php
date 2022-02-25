@@ -41,6 +41,12 @@
     <link rel="stylesheet" type="text/css" href="common/assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
 
     <link rel="stylesheet" type="text/css" href="common/assets/DataTables/DataTables-1.10.16/custom/css/datatable-responsive-cdn-version-1-0-7.css" />
+    <link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/css/plugins/calendars/clndr.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/css/pages/hospital-doctor-profile.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/vendors/css/charts/leaflet.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick.css">
+<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick-theme.css">
+
 
 
     <!-- Google Fonts -->
@@ -482,7 +488,17 @@
                                 <span><?php echo lang('schedule'); ?></span>
                             </a>
                             <ul class="sub">
-                                <li><a href="schedule/timeSchedule"><i class="fa fa-list-alt"></i><?php echo lang('all'); ?> <?php echo lang('schedule'); ?></a></li>
+                                <li><a href="scheduleold/timeSchedule"><i class="fa fa-list-alt"></i><?php echo lang('all'); ?> <?php echo lang('schedule'); ?></a></li>
+                                <li><a href="scheduleold/holidays"><i class="fa fa-list-alt"></i><?php echo lang('holidays'); ?></a></li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-clock"></i>
+                                <span><?php echo lang('schedule'); ?> Atualizando</span>
+                            </a>
+                            <ul class="sub">
+                                <li><a href="schedule/timeSchedule"><i class="fa fa-list-alt"></i><?php echo lang('all'); ?> <?php echo lang('schedule'); ?> </a></li>
                                 <li><a href="schedule/holidays"><i class="fa fa-list-alt"></i><?php echo lang('holidays'); ?></a></li>
                             </ul>
                         </li>

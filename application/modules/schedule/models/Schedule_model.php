@@ -3,19 +3,23 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Schedule_model extends CI_model {
+class Schedule_model extends CI_model
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->database();
     }
 
-    function getSchedule() {
+    function getSchedule()
+    {
         $query = $this->db->get('time_schedule');
         return $query->result();
     }
 
-    function getAvailableDoctorByDate($date) {
+    function getAvailableDoctorByDate($date)
+    {
 
         $weekday = strftime("%A", $date);
         $this->db->where('date', $date);
@@ -43,7 +47,8 @@ class Schedule_model extends CI_model {
         return $query_avail_doctor->result();
     }
 
-    function getAvailableDoctorsByDateBySlot($date, $slot) {
+    function getAvailableDoctorsByDateBySlot($date, $slot)
+    {
 
         $weekday = strftime("%A", $date);
         $this->db->where('date', $date);
@@ -82,7 +87,8 @@ class Schedule_model extends CI_model {
         return $query_avail_doctor->result();
     }
 
-    function getAvailableSlotByDoctorByDate($date, $doctor) {
+    function getAvailableSlotByDoctorByDate($date, $doctor)
+    {
         //$newDate = date("m-d-Y", strtotime($date));
         $weekday = strftime("%A", $date);
 
@@ -121,7 +127,8 @@ class Schedule_model extends CI_model {
         return $availableSlot;
     }
 
-    function getAvailableSlotByDoctorByDateByAppointmentId($date, $doctor, $appointment_id) {
+    function getAvailableSlotByDoctorByDateByAppointmentId($date, $doctor, $appointment_id)
+    {
         //$newDate = date("m-d-Y", strtotime($date));
         $weekday = strftime("%A", $date);
 
@@ -163,7 +170,8 @@ class Schedule_model extends CI_model {
         return $availableSlot;
     }
 
-    function updateIonUser($username, $email, $password, $ion_user_id) {
+    function updateIonUser($username, $email, $password, $ion_user_id)
+    {
         $uptade_ion_user = array(
             'username' => $username,
             'email' => $email,
@@ -173,68 +181,80 @@ class Schedule_model extends CI_model {
         $this->db->update('users', $uptade_ion_user);
     }
 
-    function getDoctorByIonUserId($id) {
+    function getDoctorByIonUserId($id)
+    {
         $this->db->where('ion_user_id', $id);
         $query = $this->db->get('doctor');
         return $query->row();
     }
 
-    function insertTimeSlot($data) {
+    function insertTimeSlot($data)
+    {
         $this->db->insert('time_slot', $data);
     }
 
-    function getTimeSlot() {
+    function getTimeSlot()
+    {
         $query = $this->db->get('time_slot');
         return $query->result();
     }
 
-    function getTimeSlotById($id) {
+    function getTimeSlotById($id)
+    {
         $this->db->where('id', $id);
         $query = $this->db->get('time_slot');
         return $query->row();
     }
 
-    function getTimeSlotByDoctor($id) {
+    function getTimeSlotByDoctor($id)
+    {
         $this->db->order_by('s_time_key', 'asc');
         $this->db->where('doctor', $id);
         $query = $this->db->get('time_slot');
         return $query->result();
     }
 
-    function updateTimeSlot($id, $data) {
+    function updateTimeSlot($id, $data)
+    {
         $this->db->where('id', $id);
         $this->db->update('time_slot', $data);
     }
 
-    function deleteTimeSlot($id) {
+    function deleteTimeSlot($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('time_slot');
     }
 
-    function insertSchedule($data) {
+    function insertSchedule($data)
+    {
         $this->db->insert('time_schedule', $data);
     }
 
-    function getScheduleByDoctor($doctor) {
+    function getScheduleByDoctor($doctor)
+    {
         $this->db->where('doctor', $doctor);
         $query = $this->db->get('time_schedule');
         return $query->result();
     }
 
-    function getScheduleById($id) {
+    function getScheduleById($id)
+    {
         $this->db->where('id', $id);
         $query = $this->db->get('time_schedule');
         return $query->row();
     }
 
-    function getScheduleByDoctorByWeekday($doctor, $weekday) {
+    function getScheduleByDoctorByWeekday($doctor, $weekday)
+    {
         $this->db->where('doctor', $doctor);
         $this->db->where('weekday', $weekday);
         $query = $this->db->get('time_schedule');
         return $query->result();
     }
 
-    function getScheduleByDoctorByWeekdayById($doctor, $weekday, $id) {
+    function getScheduleByDoctorByWeekdayById($doctor, $weekday, $id)
+    {
         $this->db->where_not_in('id', $id);
         $this->db->where('doctor', $doctor);
         $this->db->where('weekday', $weekday);
@@ -242,59 +262,69 @@ class Schedule_model extends CI_model {
         return $query->result();
     }
 
-    function updateSchedule($id, $data) {
+    function updateSchedule($id, $data)
+    {
         $this->db->where('id', $id);
         $this->db->update('time_schedule', $data);
     }
 
-    function deleteSchedule($id) {
+    function deleteSchedule($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('time_schedule');
     }
 
-    function deleteTimeSlotByDoctorByWeekday($doctor, $weekday) {
+    function deleteTimeSlotByDoctorByWeekday($doctor, $weekday)
+    {
         $this->db->where('doctor', $doctor);
         $this->db->where('weekday', $weekday);
         $this->db->delete('time_slot');
     }
 
-    function insertHoliday($data) {
+    function insertHoliday($data)
+    {
         $this->db->insert('holidays', $data);
     }
 
-    function getHolidays() {
+    function getHolidays()
+    {
         $query = $this->db->get('holidays');
         return $query->result();
     }
 
-    function getHolidayById($id) {
+    function getHolidayById($id)
+    {
         $this->db->where('id', $id);
         $query = $this->db->get('holidays');
         return $query->row();
     }
 
-    function getHolidaysByDoctor($id) {
+    function getHolidaysByDoctor($id)
+    {
         $this->db->order_by('id', 'asc');
         $this->db->where('doctor', $id);
         $query = $this->db->get('holidays');
         return $query->result();
     }
 
-    function getHolidayByDoctorByDate($doctor, $date) {
+    function getHolidayByDoctorByDate($doctor, $date)
+    {
         $this->db->where('doctor', $doctor);
         $this->db->where('date', $date);
         $query = $this->db->get('holidays');
         return $query->row();
     }
 
-    function getTimeSlotByDoctorByWeekday($doctor, $weekday) {
+    function getTimeSlotByDoctorByWeekday($doctor, $weekday)
+    {
         $this->db->where('doctor', $doctor);
         $this->db->where('weekday', $weekday);
         $query = $this->db->get('time_slot');
         return $query->result();
     }
 
-    function getTimeSlotByDoctorByWeekdayById($doctor, $weekday, $id) {
+    function getTimeSlotByDoctorByWeekdayById($doctor, $weekday, $id)
+    {
         $this->db->where_not_in('id', $id);
         $this->db->where('doctor', $doctor);
         $this->db->where('weekday', $weekday);
@@ -302,14 +332,36 @@ class Schedule_model extends CI_model {
         return $query->result();
     }
 
-    function updateHoliday($id, $data) {
+    function updateHoliday($id, $data)
+    {
         $this->db->where('id', $id);
         $this->db->update('holidays', $data);
     }
 
-    function deleteHoliday($id) {
+    function deleteHoliday($id)
+    {
         $this->db->where('id', $id);
         $this->db->delete('holidays');
     }
 
+    public function hours_settings($hours, $id)
+
+    {
+        $data['hours_available'] = $hours;
+        $this->db->where('id', $id);
+        $this->db->update('doctor', $data);
+    }
+
+  public function hour_compare($hour, $user_id){
+     // print_r($hour);die;
+     // $final =  $hour - '24:00:00';
+      $this->db->where('doctor', $user_id);
+      $this->db->where('s_time >=', date('g:i A' , strtotime($hour)));
+      $this->db->where('e_time <=', date('g:i A' , strtotime('+1 hours', strtotime($hour))));
+      $this->db->where('date', strtotime($hour));
+      // echo $hour;
+      //echo date('Y-m-d H:i:s' , strtotime('+1 hours', strtotime($hour)));
+      //print_r($this->db->last_query());
+      return $this->db->get('appointment')->result();
+     }
 }

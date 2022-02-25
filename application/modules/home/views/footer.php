@@ -10,7 +10,6 @@
 </section>
 
 
-
 <!-- js placed at the end of the document so the pages load faster -->
 <script src="common/js/jquery.js"></script>
 <script src="common/js/jquery-1.8.3.min.js"></script>
@@ -45,7 +44,8 @@
 <script src="common/assets/fullcalendar/fullcalendar.js"></script>
 
 <script type="text/javascript" src="common/assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-
+<!--script da agenda slide-->
+ <script src="<?php echo base_url('app-assets/slick/slick.js') ?>" type="text/javascript" charset="utf-8"></script>
 
 <?php
 $language = $this->db->get('settings')->row()->language;
