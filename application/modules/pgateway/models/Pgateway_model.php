@@ -54,7 +54,7 @@ class pgateway_model extends CI_model {
 
     function getPaymentGateway() {
         $this->db->order_by('id', 'asc');
-        $query = $this->db->get('paymentgateway');
+        $query = $this->db->get('paymentGateway');
         return $query->result();
     }
 

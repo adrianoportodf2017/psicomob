@@ -1,94 +1,6 @@
+
+
 <!--sidebar end-->
-<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/css/pages/hospital-doctor-profile.css">
-<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick.css">
-<link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick-theme.css">
-<!-- BEGIN: Main Menu-->
-<style>
-    .slider {
-
-        width: 95%;
-        margin: 30px auto;
-        min-width: 100px;
-    }
-
-    .slick-slide {
-        margin: 0px 0px;
-    }
-
-    .slick-slide img {
-        width: 95%;
-    }
-
-    .slick-next,
-    .slick-arrow {
-        height: 50px;
-
-
-    }
-
-    .slick-prev:before,
-    .slick-next:before {
-        color: black;
-    }
-
-
-    .slick-slide {
-        transition: all ease-in-out .2s;
-
-    }
-
-    .slick-active {}
-
-    .slick-current {}
-
-    .box {
-
-        min-width: 100px;
-        height: 300px;
-
-
-    }
-
-    .scrolling-wrapper {
-
-
-        display: flex;
-        flex-wrap: nowrap;
-
-    }
-
-
-
-    .hours {
-        width: 100%;
-        height: 400px;
-        border: 1px solid black;
-    }
-
-    .buttonhours {
-        height: 50px;
-        position: relative;
-        margin: 5px;
-        margin-left: 10px;
-        width: 97%;
-        border-style: 5px solid red;
-
-    }
-
-    .button-week {
-        position: relative;
-        margin-bottom: 2px;
-        margin-left: 10px;
-        text-align: center;
-        font-weight: bold;
-        font-size: 1.1rem;
-        color: white;
-        height: 65px;
-        width: 100%;
-
-    }
-</style>
-
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper site-min-height">
@@ -100,10 +12,7 @@
                 <header class="panel-heading tab-bg-dark-navy-blueee">
                     <ul class="nav nav-tabs">
                         <li class="">
-                            <a data-toggle="tab" href="#todays"> <?php echo lang('appointments_today'); ?></a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#schedule"> <?php echo lang('profile_schedule'); ?></a>
+                            <a data-toggle="tab" href="#todays"><?php echo lang('todays'); ?> <?php echo lang('appointments'); ?></a>
                         </li>
                         <li class="">
                             <a data-toggle="tab" href="#patient"><?php echo lang('patient'); ?></a>
@@ -111,7 +20,9 @@
                         <li class="">
                             <a data-toggle="tab" href="#prescription"><?php echo lang('prescription'); ?></a>
                         </li>
-
+                        <li class="">
+                            <a data-toggle="tab" href="#schedule"><?php echo lang('schedule'); ?></a>
+                        </li>
                         <li class="">
                             <a data-toggle="tab" href="#holiday"><?php echo lang('holidays'); ?></a>
                         </li>
@@ -122,11 +33,11 @@
                 </header>
                 <div class="panel col-md-12">
                     <div class="tab-content">
-                        <div id="todays" class="tab-pane active">
+                        <div id="todays" class="tab-pane">
                             <div class="">
                                 <div class=" no-print">
                                     <a class="btn btn-info btn_width btn-xs" data-toggle="modal" href="#addAppointmentModal">
-                                        <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?>
+                                        <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?> 
                                     </a>
                                 </div>
                                 <div class="adv-table editable-table ">
@@ -146,14 +57,14 @@
                                             foreach ($todays_appointments as $todays_appointment) {
                                                 $patient_details = $this->patient_model->getPatientById($todays_appointment->patient);
                                                 if (!empty($patient_details)) {
-                                            ?>
+                                                    ?>
                                                     <tr class="">
                                                         <td><?php echo date('d-m-Y', $todays_appointment->date); ?></td>
                                                         <td><?php echo $todays_appointment->patient; ?></td>
                                                         <td><?php echo $patient_details->name; ?></td>
                                                         <td><?php echo $todays_appointment->status; ?></td>
                                                         <td class="no-print">
-                                                            <button type="button" class="btn btn-info btn-xs btn_width editAppointmentButton" title="<?php echo lang('edit'); ?>" data-toggle="modal" data-id="<?php echo $todays_appointment->id; ?>"><i class="fa fa-edit"></i> </button>
+                                                            <button type="button" class="btn btn-info btn-xs btn_width editAppointmentButton" title="<?php echo lang('edit'); ?>" data-toggle="modal" data-id="<?php echo $todays_appointment->id; ?>"><i class="fa fa-edit"></i> </button>   
                                                             <a class="btn btn-info btn-xs btn_width delete_button" title="<?php echo lang('delete'); ?>" href="appointment/delete?id=<?php echo $todays_appointment->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i> </a>
                                                             <a class="btn btn-info btn-xs btn_width green" title="<?php echo lang('history'); ?>" style="color: #fff;" href="patient/medicalHistory?id=<?php echo $todays_appointment->patient; ?>"><i class="fa fa-stethoscope"></i> <?php echo lang('patient'); ?> <?php echo lang('history'); ?></a>
                                                             <?php if ($todays_appointment->status == 'Confirmed') { ?>
@@ -161,7 +72,7 @@
                                                             <?php } ?>
                                                         </td>
                                                     </tr>
-                                            <?php
+                                                    <?php
                                                 }
                                             }
                                             ?>
@@ -189,7 +100,7 @@
                                                 <?php
                                                 foreach ($appointment_patients as $appointment_patient) {
                                                     $appointed_patient = $this->patient_model->getPatientById($appointment_patient);
-                                                ?>
+                                                    ?>
                                                     <tr class="">
 
                                                         <td><?php echo $appointed_patient->id; ?></td>
@@ -205,12 +116,11 @@
                                 </div>
                             </div>
                         </div>
-                        <div id="prescription" class="tab-pane">
-                            <div class="">
+                        <div id="prescription" class="tab-pane"> <div class="">
                                 <?php if ($this->ion_auth->in_group(array('Doctor'))) { ?>
                                     <div class=" no-print">
                                         <a class="btn btn-info btn_width btn-xs" href="prescription/addPrescriptionView">
-                                            <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?>
+                                            <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?> 
                                         </a>
                                     </div>
                                 <?php } ?>
@@ -248,9 +158,9 @@
 
                                                     </td>
                                                     <td class="no-print">
-                                                        <a class="btn btn-info btn-xs btn_width" href="prescription/viewPrescription?id=<?php echo $prescription->id; ?>"><i class="fa fa-eye"> <?php echo lang('view'); ?> </i></a>
+                                                        <a class="btn btn-info btn-xs btn_width" href="prescription/viewPrescription?id=<?php echo $prescription->id; ?>"><i class="fa fa-eye"> <?php echo lang('view'); ?> </i></a> 
                                                         <?php if ($this->ion_auth->in_group('Doctor')) { ?>
-                                                            <a class="btn btn-info btn-xs btn_width" href="prescription/editPrescription?id=<?php echo $prescription->id; ?>" "><i class=" fa fa-edit"></i> <?php echo lang('edit'); ?></a>
+                                                            <a class="btn btn-info btn-xs btn_width" href="prescription/editPrescription?id=<?php echo $prescription->id; ?>" "><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></a>   
                                                             <a class="btn btn-info btn-xs btn_width delete_button" href="prescription/delete?id=<?php echo $prescription->id; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"></i> <?php echo lang('delete'); ?></a>
                                                         <?php } ?>
                                                     </td>
@@ -262,12 +172,11 @@
                             </div>
                         </div>
 
-                        <div id="schedule" class="tab-pane">
-                            <div class="">
+                        <div id="schedule" class="tab-pane"> <div class="">
                                 <?php if ($this->ion_auth->in_group(array('Doctor'))) { ?>
                                     <div class=" no-print">
                                         <a class="btn btn-info btn_width btn-xs" data-toggle="modal" href="#addScheduleModal">
-                                            <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?>
+                                            <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?> 
                                         </a>
                                     </div>
                                 <?php } ?>
@@ -284,15 +193,15 @@
 
                                             </tr>
                                         </thead>
-                                        <tbody>
+                                        <tbody> 
                                             <?php
                                             $i = 0;
                                             foreach ($schedules as $schedule) {
                                                 $i = $i + 1;
-                                            ?>
+                                                ?>
                                                 <tr class="">
-                                                    <td style="background:#345678; color: #fff;"> <?php echo $i; ?></td>
-                                                    <td> <?php echo $schedule->weekday; ?></td>
+                                                    <td style="background:#345678; color: #fff;"> <?php echo $i; ?></td> 
+                                                    <td> <?php echo $schedule->weekday; ?></td> 
                                                     <td><?php echo $schedule->s_time; ?></td>
                                                     <td><?php echo $schedule->e_time; ?></td>
                                                     <td><?php echo $schedule->duration * 5 . ' ' . lang('minitues'); ?></td>
@@ -308,160 +217,14 @@
                                     </table>
                                 </div>
                             </div>
-
-
-
-                            <!-- BEGIN: Content-->
-
-
-                            <!-- END: Main Menu-->
-                            <!-- BEGIN: Content-->
-                            <div class="app-content content">
-                                <div class="content-overlay"></div>
-                                <div class="content-wrapper">
-                                    <div class="content-header row">
-                                        <div class="content-header-right col-md-6 col-12">
-                                            <div class="btn-group float-md-right" role="group" aria-label="Button group with nested dropdown">
-                                                <button class="btn btn-info round dropdown-toggle dropdown-menu-right box-shadow-2 px-2 mb-1" id="btnGroupDrop1" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><i class="ft-settings icon-left"></i> Settings</button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1">
-                                                    <a class="dropdown-item" href="javascript::void(0)" onclick="showAjaxModal('<?= base_url() ?>modal/popup/modal_hour_edit', 'Editar Horas')">Editar Horas</a>
-                                                    <a class="dropdown-item" href="component-buttons-extended.html">Buttons</a>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-5">
-                                                <img style="width:150px;" src="<?php /*echo $this->user_model->get_user_image_url($this->session->userdata('user_id'));*/ ?>" alt="" class="card-img-top mb-2 img-fluid  rounded-circle">
-                                            </div>
-                                            <div class="col-lg-7">
-                                                <h1 class="card-title mb-1"><b>
-                                                        <h1><?php /* echo $user_details['first_name'] . "" . $user_details['last_name']; */ ?>
-                                                    </b></h1>
-                                                <h6 class="text-light"><?php /* //var_dump($user_details);
-                                                                                            echo $user_details['career']; */ ?></h6>
-                                                <h6 class="text-light"><b>CRP:<?php //var_dump($user_details);
-                                                                                /* echo $user_details['crp'] . ' | </b><b class="text-bold-700">' . $user_details['city']; */ ?> </b></h6>
-
-                                                <span class="planos-badge best-seller"></span>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <i class="la la-star"></i>
-                                                <span class="d-inline-block average-rating"></span>
-                                                <p><span>(10 Avaliações)</span><br>
-                                                    <span class="enrolled-num">
-                                                        8 Sessões realizadas </span>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                    <div class="card-body text-left">
-                                        <h6 class="text-bold-700">Especialidades:</h6>
-                                        <p><?php
-                                            /* $specialties =  unserialize($user_details['specialties']);
-                                                                //var_dump($specialties);
-                                                                foreach ($specialties  as $specialtie => $k) {
-                                                                    if ($k == '1') {
-                                                                        echo $specialtie . ', ';
-                                                                    }
-                                                                }; */ ?></p>
-
-                                        <h6 class="text-bold-700">R$150/ 50 MINUTOS:</h6>
-                                        <p> <?php /*echo $user_details['biography']    */  ?>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-lg-7">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">AGENDA</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <b>
-                                            <h3>Selecione uma data</h3>
-                                        </b>
-                                        <div class="center slider">
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+0 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round button-week"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('HOJE, %d/%m', strtotime('+0 day', strtotime(date("D-m-y"))))))); ?> </button>
-
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('1+ day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+1 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+2 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+2 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+3 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+3 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+4 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+4 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+5 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+5 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+6 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+6 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+7 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+7 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                            <div>
-                                                <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+8 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+8 day', strtotime(date("D-m-y"))))))); ?> </button>
-                                            </div>
-                                        </div>
-                                        <b>
-                                            <h3>Horários disponíveis:</h3>
-                                        </b>
-                                        <div class="listhours slider" id="listhours" name="listhours">
-
-                                        </div>
-                                        <button class="btn btn-success round buttonhours"> Agendar uma Consulta Online</button>
-
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group mt-2">
-                                        <label for="symptoms">Symptoms: <span class="text-danger">*</span></label>
-                                        <input type="text" id="symptoms" class="form-control" name="symptoms" placeholder="Enter Your Problems Here" required>
-                                    </div>
-                                </div>
-
-
-                                <div class="card-footer">
-                                    <button class="btn btn-danger float-right">Book Appointment</button>
-                                </div>
-                            </div>
-
-                            <script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
-
-                            <script type="text/javascript">
-                                $(document).on('ready', function() {
-
-                                    $(".center").slick({
-                                        dots: false,
-                                        infinite: false,
-                                        centerMode: false,
-                                        slidesToShow: 5,
-                                        slidesToScroll: 1
-                                    });
-
-                                    $(".lazy").slick({
-                                        lazyLoad: 'ondemand', // ondemand progressive anticipated
-                                        infinite: true
-                                    });
-                                });
-                            </script>
                         </div>
 
 
 
-                        <div id="holiday" class="tab-pane">
-                            <div class="">
+                        <div id="holiday" class="tab-pane"> <div class="">
                                 <div class=" no-print">
                                     <a class="btn btn-info btn_width btn-xs" data-toggle="modal" href="#holidayModal">
-                                        <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?>
+                                        <i class="fa fa-plus-circle"> </i> <?php echo lang('add_new'); ?> 
                                     </a>
                                 </div>
                                 <div class="adv-table editable-table ">
@@ -474,30 +237,32 @@
 
                                             </tr>
                                         </thead>
-                                        <tbody>
-                                            <style>
-                                                .img_url {
-                                                    height: 20px;
-                                                    width: 20px;
-                                                    background-size: contain;
-                                                    max-height: 20px;
-                                                    border-radius: 100px;
-                                                }
-                                            </style>
-                                            <?php
-                                            $i = 0;
-                                            foreach ($holidays as $holiday) {
-                                                $i = $i + 1;
-                                            ?>
-                                                <tr class="">
-                                                    <td> <?php echo $i; ?></td>
-                                                    <td> <?php echo date('d-m-Y', $holiday->date); ?></td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-info btn-xs btn_width editHoliday" data-toggle="modal" data-id="<?php echo $holiday->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></button>
-                                                        <a class="btn btn-info btn-xs btn_width delete_button" href="schedule/deleteHoliday?id=<?php echo $holiday->id; ?>&doctor=<?php echo $doctor->id; ?>&redirect=doctor/details" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"> </i> <?php echo lang('delete'); ?></a>
-                                                    </td>
-                                                </tr>
-                                            <?php } ?>
+                                        <tbody>  
+                                        <style>  
+
+                                            .img_url{
+                                                height:20px;
+                                                width:20px;
+                                                background-size: contain; 
+                                                max-height:20px;
+                                                border-radius: 100px;
+                                            }
+
+                                        </style>
+                                        <?php
+                                        $i = 0;
+                                        foreach ($holidays as $holiday) {
+                                            $i = $i + 1;
+                                            ?> 
+                                            <tr class="">
+                                                <td> <?php echo $i; ?></td>
+                                                <td> <?php echo date('d-m-Y', $holiday->date); ?></td> 
+                                                <td>
+                                                    <button type="button" class="btn btn-info btn-xs btn_width editHoliday" data-toggle="modal" data-id="<?php echo $holiday->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></button>   
+                                                    <a class="btn btn-info btn-xs btn_width delete_button" href="schedule/deleteHoliday?id=<?php echo $holiday->id; ?>&doctor=<?php echo $doctor->id; ?>&redirect=doctor/details" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"> </i> <?php echo lang('delete'); ?></a>
+                                                </td>
+                                            </tr>
+                                        <?php } ?>
                                         </tbody>
                                     </table>
                                 </div>
@@ -505,8 +270,7 @@
                         </div>
 
 
-                        <div id="calendar" class="tab-pane">
-                            <div class="">
+                        <div id="calendar" class="tab-pane active"> <div class="">
                                 <div class="panel-body">
                                     <aside>
                                         <section class="panel">
@@ -520,7 +284,7 @@
                         </div>
 
 
-                        <div id="timeline" class="tab-pane">
+                        <div id="timeline" class="tab-pane"> 
                             <div class="">
                                 <div class="">
                                     <section class="panel ">
@@ -578,7 +342,7 @@
                 <div class="col-md-12 row">
                     <?php echo lang('profile'); ?>
                 </div>
-            </header>
+            </header> 
 
 
 
@@ -597,11 +361,11 @@
 
                         <ul class="nav nav-pills nav-stacked">
                             <li class="active"> <?php echo lang('doctor'); ?> <?php echo lang('name'); ?><span class="label pull-right r-activity"><?php echo $doctor->name; ?></span></li>
-                            <li> <?php echo lang('doctor_id'); ?> <span class="label pull-right r-activity"><?php echo $doctor->id; ?></span></li>
-                            <li> <?php echo lang('profile'); ?><span class="label pull-right r-activity"><?php echo $doctor->profile; ?></span></li>
-                            <li> <?php echo lang('address'); ?><span class="label pull-right r-activity"><?php echo $doctor->address; ?></span></li>
-                            <li> <?php echo lang('phone'); ?><span class="label pull-right r-activity"><?php echo $doctor->phone; ?></span></li>
-                            <li> <?php echo lang('email'); ?><span class="label pull-right r-activity"><?php echo $doctor->email; ?></span></li>
+                            <li>  <?php echo lang('doctor_id'); ?> <span class="label pull-right r-activity"><?php echo $doctor->id; ?></span></li>
+                            <li>  <?php echo lang('profile'); ?><span class="label pull-right r-activity"><?php echo $doctor->profile; ?></span></li>
+                            <li>  <?php echo lang('address'); ?><span class="label pull-right r-activity"><?php echo $doctor->address; ?></span></li>
+                            <li>  <?php echo lang('phone'); ?><span class="label pull-right r-activity"><?php echo $doctor->phone; ?></span></li>
+                            <li>  <?php echo lang('email'); ?><span class="label pull-right r-activity"><?php echo $doctor->email; ?></span></li>
                         </ul>
 
                     </section>
@@ -628,7 +392,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> <?php echo lang('add'); ?> <?php echo lang('files'); ?></h4>
+                <h4 class="modal-title"><i class="fa fa-plus-circle"></i>  <?php echo lang('add'); ?> <?php echo lang('files'); ?></h4>
             </div>
             <div class="modal-body">
                 <form role="form" action="patient/addPatientMaterial" class="clearfix row" method="post" enctype="multipart/form-data">
@@ -664,7 +428,7 @@
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
                 <h4 class="modal-title"><i class="fa fa-plus-circle"></i> <?php echo lang('add_medical_history'); ?></h4>
-            </div>
+            </div> 
             <div class="modal-body">
                 <form role="form" action="patient/addMedicalHistory" method="post" enctype="multipart/form-data">
                     <div class="form-group">
@@ -734,7 +498,7 @@
             <div id='medical_history'>
                 <div class="col-md-12">
 
-                </div>
+                </div> 
             </div>
             <div class="modal-footer">
                 <div class="col-md-12">
@@ -756,144 +520,144 @@ if ($this->ion_auth->in_group('Doctor')) {
 <!-- Add Appointment Modal-->
 <div class="modal fade" id="addAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg"">
-        <div class=" modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title"> <?php echo lang('add_appointment'); ?></h4>
-        </div>
-        <div class="modal-body">
-            <form role="form" action="appointment/addNew" class="clearfix row" method="post" enctype="multipart/form-data">
-                <div class="col-md-4 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('patient'); ?></label>
-                    <select class="form-control m-bot15  pos_select" id="pos_select" name="patient" value=''>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">   <?php echo lang('add_appointment'); ?></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" action="appointment/addNew" class="clearfix row" method="post" enctype="multipart/form-data">
+                    <div class="col-md-4 panel">
+                        <label for="exampleInputEmail1"> <?php echo lang('patient'); ?></label>
+                        <select class="form-control m-bot15  pos_select" id="pos_select" name="patient" value=''> 
 
-                    </select>
-                </div>
+                        </select>
+                    </div>
 
-                <div class="pos_client clearfix">
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('name'); ?></label>
+                    <div class="pos_client clearfix">
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('name'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_name" value='' placeholder="">
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_name" value='' placeholder="">
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('email'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_email" value='' placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('phone'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_phone" value='' placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('age'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_age" value='' placeholder="">
+                            </div>
+                        </div> 
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('gender'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <select class="form-control m-bot15" name="p_gender" value=''>
+
+                                    <option value="Male" <?php
+                                    if (!empty($patient->sex)) {
+                                        if ($patient->sex == 'Male') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > Male </option>   
+                                    <option value="Female" <?php
+                                    if (!empty($patient->sex)) {
+                                        if ($patient->sex == 'Female') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > Female </option>
+                                    <option value="Others" <?php
+                                    if (!empty($patient->sex)) {
+                                        if ($patient->sex == 'Others') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > Others </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('email'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_email" value='' placeholder="">
-                        </div>
+
+                    <div class="col-md-4 panel">
+                        <label for="exampleInputEmail1">  <?php echo lang('doctor'); ?></label>
+                        <select class="form-control js-example-basic-single" id="adoctors" name="doctor" value=''>  
+                            <option value="">Select .....</option>
+                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?> </option>
+                        </select>
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('phone'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_phone" value='' placeholder="">
-                        </div>
+
+
+                    <div class="col-md-4 panel">
+                        <label for="exampleInputEmail1"> <?php echo lang('date'); ?></label>
+                        <input type="text" class="form-control default-date-picker" id="date" readonly="" name="date" id="exampleInputEmail1" value='' placeholder="">
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('age'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_age" value='' placeholder="">
-                        </div>
+
+                    <div class="col-md-6 panel">
+                        <label class=""><?php echo lang('available_slots'); ?></label>
+                        <select class="form-control m-bot15" name="time_slot" id="aslots" value=''> 
+
+                        </select>
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('gender'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <select class="form-control m-bot15" name="p_gender" value=''>
 
-                                <option value="Male" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Male') {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>> Male </option>
-                                <option value="Female" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Female') {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>> Female </option>
-                                <option value="Others" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Others') {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>> Others </option>
-                            </select>
-                        </div>
+
+
+                    <div class="col-md-6 panel">
+                        <label for="exampleInputEmail1"> <?php echo lang('appointment'); ?> <?php echo lang('status'); ?></label> 
+                        <select class="form-control m-bot15" name="status" value=''> 
+                            <option value="Pending Confirmation" <?php
+                                    ?> > <?php echo lang('pending_confirmation'); ?> </option>
+                            <option value="Confirmed" <?php
+                                    ?> > <?php echo lang('confirmed'); ?> </option>
+                            <option value="Treated" <?php
+                                    ?> > <?php echo lang('treated'); ?> </option>
+                            <option value="Cancelled" <?php
+                                    ?> > <?php echo lang('cancelled'); ?> </option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="col-md-4 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?></label>
-                    <select class="form-control js-example-basic-single" id="adoctors" name="doctor" value=''>
-                        <option value="">Select .....</option>
-                        <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?> </option>
-                    </select>
-                </div>
+                    <div class="col-md-8 panel"> 
+                        <label for="exampleInputEmail1"> <?php echo lang('remarks'); ?></label>
+                        <input type="text" class="form-control" name="remarks" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
 
 
-                <div class="col-md-4 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('date'); ?></label>
-                    <input type="text" class="form-control default-date-picker" id="date" readonly="" name="date" id="exampleInputEmail1" value='' placeholder="">
-                </div>
+                    <div class="col-md-6 panel"> 
+                        <input type="checkbox" name="sms" value="sms"> <?php echo lang('send_sms') ?><br>
+                    </div>
 
-                <div class="col-md-6 panel">
-                    <label class=""><?php echo lang('available_slots'); ?></label>
-                    <select class="form-control m-bot15" name="time_slot" id="aslots" value=''>
+                    <input type="hidden" name="redirect" value='doctor/details'>
 
-                    </select>
-                </div>
+                    <div class="col-md-12 panel"> 
+                        <button type="submit" name="submit" class="btn btn-info pull-right"> <?php echo lang('submit'); ?></button>
+                    </div>
 
+                </form>
 
-
-                <div class="col-md-6 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('appointment'); ?> <?php echo lang('status'); ?></label>
-                    <select class="form-control m-bot15" name="status" value=''>
-                        <option value="Pending Confirmation" <?php
-                                                                ?>> <?php echo lang('pending_confirmation'); ?> </option>
-                        <option value="Confirmed" <?php
-                                                    ?>> <?php echo lang('confirmed'); ?> </option>
-                        <option value="Treated" <?php
-                                                ?>> <?php echo lang('treated'); ?> </option>
-                        <option value="Cancelled" <?php
-                                                    ?>> <?php echo lang('cancelled'); ?> </option>
-                    </select>
-                </div>
-
-                <div class="col-md-8 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('remarks'); ?></label>
-                    <input type="text" class="form-control" name="remarks" id="exampleInputEmail1" value='' placeholder="">
-                </div>
-
-
-                <div class="col-md-6 panel">
-                    <input type="checkbox" name="sms" value="sms"> <?php echo lang('send_sms') ?><br>
-                </div>
-
-                <input type="hidden" name="redirect" value='doctor/details'>
-
-                <div class="col-md-12 panel">
-                    <button type="submit" name="submit" class="btn btn-info pull-right"> <?php echo lang('submit'); ?></button>
-                </div>
-
-            </form>
-
-        </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 <!-- Add Appointment Modal-->
 
@@ -906,147 +670,147 @@ if ($this->ion_auth->in_group('Doctor')) {
 <!-- Edit Event Modal-->
 <div class="modal fade" id="editAppointmentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
     <div class="modal-dialog modal-lg"">
-        <div class=" modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-            <h4 class="modal-title"> <?php echo lang('edit_appointment'); ?></h4>
-        </div>
-        <div class="modal-body">
-            <form role="form" id="editAppointmentForm" action="appointment/addNew" class="clearfix row" method="post" enctype="multipart/form-data">
-                <div class="col-md-4 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('patient'); ?></label>
-                    <select class="form-control m-bot15  pos_select patient" id="pos_select" name="patient" value=''>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                <h4 class="modal-title">   <?php echo lang('edit_appointment'); ?></h4>
+            </div>
+            <div class="modal-body">
+                <form role="form" id="editAppointmentForm" action="appointment/addNew" class="clearfix row" method="post" enctype="multipart/form-data">
+                    <div class="col-md-4 panel">
+                        <label for="exampleInputEmail1"> <?php echo lang('patient'); ?></label>
+                        <select class="form-control m-bot15  pos_select patient" id="pos_select" name="patient" value=''> 
 
-                    </select>
-                </div>
-                <div class="pos_client clearfix" id="patientregistration">
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('name'); ?></label>
+                        </select>
+                    </div>
+                    <div class="pos_client clearfix" id="patientregistration">
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('name'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_name" value='' placeholder="">
+                            </div>
                         </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_name" value='' placeholder="">
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('email'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_email" value='' placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('phone'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_phone" value='' placeholder="">
+                            </div>
+                        </div>
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('age'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <input type="text" class="form-control pay_in" name="p_age" value='' placeholder="">
+                            </div>
+                        </div> 
+                        <div class="col-md-8 payment pad_bot pull-right">
+                            <div class="col-md-3 payment_label"> 
+                                <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('gender'); ?></label>
+                            </div>
+                            <div class="col-md-9"> 
+                                <select class="form-control m-bot15" name="p_gender" value=''>
+
+                                    <option value="Male" <?php
+                                    if (!empty($patient->sex)) {
+                                        if ($patient->sex == 'Male') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > Male </option>   
+                                    <option value="Female" <?php
+                                    if (!empty($patient->sex)) {
+                                        if ($patient->sex == 'Female') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > Female </option>
+                                    <option value="Others" <?php
+                                    if (!empty($patient->sex)) {
+                                        if ($patient->sex == 'Others') {
+                                            echo 'selected';
+                                        }
+                                    }
+                                    ?> > Others </option>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('email'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_email" value='' placeholder="">
-                        </div>
+
+                    <div class="col-md-4 panel">
+                        <label for="exampleInputEmail1">  <?php echo lang('doctor'); ?></label>
+                        <select class="form-control m-bot15 js-example-basic-single doctor" id="adoctors1" name="doctor" value=''>  
+                            <option value="">Select .....</option>
+                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?> </option>
+                        </select>
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('phone'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_phone" value='' placeholder="">
-                        </div>
+
+
+                    <div class="col-md-4 panel"> 
+                        <label for="exampleInputEmail1"> <?php echo lang('date'); ?></label>
+                        <input type="text" class="form-control default-date-picker" readonly="" id="date1" name="date" id="exampleInputEmail1" value='' placeholder="">
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('age'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <input type="text" class="form-control pay_in" name="p_age" value='' placeholder="">
-                        </div>
+
+                    <div class="col-md-6 panel">
+                        <label class=""><?php echo lang('available_slots'); ?></label>
+                        <select class="form-control" name="time_slot" id="aslots1" value=''> 
+
+                        </select>
                     </div>
-                    <div class="col-md-8 payment pad_bot pull-right">
-                        <div class="col-md-3 payment_label">
-                            <label for="exampleInputEmail1"> <?php echo lang('patient'); ?> <?php echo lang('gender'); ?></label>
-                        </div>
-                        <div class="col-md-9">
-                            <select class="form-control m-bot15" name="p_gender" value=''>
 
-                                <option value="Male" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Male') {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>> Male </option>
-                                <option value="Female" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Female') {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>> Female </option>
-                                <option value="Others" <?php
-                                                        if (!empty($patient->sex)) {
-                                                            if ($patient->sex == 'Others') {
-                                                                echo 'selected';
-                                                            }
-                                                        }
-                                                        ?>> Others </option>
-                            </select>
-                        </div>
+
+
+
+                    <div class="col-md-6 panel">
+                        <label for="exampleInputEmail1"> <?php echo lang('appointment'); ?> <?php echo lang('status'); ?></label> 
+                        <select class="form-control m-bot15" name="status" value=''> 
+                            <option value="Pending Confirmation" <?php
+                                    ?> > <?php echo lang('pending_confirmation'); ?> </option>
+                            <option value="Confirmed" <?php
+                                    ?> > <?php echo lang('confirmed'); ?> </option>
+                            <option value="Treated" <?php
+                                    ?> > <?php echo lang('treated'); ?> </option>
+                            <option value="Cancelled" <?php
+                                    ?> > <?php echo lang('cancelled'); ?> </option>
+                        </select>
                     </div>
-                </div>
 
-                <div class="col-md-4 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('doctor'); ?></label>
-                    <select class="form-control m-bot15 js-example-basic-single doctor" id="adoctors1" name="doctor" value=''>
-                        <option value="">Select .....</option>
-                        <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?> </option>
-                    </select>
-                </div>
+                    <div class="col-md-8 panel">
+                        <label for="exampleInputEmail1"> <?php echo lang('remarks'); ?></label>
+                        <input type="text" class="form-control" name="remarks" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
 
 
-                <div class="col-md-4 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('date'); ?></label>
-                    <input type="text" class="form-control default-date-picker" readonly="" id="date1" name="date" id="exampleInputEmail1" value='' placeholder="">
-                </div>
-
-                <div class="col-md-6 panel">
-                    <label class=""><?php echo lang('available_slots'); ?></label>
-                    <select class="form-control" name="time_slot" id="aslots1" value=''>
-
-                    </select>
-                </div>
+                    <div class="col-md-6 panel">
+                        <input type="checkbox" name="sms" value="sms"> <?php echo lang('send_sms') ?><br>
+                    </div>
 
 
 
+                    <input type="hidden" name="redirect" value='doctor/details'>
+                    <input type="hidden" name="id" id="appointment_id" value=''>
 
-                <div class="col-md-6 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('appointment'); ?> <?php echo lang('status'); ?></label>
-                    <select class="form-control m-bot15" name="status" value=''>
-                        <option value="Pending Confirmation" <?php
-                                                                ?>> <?php echo lang('pending_confirmation'); ?> </option>
-                        <option value="Confirmed" <?php
-                                                    ?>> <?php echo lang('confirmed'); ?> </option>
-                        <option value="Treated" <?php
-                                                ?>> <?php echo lang('treated'); ?> </option>
-                        <option value="Cancelled" <?php
-                                                    ?>> <?php echo lang('cancelled'); ?> </option>
-                    </select>
-                </div>
+                    <div class="col-md-12 panel">
+                        <button type="submit" name="submit" class="btn btn-info pull-right"> <?php echo lang('submit'); ?></button>
+                    </div>
 
-                <div class="col-md-8 panel">
-                    <label for="exampleInputEmail1"> <?php echo lang('remarks'); ?></label>
-                    <input type="text" class="form-control" name="remarks" id="exampleInputEmail1" value='' placeholder="">
-                </div>
+                </form>
 
-
-                <div class="col-md-6 panel">
-                    <input type="checkbox" name="sms" value="sms"> <?php echo lang('send_sms') ?><br>
-                </div>
-
-
-
-                <input type="hidden" name="redirect" value='doctor/details'>
-                <input type="hidden" name="id" id="appointment_id" value=''>
-
-                <div class="col-md-12 panel">
-                    <button type="submit" name="submit" class="btn btn-info pull-right"> <?php echo lang('submit'); ?></button>
-                </div>
-
-            </form>
-
-        </div>
-    </div><!-- /.modal-content -->
-</div><!-- /.modal-dialog -->
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
 </div>
 <!-- Edit Event Modal-->
 
@@ -1057,7 +821,7 @@ if ($this->ion_auth->in_group('Doctor')) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"> <?php echo lang('add'); ?> <?php echo lang('holiday'); ?></h4>
+                <h4 class="modal-title">   <?php echo lang('add'); ?> <?php echo lang('holiday'); ?></h4>
             </div>
             <div class="modal-body">
                 <form role="form" action="schedule/addHoliday" class="clearfix row" method="post" enctype="multipart/form-data">
@@ -1092,7 +856,7 @@ if ($this->ion_auth->in_group('Doctor')) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"> <?php echo lang('edit'); ?> <?php echo lang('holiday'); ?></h4>
+                <h4 class="modal-title">   <?php echo lang('edit'); ?>  <?php echo lang('holiday'); ?></h4>
             </div>
             <div class="modal-body">
                 <form role="form" id="editHolidayForm" action="schedule/addHoliday" class="clearfix row" method="post" enctype="multipart/form-data">
@@ -1124,13 +888,13 @@ if ($this->ion_auth->in_group('Doctor')) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"> <?php echo lang('add'); ?> <?php echo lang('schedule'); ?></h4>
+                <h4 class="modal-title">  <?php echo lang('add'); ?> <?php echo lang('schedule'); ?></h4>
             </div>
             <div class="modal-body">
                 <form role="form" action="schedule/addSchedule" class="clearfix row" method="post" enctype="multipart/form-data">
                     <div class="form-group col-md-4">
                         <label for="exampleInputEmail1"> <?php echo lang('weekday'); ?></label>
-                        <select class="form-control m-bot15" id="weekday" name="weekday" value=''>
+                        <select class="form-control m-bot15" id="weekday" name="weekday" value=''> 
                             <option value="Friday"><?php echo lang('friday') ?></option>
                             <option value="Saturday"><?php echo lang('saturday') ?></option>
                             <option value="Sunday"><?php echo lang('sunday') ?></option>
@@ -1166,44 +930,44 @@ if ($this->ion_auth->in_group('Doctor')) {
                         <select class="form-control" name="duration" value=''>
 
                             <option value="3" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '3') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 15 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '3') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 15 Minitues </option>
 
                             <option value="4" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '4') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 20 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '4') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 20 Minitues </option>
 
                             <option value="6" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '6') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 30 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '6') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 30 Minitues </option>
 
                             <option value="9" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '9') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 45 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '9') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 45 Minitues </option>
 
                             <option value="12" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '12') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 60 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '12') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 60 Minitues </option>
 
                         </select>
                     </div>
@@ -1234,7 +998,7 @@ if ($this->ion_auth->in_group('Doctor')) {
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><i class="fa fa-plus-circle"></i> <?php echo lang('edit'); ?> <?php echo lang('time_slot'); ?></h4>
+                <h4 class="modal-title"><i class="fa fa-plus-circle"></i>  <?php echo lang('edit'); ?>  <?php echo lang('time_slot'); ?></h4>
             </div>
             <div class="modal-body">
                 <form role="form" id="editTimeSlotForm" action="schedule/addSchedule" method="post" enctype="multipart/form-data">
@@ -1260,7 +1024,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                     <div class="form-group bootstrap-timepicker">
                         <label for="exampleInputEmail1"> <?php echo lang('weekday'); ?></label>
                         <div class="input-group bootstrap-timepicker">
-                            <select class="form-control m-bot15" id="weekday" name="weekday" value=''>
+                            <select class="form-control m-bot15" id="weekday" name="weekday" value=''> 
                                 <option value="Friday"><?php echo lang('friday') ?></option>
                                 <option value="Saturday"><?php echo lang('saturday') ?></option>
                                 <option value="Sunday"><?php echo lang('sunday') ?></option>
@@ -1278,44 +1042,44 @@ if ($this->ion_auth->in_group('Doctor')) {
                         <select class="form-control m-bot15" name="duration" value=''>
 
                             <option value="3" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '3') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 15 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '3') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 15 Minitues </option>
 
                             <option value="4" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '4') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 20 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '4') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 20 Minitues </option>
 
                             <option value="6" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '6') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 30 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '6') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 30 Minitues </option>
 
                             <option value="9" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '9') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 45 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '9') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 45 Minitues </option>
 
                             <option value="12" <?php
-                                                if (!empty($settings->duration)) {
-                                                    if ($settings->duration == '12') {
-                                                        echo 'selected';
-                                                    }
-                                                }
-                                                ?>> 60 Minitues </option>
+                            if (!empty($settings->duration)) {
+                                if ($settings->duration == '12') {
+                                    echo 'selected';
+                                }
+                            }
+                            ?> > 60 Minitues </option>
 
                         </select>
                     </div>
@@ -1338,18 +1102,24 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <style>
+
+
     thead {
-        background: #f1f1f1;
-        border-bottom: 1px solid #ddd;
+        background: #f1f1f1; 
+        border-bottom: 1px solid #ddd; 
     }
 
-    .btn_width {
+    .btn_width{
         margin-bottom: 20px;
     }
 
-    .tab-content {
+    .tab-content{
         padding: 20px 0px;
     }
+
+
+
+
 </style>
 
 
@@ -1357,33 +1127,33 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".editScheduleButton").click(function(e) {
-            e.preventDefault(e);
-            // Get the record's ID via attribute  
-            var iid = $(this).attr('data-id');
-            $('#editTimeSlotForm').trigger("reset");
-            $('#editScheduleModal').modal('show');
-            $.ajax({
-                url: 'schedule/editScheduleByJason?id=' + iid,
-                method: 'GET',
-                data: '',
-                dataType: 'json',
-            }).success(function(response) {
-                // Populate the form fields with the data returned from server
-                $('#editTimeSlotForm').find('[name="id"]').val(response.schedule.id).end()
-                $('#editTimeSlotForm').find('[name="s_time"]').val(response.schedule.s_time).end()
-                $('#editTimeSlotForm').find('[name="e_time"]').val(response.schedule.e_time).end()
-                $('#editTimeSlotForm').find('[name="weekday"]').val(response.schedule.weekday).end()
-            });
-        });
-    });
+                                                        $(document).ready(function () {
+                                                            $(".editScheduleButton").click(function (e) {
+                                                                e.preventDefault(e);
+                                                                // Get the record's ID via attribute  
+                                                                var iid = $(this).attr('data-id');
+                                                                $('#editTimeSlotForm').trigger("reset");
+                                                                $('#editScheduleModal').modal('show');
+                                                                $.ajax({
+                                                                    url: 'schedule/editScheduleByJason?id=' + iid,
+                                                                    method: 'GET',
+                                                                    data: '',
+                                                                    dataType: 'json',
+                                                                }).success(function (response) {
+                                                                    // Populate the form fields with the data returned from server
+                                                                    $('#editTimeSlotForm').find('[name="id"]').val(response.schedule.id).end()
+                                                                    $('#editTimeSlotForm').find('[name="s_time"]').val(response.schedule.s_time).end()
+                                                                    $('#editTimeSlotForm').find('[name="e_time"]').val(response.schedule.e_time).end()
+                                                                    $('#editTimeSlotForm').find('[name="weekday"]').val(response.schedule.weekday).end()
+                                                                });
+                                                            });
+                                                        });
 </script>
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".editbutton").click(function(e) {
+    $(document).ready(function () {
+        $(".editbutton").click(function (e) {
             e.preventDefault(e);
             // Get the record's ID via attribute  
             var iid = $(this).attr('data-id');
@@ -1393,7 +1163,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            }).success(function(response) {
+            }).success(function (response) {
                 // Populate the form fields with the data returned from server
                 $('#medical_historyEditForm').find('[name="id"]').val(response.medical_history.id).end()
                 $('#medical_historyEditForm').find('[name="date"]').val(response.medical_history.date).end()
@@ -1405,8 +1175,8 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".editPrescription").click(function(e) {
+    $(document).ready(function () {
+        $(".editPrescription").click(function (e) {
             e.preventDefault(e);
             // Get the record's ID via attribute  
             var iid = $(this).attr('data-id');
@@ -1416,7 +1186,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            }).success(function(response) {
+            }).success(function (response) {
                 // Populate the form fields with the data returned from server
                 $('#prescriptionEditForm').find('[name="id"]').val(response.prescription.id).end()
                 $('#prescriptionEditForm').find('[name="patient"]').val(response.prescription.patient).end()
@@ -1435,8 +1205,8 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".editHoliday").click(function(e) {
+    $(document).ready(function () {
+        $(".editHoliday").click(function (e) {
             e.preventDefault(e);
             // Get the record's ID via attribute  
             var iid = $(this).attr('data-id');
@@ -1447,7 +1217,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            }).success(function(response) {
+            }).success(function (response) {
                 // Populate the form fields with the data returned from server
                 var date = new Date(response.holiday.date * 1000);
                 $('#editHolidayForm').find('[name="id"]').val(response.holiday.id).end()
@@ -1460,9 +1230,9 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('.pos_client').hide();
-        $(document.body).on('change', '#pos_select', function() {
+        $(document.body).on('change', '#pos_select', function () {
 
             var v = $("select.pos_select option:selected").val()
             if (v == 'add_new') {
@@ -1473,12 +1243,14 @@ if ($this->ion_auth->in_group('Doctor')) {
         });
 
     });
+
+
 </script>
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $(".editAppointmentButton").click(function(e) {
+    $(document).ready(function () {
+        $(".editAppointmentButton").click(function (e) {
             e.preventDefault(e);
             // Get the record's ID via attribute  
             var iid = $(this).attr('data-id');
@@ -1493,7 +1265,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            }).success(function(response) {
+            }).success(function (response) {
                 var de = response.appointment.date * 1000;
                 var d = new Date(de);
                 var da = d.getDate() + '-' + (d.getMonth() + 1) + '-' + d.getFullYear();
@@ -1521,18 +1293,18 @@ if ($this->ion_auth->in_group('Doctor')) {
                     method: 'GET',
                     data: '',
                     dataType: 'json',
-                }).success(function(response) {
+                }).success(function (response) {
                     $('#aslots1').find('option').remove();
                     var slots = response.aslots;
-                    $.each(slots, function(key, value) {
+                    $.each(slots, function (key, value) {
                         $('#aslots1').append($('<option>').text(value).val(value)).end();
                     });
 
                     $("#aslots1").val(response.current_value)
-                        .find("option[value=" + response.current_value + "]").attr('selected', true);
+                            .find("option[value=" + response.current_value + "]").attr('selected', true);
                     //  $('#aslots1 option[value=' + response.current_value + ']').attr("selected", "selected");
                     //   $("#default-step-1 .button-next").trigger("click");
-                    if ($('#aslots1').has('option').length == 0) { //if it is blank. 
+                    if ($('#aslots1').has('option').length == 0) {                    //if it is blank. 
                         $('#aslots1').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
                     }
                     // Populate the form fields with the data returned from server
@@ -1555,8 +1327,8 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#adoctors").change(function() {
+    $(document).ready(function () {
+        $("#adoctors").change(function () {
             // Get the record's ID via attribute  
             var iid = $('#date').val();
             var doctorr = $('#adoctors').val();
@@ -1567,13 +1339,13 @@ if ($this->ion_auth->in_group('Doctor')) {
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            }).success(function(response) {
+            }).success(function (response) {
                 var slots = response.aslots;
-                $.each(slots, function(key, value) {
+                $.each(slots, function (key, value) {
                     $('#aslots').append($('<option>').text(value).val(value)).end();
                 });
                 //   $("#default-step-1 .button-next").trigger("click");
-                if ($('#aslots').has('option').length == 0) { //if it is blank. 
+                if ($('#aslots').has('option').length == 0) {                    //if it is blank. 
                     $('#aslots').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
                 }
                 // Populate the form fields with the data returned from server
@@ -1583,7 +1355,7 @@ if ($this->ion_auth->in_group('Doctor')) {
 
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var iid = $('#date').val();
         var doctorr = $('#adoctors').val();
         $('#aslots').find('option').remove();
@@ -1593,13 +1365,13 @@ if ($this->ion_auth->in_group('Doctor')) {
             method: 'GET',
             data: '',
             dataType: 'json',
-        }).success(function(response) {
+        }).success(function (response) {
             var slots = response.aslots;
-            $.each(slots, function(key, value) {
+            $.each(slots, function (key, value) {
                 $('#aslots').append($('<option>').text(value).val(value)).end();
             });
             //   $("#default-step-1 .button-next").trigger("click");
-            if ($('#aslots').has('option').length == 0) { //if it is blank. 
+            if ($('#aslots').has('option').length == 0) {                    //if it is blank. 
                 $('#aslots').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
             }
             // Populate the form fields with the data returned from server
@@ -1611,14 +1383,14 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#date').datepicker({
-                format: "dd-mm-yyyy",
-                autoclose: true,
-            })
-            //Listen for the change even on the input
-            .change(dateChanged)
-            .on('changeDate', dateChanged);
+            format: "dd-mm-yyyy",
+            autoclose: true,
+        })
+                //Listen for the change even on the input
+                .change(dateChanged)
+                .on('changeDate', dateChanged);
     });
 
     function dateChanged() {
@@ -1632,13 +1404,13 @@ if ($this->ion_auth->in_group('Doctor')) {
             method: 'GET',
             data: '',
             dataType: 'json',
-        }).success(function(response) {
+        }).success(function (response) {
             var slots = response.aslots;
-            $.each(slots, function(key, value) {
+            $.each(slots, function (key, value) {
                 $('#aslots').append($('<option>').text(value).val(value)).end();
             });
             //   $("#default-step-1 .button-next").trigger("click");
-            if ($('#aslots').has('option').length == 0) { //if it is blank. 
+            if ($('#aslots').has('option').length == 0) {                    //if it is blank. 
                 $('#aslots').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
             }
 
@@ -1648,6 +1420,10 @@ if ($this->ion_auth->in_group('Doctor')) {
         });
 
     }
+
+
+
+
 </script>
 
 
@@ -1662,8 +1438,8 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script type="text/javascript">
-    $(document).ready(function() {
-        $("#adoctors1").change(function() {
+    $(document).ready(function () {
+        $("#adoctors1").change(function () {
             // Get the record's ID via attribute 
             var id = $('#appointment_id').val();
             var date = $('#date1').val();
@@ -1675,13 +1451,13 @@ if ($this->ion_auth->in_group('Doctor')) {
                 method: 'GET',
                 data: '',
                 dataType: 'json',
-            }).success(function(response) {
+            }).success(function (response) {
                 var slots = response.aslots;
-                $.each(slots, function(key, value) {
+                $.each(slots, function (key, value) {
                     $('#aslots1').append($('<option>').text(value).val(value)).end();
                 });
                 //   $("#default-step-1 .button-next").trigger("click");
-                if ($('#aslots1').has('option').length == 0) { //if it is blank. 
+                if ($('#aslots1').has('option').length == 0) {                    //if it is blank. 
                     $('#aslots1').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
                 }
                 // Populate the form fields with the data returned from server
@@ -1690,7 +1466,7 @@ if ($this->ion_auth->in_group('Doctor')) {
         });
     });
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         var id = $('#appointment_id').val();
         var date = $('#date1').val();
         var doctorr = $('#adoctors1').val();
@@ -1701,13 +1477,13 @@ if ($this->ion_auth->in_group('Doctor')) {
             method: 'GET',
             data: '',
             dataType: 'json',
-        }).success(function(response) {
+        }).success(function (response) {
             var slots = response.aslots;
-            $.each(slots, function(key, value) {
+            $.each(slots, function (key, value) {
                 $('#aslots1').append($('<option>').text(value).val(value)).end();
             });
             //   $("#default-step-1 .button-next").trigger("click");
-            if ($('#aslots1').has('option').length == 0) { //if it is blank. 
+            if ($('#aslots1').has('option').length == 0) {                    //if it is blank. 
                 $('#aslots1').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
             }
             // Populate the form fields with the data returned from server
@@ -1719,14 +1495,14 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#date1').datepicker({
-                format: "dd-mm-yyyy",
-                autoclose: true,
-            })
-            //Listen for the change even on the input
-            .change(dateChanged1)
-            .on('changeDate', dateChanged1);
+            format: "dd-mm-yyyy",
+            autoclose: true,
+        })
+                //Listen for the change even on the input
+                .change(dateChanged1)
+                .on('changeDate', dateChanged1);
     });
 
     function dateChanged1() {
@@ -1741,13 +1517,13 @@ if ($this->ion_auth->in_group('Doctor')) {
             method: 'GET',
             data: '',
             dataType: 'json',
-        }).success(function(response) {
+        }).success(function (response) {
             var slots = response.aslots;
-            $.each(slots, function(key, value) {
+            $.each(slots, function (key, value) {
                 $('#aslots1').append($('<option>').text(value).val(value)).end();
             });
             //   $("#default-step-1 .button-next").trigger("click");
-            if ($('#aslots1').has('option').length == 0) { //if it is blank. 
+            if ($('#aslots1').has('option').length == 0) {                    //if it is blank. 
                 $('#aslots1').append($('<option>').text('No Further Time Slots').val('Not Selected')).end();
             }
 
@@ -1757,57 +1533,35 @@ if ($this->ion_auth->in_group('Doctor')) {
         });
 
     }
+
+
+
+
 </script>
 
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         var table = $('#editable-sample').DataTable({
             responsive: true,
             dom: "<'row'<'col-sm-3'l><'col-sm-5 text-center'B><'col-sm-4'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-
-            buttons: [{
-                    extend: 'copyHtml5',
-                    exportOptions: {
-                        columns: [0, 1],
-                    }
-                },
-                {
-                    extend: 'excelHtml5',
-                    exportOptions: {
-                        columns: [0, 1],
-                    }
-                },
-                {
-                    extend: 'csvHtml5',
-                    exportOptions: {
-                        columns: [0, 1],
-                    }
-                },
-                {
-                    extend: 'pdfHtml5',
-                    exportOptions: {
-                        columns: [0, 1],
-                    }
-                },
-                {
-                    extend: 'print',
-                    exportOptions: {
-                        columns: [0, 1],
-                    }
-                },
+                    "<'row'<'col-sm-12'tr>>" +
+                    "<'row'<'col-sm-5'i><'col-sm-7'p>>",
+       
+             buttons: [
+                {extend: 'copyHtml5', exportOptions: {columns: [0, 1], }},
+                {extend: 'excelHtml5', exportOptions: {columns: [0, 1], }},
+                {extend: 'csvHtml5', exportOptions: {columns: [0, 1], }},
+                {extend: 'pdfHtml5', exportOptions: {columns: [0, 1], }},
+                {extend: 'print', exportOptions: {columns: [0, 1], }},
             ],
             aLengthMenu: [
                 [10, 25, 50, 100, -1],
                 [10, 25, 50, 100, "All"]
             ],
             iDisplayLength: -1,
-            "order": [
-                [0, "desc"]
-            ],
+            "order": [[0, "desc"]],
             "language": {
                 "lengthMenu": "_MENU_",
                 search: "_INPUT_",
@@ -1816,13 +1570,13 @@ if ($this->ion_auth->in_group('Doctor')) {
         });
 
         table.buttons().container()
-            .appendTo('.custom_buttons');
+                .appendTo('.custom_buttons');
     });
 </script>
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $("#pos_select").select2({
             placeholder: '<?php echo lang('select_patient'); ?>',
             allowClear: true,
@@ -1831,12 +1585,12 @@ if ($this->ion_auth->in_group('Doctor')) {
                 type: "post",
                 dataType: 'json',
                 delay: 250,
-                data: function(params) {
+                data: function (params) {
                     return {
                         searchTerm: params.term // search term
                     };
                 },
-                processResults: function(response) {
+                processResults: function (response) {
                     return {
                         results: response
                     };
@@ -1853,12 +1607,12 @@ if ($this->ion_auth->in_group('Doctor')) {
                 type: "post",
                 dataType: 'json',
                 delay: 250,
-                data: function(params) {
+                data: function (params) {
                     return {
                         searchTerm: params.term // search term
                     };
                 },
-                processResults: function(response) {
+                processResults: function (response) {
                     return {
                         results: response
                     };
@@ -1875,12 +1629,12 @@ if ($this->ion_auth->in_group('Doctor')) {
                 type: "post",
                 dataType: 'json',
                 delay: 250,
-                data: function(params) {
+                data: function (params) {
                     return {
                         searchTerm: params.term // search term
                     };
                 },
-                processResults: function(response) {
+                processResults: function (response) {
                     return {
                         results: response
                     };
@@ -1895,7 +1649,9 @@ if ($this->ion_auth->in_group('Doctor')) {
 
 
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $(".flashmessage").delay(3000).fadeOut(100);
     });
 </script>
+
+

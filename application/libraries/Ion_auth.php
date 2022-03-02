@@ -2,10 +2,7 @@
 
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
-    setlocale(LC_ALL, 'pt_BR.UTF8', 'portuguese');
-    mb_internal_encoding('UTF8');
-    mb_regex_encoding('UTF8');
-    date_default_timezone_set('America/Sao_Paulo');
+
 /**
  * Name:  Ion Auth
  *

@@ -3,11 +3,9 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Schedule extends MX_Controller
-{
+class Schedule extends MX_Controller {
 
-    function __construct()
-    {
+    function __construct() {
         parent::__construct();
         $this->load->model('schedule_model');
         $this->load->model('doctor/doctor_model');
@@ -17,8 +15,7 @@ class Schedule extends MX_Controller
         }
     }
 
-    function index()
-    {
+    function index() {
         $data['settings'] = $this->settings_model->getSettings();
         $data['schedules'] = $this->schedule_model->getSchedule();
         $data['doctors'] = $this->doctor_model->getDoctor();
@@ -27,8 +24,7 @@ class Schedule extends MX_Controller
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function timeSchedule()
-    {
+    function timeSchedule() {
         if ($this->ion_auth->in_group(array('Doctor'))) {
             $doctor_ion_id = $this->ion_auth->get_user_id();
             $doctor = $this->doctor_model->getDoctorByIonUserId($doctor_ion_id)->id;
@@ -36,7 +32,6 @@ class Schedule extends MX_Controller
             $doctor = $this->input->get('doctor');
         }
         $data['doctorr'] = $doctor;
-        $data['doctor'] = $this->db->get_where('doctor', array('id' => $doctor))->row();
         $data['settings'] = $this->settings_model->getSettings();
         $data['schedules'] = $this->schedule_model->getScheduleByDoctor($doctor);
         $this->load->view('home/dashboard', $data); // just the header file
@@ -44,209 +39,7 @@ class Schedule extends MX_Controller
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function hours_settings()
-    {
-        $id = $this->input->post('id');
-
-        // var_dump($_POST);die;
-
-        $data = array(
-            '1'   => array(
-                '00:00' => $this->input->post('1-00:00'),
-                '01:00' => $this->input->post('1-01:00'),
-                '02:00' => $this->input->post('1-02:00'),
-                '03:00' => $this->input->post('1-03:00'),
-                '04:00' => $this->input->post('1-04:00'),
-                '05:00' => $this->input->post('1-05:00'),
-                '06:00' => $this->input->post('1-06:00'),
-                '07:00' => $this->input->post('1-07:00'),
-                '08:00' => $this->input->post('1-08:00'),
-                '09:00' => $this->input->post('1-09:00'),
-                '10:00' => $this->input->post('1-10:00'),
-                '11:00' => $this->input->post('1-11:00'),
-                '12:00' => $this->input->post('1-12:00'),
-                '13:00' => $this->input->post('1-13:00'),
-                '14:00' => $this->input->post('1-14:00'),
-                '15:00' => $this->input->post('1-15:00'),
-                '16:00' => $this->input->post('1-16:00'),
-                '17:00' => $this->input->post('1-17:00'),
-                '18:00' => $this->input->post('1-18:00'),
-                '19:00' => $this->input->post('1-19:00'),
-                '20:00' => $this->input->post('1-20:00'),
-                '21:00' => $this->input->post('1-21:00'),
-                '22:00' => $this->input->post('1-22:00'),
-                '23:00' => $this->input->post('1-23:00')
-            ),
-            '2'   => array(
-                '00:00' => $this->input->post('2-00:00'),
-                '01:00' => $this->input->post('2-01:00'),
-                '02:00' => $this->input->post('2-02:00'),
-                '03:00' => $this->input->post('2-03:00'),
-                '04:00' => $this->input->post('2-04:00'),
-                '05:00' => $this->input->post('2-05:00'),
-                '06:00' => $this->input->post('2-06:00'),
-                '07:00' => $this->input->post('2-07:00'),
-                '08:00' => $this->input->post('2-08:00'),
-                '09:00' => $this->input->post('2-09:00'),
-                '10:00' => $this->input->post('2-10:00'),
-                '11:00' => $this->input->post('2-11:00'),
-                '12:00' => $this->input->post('2-12:00'),
-                '13:00' => $this->input->post('2-13:00'),
-                '14:00' => $this->input->post('2-14:00'),
-                '15:00' => $this->input->post('2-15:00'),
-                '16:00' => $this->input->post('2-16:00'),
-                '17:00' => $this->input->post('2-17:00'),
-                '18:00' => $this->input->post('2-18:00'),
-                '19:00' => $this->input->post('2-19:00'),
-                '20:00' => $this->input->post('2-20:00'),
-                '21:00' => $this->input->post('2-21:00'),
-                '22:00' => $this->input->post('2-22:00'),
-                '23:00' => $this->input->post('2-23:00')
-            ),
-            '3'   => array(
-                '00:00' => $this->input->post('3-00:00'),
-                '01:00' => $this->input->post('3-01:00'),
-                '02:00' => $this->input->post('3-02:00'),
-                '03:00' => $this->input->post('3-03:00'),
-                '04:00' => $this->input->post('3-04:00'),
-                '05:00' => $this->input->post('3-05:00'),
-                '06:00' => $this->input->post('3-06:00'),
-                '07:00' => $this->input->post('3-07:00'),
-                '08:00' => $this->input->post('3-08:00'),
-                '09:00' => $this->input->post('3-09:00'),
-                '10:00' => $this->input->post('3-10:00'),
-                '11:00' => $this->input->post('3-11:00'),
-                '12:00' => $this->input->post('3-12:00'),
-                '13:00' => $this->input->post('3-13:00'),
-                '14:00' => $this->input->post('3-14:00'),
-                '15:00' => $this->input->post('3-15:00'),
-                '16:00' => $this->input->post('3-16:00'),
-                '17:00' => $this->input->post('3-17:00'),
-                '18:00' => $this->input->post('3-18:00'),
-                '19:00' => $this->input->post('3-19:00'),
-                '20:00' => $this->input->post('3-20:00'),
-                '21:00' => $this->input->post('3-21:00'),
-                '22:00' => $this->input->post('3-22:00'),
-                '23:00' => $this->input->post('3-23:00')
-            ),
-            '4'   => array(
-                '00:00' => $this->input->post('4-00:00'),
-                '01:00' => $this->input->post('4-01:00'),
-                '02:00' => $this->input->post('4-02:00'),
-                '03:00' => $this->input->post('4-03:00'),
-                '04:00' => $this->input->post('4-04:00'),
-                '05:00' => $this->input->post('4-05:00'),
-                '06:00' => $this->input->post('4-06:00'),
-                '07:00' => $this->input->post('4-07:00'),
-                '08:00' => $this->input->post('4-08:00'),
-                '09:00' => $this->input->post('4-09:00'),
-                '10:00' => $this->input->post('4-10:00'),
-                '11:00' => $this->input->post('4-11:00'),
-                '12:00' => $this->input->post('4-12:00'),
-                '13:00' => $this->input->post('4-13:00'),
-                '14:00' => $this->input->post('4-14:00'),
-                '15:00' => $this->input->post('4-15:00'),
-                '16:00' => $this->input->post('4-16:00'),
-                '17:00' => $this->input->post('4-17:00'),
-                '18:00' => $this->input->post('4-18:00'),
-                '19:00' => $this->input->post('4-19:00'),
-                '20:00' => $this->input->post('4-20:00'),
-                '21:00' => $this->input->post('4-21:00'),
-                '22:00' => $this->input->post('4-22:00'),
-                '23:00' => $this->input->post('4-23:00')
-            ),
-            '5'   => array(
-                '00:00' => $this->input->post('5-00:00'),
-                '01:00' => $this->input->post('5-01:00'),
-                '02:00' => $this->input->post('5-02:00'),
-                '03:00' => $this->input->post('5-03:00'),
-                '04:00' => $this->input->post('5-04:00'),
-                '05:00' => $this->input->post('5-05:00'),
-                '06:00' => $this->input->post('5-06:00'),
-                '07:00' => $this->input->post('5-07:00'),
-                '08:00' => $this->input->post('5-08:00'),
-                '09:00' => $this->input->post('5-09:00'),
-                '10:00' => $this->input->post('5-10:00'),
-                '11:00' => $this->input->post('5-11:00'),
-                '12:00' => $this->input->post('5-12:00'),
-                '13:00' => $this->input->post('5-13:00'),
-                '14:00' => $this->input->post('5-14:00'),
-                '15:00' => $this->input->post('5-15:00'),
-                '16:00' => $this->input->post('5-16:00'),
-                '17:00' => $this->input->post('5-17:00'),
-                '18:00' => $this->input->post('5-18:00'),
-                '19:00' => $this->input->post('5-19:00'),
-                '20:00' => $this->input->post('5-20:00'),
-                '21:00' => $this->input->post('5-21:00'),
-                '22:00' => $this->input->post('5-22:00'),
-                '23:00' => $this->input->post('5-23:00')
-            ),
-            '6'   => array(
-                '00:00' => $this->input->post('6-00:00'),
-                '01:00' => $this->input->post('6-01:00'),
-                '02:00' => $this->input->post('6-02:00'),
-                '03:00' => $this->input->post('6-03:00'),
-                '04:00' => $this->input->post('6-04:00'),
-                '05:00' => $this->input->post('6-05:00'),
-                '06:00' => $this->input->post('6-06:00'),
-                '07:00' => $this->input->post('6-07:00'),
-                '08:00' => $this->input->post('6-08:00'),
-                '09:00' => $this->input->post('6-09:00'),
-                '10:00' => $this->input->post('6-10:00'),
-                '11:00' => $this->input->post('6-11:00'),
-                '12:00' => $this->input->post('6-12:00'),
-                '13:00' => $this->input->post('6-13:00'),
-                '14:00' => $this->input->post('6-14:00'),
-                '15:00' => $this->input->post('6-15:00'),
-                '16:00' => $this->input->post('6-16:00'),
-                '17:00' => $this->input->post('6-17:00'),
-                '18:00' => $this->input->post('6-18:00'),
-                '19:00' => $this->input->post('6-19:00'),
-                '20:00' => $this->input->post('6-20:00'),
-                '21:00' => $this->input->post('6-21:00'),
-                '22:00' => $this->input->post('6-22:00'),
-                '23:00' => $this->input->post('6-23:00')
-            ),
-            '7'   => array(
-                '00:00' => $this->input->post('7-00:00'),
-                '01:00' => $this->input->post('7-01:00'),
-                '02:00' => $this->input->post('7-02:00'),
-                '03:00' => $this->input->post('7-03:00'),
-                '04:00' => $this->input->post('7-04:00'),
-                '05:00' => $this->input->post('7-05:00'),
-                '06:00' => $this->input->post('7-06:00'),
-                '07:00' => $this->input->post('7-07:00'),
-                '08:00' => $this->input->post('7-08:00'),
-                '09:00' => $this->input->post('7-09:00'),
-                '10:00' => $this->input->post('7-10:00'),
-                '11:00' => $this->input->post('7-11:00'),
-                '12:00' => $this->input->post('7-12:00'),
-                '13:00' => $this->input->post('7-13:00'),
-                '14:00' => $this->input->post('7-14:00'),
-                '15:00' => $this->input->post('7-15:00'),
-                '16:00' => $this->input->post('7-16:00'),
-                '17:00' => $this->input->post('7-17:00'),
-                '18:00' => $this->input->post('7-18:00'),
-                '19:00' => $this->input->post('7-19:00'),
-                '20:00' => $this->input->post('7-20:00'),
-                '21:00' => $this->input->post('7-21:00'),
-                '22:00' => $this->input->post('7-22:00'),
-                '23:00' => $this->input->post('7-23:00')
-            ),
-        );
-
-        $hours =   serialize($data);
-        $id = $this->input->post('id');
-        // var_dump( $id);die;
-        //$this->schedule_model->getScheduleByDoctorByWeekdayById($doctor, $hours, $id);
-        $teste =   $this->schedule_model->hours_settings($hours, $id);
-        //var_dump($teste );die;
-        redirect('schedule/timeSchedule');
-    }
-
-
-    function addSchedule()
-    {
+    function addSchedule() {
         $redirect = $this->input->post('redirect');
         if (empty($redirect)) {
             $redirect = 'schedule';
@@ -633,11 +426,11 @@ class Schedule extends MX_Controller
 
 
 
-        // Validating Starting Time Field
+// Validating Starting Time Field
         $this->form_validation->set_rules('s_time', 'Start Time', 'trim|required|min_length[1]|max_length[100]|xss_clean');
-        // Validating End Time Field   
+// Validating End Time Field   
         $this->form_validation->set_rules('e_time', 'End Time', 'trim|required|min_length[1]|max_length[500]|xss_clean');
-        // Validating Week Day Field   
+// Validating Week Day Field   
         $this->form_validation->set_rules('e_time', 'End Time', 'trim|required|min_length[1]|max_length[500]|xss_clean');
 
         // Validating Duration Field   
@@ -704,31 +497,29 @@ class Schedule extends MX_Controller
         }
     }
 
-    function editScheduleByJason()
-    {
+    function editScheduleByJason() {
         $id = $this->input->get('id');
         $data['schedule'] = $this->schedule_model->getScheduleById($id);
         echo json_encode($data);
     }
 
-    function deleteSchedule()
-    {
+    function deleteSchedule() {
         $from = $this->input->get('all');
         $id = $this->input->get('id');
         $doctor = $this->input->get('doctor');
         $weekday = $this->input->get('weekday');
         $this->schedule_model->deleteTimeSlotByDoctorByWeekday($doctor, $weekday);
         $this->schedule_model->deleteSchedule($id);
-
+        
         if ($this->ion_auth->in_group(array('Doctor'))) {
             redirect('schedule/timeSchedule');
-        } else {
+        }else{
             redirect('schedule');
         }
+        
     }
 
-    function timeSlots()
-    {
+    function timeSlots() {
         $doctor = $this->input->get('doctor');
         $data['doctorr'] = $doctor;
         $data['settings'] = $this->settings_model->getSettings();
@@ -738,8 +529,7 @@ class Schedule extends MX_Controller
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function addTimeSlot()
-    {
+    function addTimeSlot() {
         $id = $this->input->post('id');
         $doctor = $this->input->post('doctor');
         $s_time = $this->input->post('s_time');
@@ -1145,11 +935,11 @@ class Schedule extends MX_Controller
 
 
 
-        // Validating Starting Time Field
+// Validating Starting Time Field
         $this->form_validation->set_rules('s_time', 'Start Time', 'trim|required|min_length[5]|max_length[100]|xss_clean');
-        // Validating End Time Field   
+// Validating End Time Field   
         $this->form_validation->set_rules('e_time', 'End Time', 'trim|required|min_length[5]|max_length[500]|xss_clean');
-        // Validating Week Day Field   
+// Validating Week Day Field   
         $this->form_validation->set_rules('e_time', 'End Time', 'trim|required|min_length[5]|max_length[500]|xss_clean');
 
         if ($this->form_validation->run() == FALSE) {
@@ -1182,17 +972,15 @@ class Schedule extends MX_Controller
         }
     }
 
-    function edittimeSlotByJason()
-    {
+    function edittimeSlotByJason() {
         $id = $this->input->get('id');
         $data['slot'] = $this->schedule_model->getTimeSlotById($id);
         echo json_encode($data);
     }
 
-    function getAvailableSlotByDoctorByDateByJasonold()
-    {
+    function getAvailableSlotByDoctorByDateByJason() {
         $data = array();
-        $date = $this->input->get('date');
+        $date = $this->input->get('date'); 
         if (!empty($date)) {
             $date = strtotime($date);
         }
@@ -1201,8 +989,7 @@ class Schedule extends MX_Controller
         echo json_encode($data);
     }
 
-    function getAvailableSlotByDoctorByDateByAppointmentIdByJason()
-    {
+    function getAvailableSlotByDoctorByDateByAppointmentIdByJason() {
         $data = array();
         $appointment_id = $this->input->get('appointment_id');
         $date = $this->input->get('date');
@@ -1215,8 +1002,7 @@ class Schedule extends MX_Controller
         echo json_encode($data);
     }
 
-    function allHolidays()
-    {
+    function allHolidays() {
         $data['settings'] = $this->settings_model->getSettings();
         $data['holidays'] = $this->schedule_model->getHolidays();
         $data['doctors'] = $this->doctor_model->getDoctor();
@@ -1225,8 +1011,7 @@ class Schedule extends MX_Controller
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function holidays()
-    {
+    function holidays() {
         if ($this->ion_auth->in_group(array('Doctor'))) {
             $doctor_ion_id = $this->ion_auth->get_user_id();
             $doctor = $this->doctor_model->getDoctorByIonUserId($doctor_ion_id)->id;
@@ -1242,8 +1027,7 @@ class Schedule extends MX_Controller
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function addHoliday()
-    {
+    function addHoliday() {
         $id = $this->input->post('id');
         $redirect = $this->input->post('redirect');
         if (empty($redirect)) {
@@ -1277,7 +1061,7 @@ class Schedule extends MX_Controller
                 }
             }
         }
-        // Validating Email Field
+// Validating Email Field
         $this->form_validation->set_rules('date', 'Date', 'trim|required|min_length[5]|max_length[100]|xss_clean');
 
 
@@ -1310,16 +1094,14 @@ class Schedule extends MX_Controller
         }
     }
 
-    function editHolidayByJason()
-    {
+    function editHolidayByJason() {
         $id = $this->input->get('id');
         $data['holiday'] = $this->schedule_model->getHolidayById($id);
         $data['doctor'] = $this->doctor_model->getDoctorById($data['holiday']->doctor);
         echo json_encode($data);
     }
 
-    function deleteHoliday()
-    {
+    function deleteHoliday() {
         $id = $this->input->get('id');
         $redirect = $this->input->get('redirect');
         if (empty($redirect)) {
@@ -1331,8 +1113,7 @@ class Schedule extends MX_Controller
         redirect($redirect);
     }
 
-    function delete()
-    {
+    function delete() {
         $data = array();
         $id = $this->input->get('id');
         $user_data = $this->db->get_where('doctor', array('id' => $id))->row();
@@ -1349,102 +1130,13 @@ class Schedule extends MX_Controller
         redirect('doctor');
     }
 
-    function deleteTimeSlot()
-    {
+    function deleteTimeSlot() {
         $id = $this->input->get('id');
         $doctor = $this->input->get('doctor');
         $this->schedule_model->deleteTimeSlot($id);
         redirect('scedule/timeSlots?doctor=' . $doctor);
     }
 
-    public function fetch_all_event($user_id)
-    {
-        $this->db->order_by('start_event', 'DESC');
-        $this->db->where('user_id', $user_id);
-        return $this->db->get('events');
-    }
-
-    function list_hour_doctor()
-    {
-
-        $date = $_POST['start'];
-        $day_week = strval(substr($date, 0, 1));
-        //var_dump($date);die;
-        $data = "";
-        $doctor_ion_id = $this->ion_auth->get_user_id();
-        $user_id = $this->doctor_model->getDoctorByIonUserId($doctor_ion_id)->id;
-        $event_data = $this->db->get_where('doctor', array('id' => $user_id))->row();
-        $hours_available =  unserialize($event_data->hours_available);
-        //var_dump($day_week);die;
-        foreach ($hours_available[$day_week] as $hours => $k) {
-            if ($k == '1') {
-                // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
-                $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $user_id);
-                //var_dump($liberado);
-                if (!$liberado) {
-                    $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
-          </div>';
-                } else {
-                    $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
-              </div>';
-                }
-            }
-        }
-        /*$user_id = $this->session->userdata('user_id');
-         // var_dump($user_id);
-          $event_data = $this->fullcalendar_model->fetch_all_event($user_id);
-         // var_dump($event_data);
-          foreach ($event_data->result_array() as $row) {
-              $data[] = array(
-                  'id' => $row['id'],
-                  'title' => $row['title'],
-                  'start' => $row['start_event'],
-                  'end' => $row['end_event']
-                  
-              );
-          }*/
-        echo die(die(($data)));
-    }
-
-    function getAvailableSlotByDoctorByDateByjason()
-    {
-        $dateee = array();
-        $dateee['aslots'] = null;
-        $data = '';
-        $date =  strftime('%u - %Y-%m-%d', strtotime($this->input->get('date')));
-        $day_week = strval(substr($date, 0, 1));
-        //var_dump($day_week);die;
-        // $data = "";
-        $doctor_ion_id = $this->ion_auth->get_user_id();
-        $user_id = $this->doctor_model->getDoctorByIonUserId($doctor_ion_id)->id;
-        $event_data = $this->db->get_where('doctor', array('id' => $user_id))->row();
-        $hours_available =  unserialize($event_data->hours_available);
-        $c = '0';
-        //var_dump($hours_available[$day_week]);die;
-        foreach ($hours_available[$day_week] as $hours => $k) {
-            $c = $c + '1';
-            if ($k == '1') {
-                // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
-                $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $user_id);
-                //var_dump($liberado); 10:45 AM To 11:00 AM
-                if (!$liberado) {
-                    $dateee['aslots'][$c] = date( "g:i A", strtotime( $hours ) )." To ".date('g:i A' ,strtotime('+1 hours', strtotime($hours)));
-                    $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
-     </div>';
-                } else {
-                    //$dateee['aslots'][$c] = $hours;
-                    $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
-         </div>';
-                }
-            }
-            }
-            if($dateee['aslots'] == null){
-                $dateee['aslots'] = array('1' =>'Nenhuma horário disponível');
-    
-            }
-        
-        echo json_encode($dateee); //echo die(die(($data)));
-    }
 }
 
 /* End of file schedule.php */
