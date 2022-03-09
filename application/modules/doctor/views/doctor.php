@@ -172,6 +172,74 @@
                         <label for="exampleInputEmail1"><?php echo lang('profile'); ?></label>
                         <input type="text" class="form-control" name="profile" id="exampleInputEmail1" value='' placeholder="">
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('cpf'); ?></label>
+                        <input type="text" class="form-control" name="cpf" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('cellphone'); ?></label>
+                        <input type="text" class="form-control" name="cellphone" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('postal_code'); ?></label>
+                        <input type="text" class="form-control" name="postal_code" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('country'); ?></label>
+                        <input type="text" class="form-control" name="country" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('state'); ?></label>
+                        <input type="text" class="form-control" name="state" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('city'); ?></label>
+                        <input type="text" class="form-control" name="city" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('district'); ?></label>
+                        <input type="text" class="form-control" name="district" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('address'); ?></label>
+                        <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('complement'); ?></label>
+                        <input type="text" class="form-control" name="complement" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('number'); ?></label>
+                        <input type="text" class="form-control" name="number" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('date_of_birth'); ?></label>
+                        <input type="text" class="form-control" name="date_of_birth" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('biography'); ?></label>
+                        <input type="text" class="form-control" name="biography" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('crp'); ?></label>
+                        <input type="text" class="form-control" name="crp" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                     <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('specialties'); ?></label>
+                        <input type="text" class="form-control" name="specialties" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('facebook'); ?></label>
+                        <input type="text" class="form-control" name="facebook" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('instagram'); ?></label>
+                        <input type="text" class="form-control" name="instagram" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('linkedin'); ?></label>
+                        <input type="text" class="form-control" name="linkedin" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
                     <div class="form-group last col-md-6">
                         <label class="control-label">Image Upload</label>
                         <div class="">
@@ -251,6 +319,96 @@
                         <div class="profileClass"></div>
                     </div>
 
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('cpf'); ?></label>
+                        <div class="cpfClass"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('cellphone'); ?></label>
+                        <div class="cellphoneClass"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('postal_code'); ?></label>
+                        <div class="postal_codeClass"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('country'); ?></label>
+                        <div class="countryClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('state'); ?></label>
+                        <div class="stateClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('city'); ?></label>
+                        <div class="cityClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('district'); ?></label>
+                        <div class="districtClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('complement'); ?></label>
+                        <div class="complementClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('number'); ?></label>
+                        <div class="numberClass"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('date_of_birth'); ?></label>
+                        <div class="date_of_birthClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('biography'); ?></label>
+                        <div class="biographyClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('crp'); ?></label>
+                        <div class="crpClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('specialties'); ?></label>
+                        <div class="specialtiesClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('facebook'); ?></label>
+                        <div class="facebookClass"></div>
+                    </div>
+
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('instagram'); ?></label>
+                        <div class="instagramClass"></div>
+                    </div>
+
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('linkedin'); ?></label>
+                        <div class="linkedinClass"></div>
+                    </div>
+
 
                 </form>
 
@@ -268,7 +426,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".table").on("click", ".editbutton", function () {
-            // Get the record's ID via attribute  
+            // EDITAR DOCTOR
             var iid = $(this).attr('data-id');
             $("#img").attr("src", "uploads/cardiology-patient-icon-vector-6244713.jpg");
             $('#editDoctorForm').trigger("reset");
@@ -286,6 +444,24 @@
                 $('#editDoctorForm').find('[name="address"]').val(response.doctor.address).end()
                 $('#editDoctorForm').find('[name="phone"]').val(response.doctor.phone).end()
                 $('#editDoctorForm').find('[name="profile"]').val(response.doctor.profile).end()
+                $('#editDoctorForm').find('[name="cpf"]').val(response.doctor.cpf).end()
+                $('#editDoctorForm').find('[name="cellphone"]').val(response.doctor.cellphone).end()
+                $('#editDoctorForm').find('[name="postal_code"]').val(response.doctor.postal_code).end()
+                $('#editDoctorForm').find('[name="country"]').val(response.doctor.country).end()
+                $('#editDoctorForm').find('[name="state"]').val(response.doctor.state).end()
+                $('#editDoctorForm').find('[name="city"]').val(response.doctor.city).end()
+                $('#editDoctorForm').find('[name="district"]').val(response.doctor.district).end()
+                $('#editDoctorForm').find('[name="address"]').val(response.doctor.address).end()
+                $('#editDoctorForm').find('[name="complement"]').val(response.doctor.complement).end()
+                $('#editDoctorForm').find('[name="number"]').val(response.doctor.number).end()
+                $('#editDoctorForm').find('[name="date_of_birth"]').val(response.doctor.date_of_birth).end()
+                $('#editDoctorForm').find('[name="biography"]').val(response.doctor.biography).end()
+                $('#editDoctorForm').find('[name="crp"]').val(response.doctor.crp).end()
+                $('#editDoctorForm').find('[name="specialties"]').val(response.doctor.specialties).end()
+                $('#editDoctorForm').find('[name="facebook"]').val(response.doctor.facebook).end()
+                $('#editDoctorForm').find('[name="instagram"]').val(response.doctor.instagram).end()
+                $('#editDoctorForm').find('[name="linkedin"]').val(response.doctor.linkedin).end()
+
 
                 if (typeof response.doctor.img_url !== 'undefined' && response.doctor.img_url != '') {
                     $("#img").attr("src", response.doctor.img_url);
@@ -303,7 +479,7 @@
 <script type="text/javascript">
     $(document).ready(function () {
         $(".table").on("click", ".inffo", function () {
-            // Get the record's ID via attribute  
+            // VISUALIZAR DOCTOR 
             var iid = $(this).attr('data-id');
 
             $("#img1").attr("src", "uploads/cardiology-patient-icon-vector-6244713.jpg");
@@ -312,6 +488,23 @@
             $('.addressClass').html("").end()
             $('.phoneClass').html("").end()
             $('.profileClass').html("").end()
+            $('.cpfClass').html("").end()
+            $('.cellphoneClass').html("").end()
+            $('.postal_codeClass').html("").end()
+            $('.countryClass').html("").end()
+            $('.stateClass').html("").end()
+            $('.cityClass').html("").end()
+            $('.districtClass').html("").end()
+            $('.addressClass').html("").end()
+            $('.complementClass').html("").end()
+            $('.numberClass').html("").end()
+            $('.date_of_birthClass').html("").end()
+            $('.biographyClass').html("").end()
+            $('.crpClass').html("").end()
+            $('.specialtiesClass').html("").end()
+            $('.facebookClass').html("").end()
+            $('.instagramClass').html("").end()
+            $('.linkedinClass').html("").end()
             $.ajax({
                 url: 'doctor/editDoctorByJason?id=' + iid,
                 method: 'GET',
@@ -325,6 +518,24 @@
                 $('.addressClass').append(response.doctor.address).end()
                 $('.phoneClass').append(response.doctor.phone).end()
                 $('.profileClass').append(response.doctor.profile).end()
+                $('.cpfClass').append(response.doctor.cpf).end()
+                $('.cellphoneClass').append(response.doctor.cellphone).end()
+                $('.postal_codeClass').append(response.doctor.postal_code).end()
+                $('.countryClass').append(response.doctor.country).end()
+                $('.stateClass').append(response.doctor.state).end()
+                $('.cityClass').append(response.doctor.city).end()
+                $('.districtClass').append(response.doctor.district).end()
+                $('.addressClass').append(response.doctor.address).end()
+                $('.complementClass').append(response.doctor.complement).end()
+                $('.numberClass').append(response.doctor.number).end()
+                $('.date_of_birthClass').append(response.doctor.date_of_birth).end()
+                $('.biographyClass').append(response.doctor.biography).end()
+                $('.crpClass').append(response.doctor.crp).end()
+                $('.specialtiesClass').append(response.doctor.specialties).end()
+                $('.facebookClass').append(response.doctor.facebook).end()
+                $('.instagramClass').append(response.doctor.instagram).end()
+                $('.linkedinClass').append(response.doctor.linkedin).end()
+               
 
                 if (typeof response.doctor.img_url !== 'undefined' && response.doctor.img_url != '') {
                     $("#img1").attr("src", response.doctor.img_url);

@@ -44,6 +44,23 @@ class Doctor extends MX_Controller {
         $address = $this->input->post('address');
         $phone = $this->input->post('phone');
         $profile = $this->input->post('profile');
+        $cpf = $this->input->post('cpf');
+        $cellphone = $this->input->post('cellphone');
+        $postal_code = $this->input->post('postal_code');
+        $country = $this->input->post('country');
+        $state = $this->input->post('state');
+        $city = $this->input->post('city');
+        $district = $this->input->post('district');
+        $complement = $this->input->post('complement');
+        $number = $this->input->post('number');
+        $date_of_birth = $this->input->post('date_of_birth');
+        $biography = $this->input->post('biography');
+        $crp = $this->input->post('crp');
+        $specialties = $this->input->post('specialties');
+        $facebook = $this->input->post('facebook');
+        $instagram = $this->input->post('instagram');
+        $linkedin = $this->input->post('linkedin');
+
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -113,7 +130,24 @@ class Doctor extends MX_Controller {
                     'email' => $email,
                     'address' => $address,
                     'phone' => $phone,
-                    'profile' => $profile
+                    'profile' => $profile,
+                    'cpf' => $cpf,
+                    'cellphone' => $cellphone,
+                    'postal_code' => $postal_code,
+                    'country' => $country,
+                    'state' => $state,
+                    'city' => $city,
+                    'district' => $district,
+                    'address' => $address,
+                    'complement' => $complement,
+                    'number' => $number,
+                    'date_of_birth' => $date_of_birth,
+                    'biography' => $biography,
+                    'crp' => $crp,
+                    'specialties' => $specialties,
+                    'facebook' => $facebook,
+                    'instagram' => $instagram,
+                    'linkedin' => $linkedin,
                 );
             } else {
                 //$error = array('error' => $this->upload->display_errors());
@@ -123,7 +157,24 @@ class Doctor extends MX_Controller {
                     'email' => $email,
                     'address' => $address,
                     'phone' => $phone,
-                    'profile' => $profile
+                    'profile' => $profile,
+                    'cpf' => $cpf,
+                    'cellphone' => $cellphone,
+                    'postal_code' => $postal_code,
+                    'country' => $country,
+                    'state' => $state,
+                    'city' => $city,
+                    'district' => $district,
+                    'address' => $address,
+                    'complement' => $complement,
+                    'number' => $number,
+                    'date_of_birth' => $date_of_birth,
+                    'biography' => $biography,
+                    'crp' => $crp,
+                    'specialties' => $specialties,
+                    'facebook' => $facebook,
+                    'instagram' => $instagram,
+                    'linkedin' => $linkedin,
                 );
             }
             $username = $this->input->post('name');
@@ -229,6 +280,8 @@ class Doctor extends MX_Controller {
 
 
         $data['doctor'] = $this->doctor_model->getDoctorById($id);
+        $data['doctorr'] = $id;
+
         $data['todays_appointments'] = $this->appointment_model->getAppointmentByDoctorByToday($id);
         $data['appointments'] = $this->appointment_model->getAppointmentByDoctor($id);
         $data['patients'] = $this->patient_model->getPatient();

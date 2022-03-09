@@ -841,9 +841,11 @@ class Appointment extends MX_Controller {
                 $doctor = '';
             }
             $time_slot = $entry->time_slot;
+            //var_dump($time_slot);die;
             $time_slot_new = explode(' To ', $time_slot);
-            $start_time = explode(' ', $time_slot_new[0]);
+            $start_time = explode(' ', $time_slot_new[0]);            
             $end_time = explode(' ', $time_slot_new[1]);
+            //var_dump($end_time);die;
 
             if ($start_time[1] == 'AM') {
                 $start_time_second = explode(':', $start_time[0]);
@@ -876,7 +878,6 @@ class Appointment extends MX_Controller {
                     $day_end_time_second = 12 * 60 * 60 + $end_time_second[0] * 60 * 60 + $end_time_second[1] * 60;
                 }
             }
-
             $patient_details = $this->patient_model->getPatientById($entry->patient);
 
             if (!empty($patient_details)) {
@@ -927,9 +928,9 @@ class Appointment extends MX_Controller {
             );
         }
 
-        echo json_encode($jsonevents);
+         /// echo json_encode($jsonevents);
 
-        //  echo json_encode($data);
+     echo json_encode($jsonevents);
     }
 
     function getAppointmentByDoctorId() {

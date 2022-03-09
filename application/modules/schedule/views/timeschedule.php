@@ -1,346 +1,432 @@
-<!--sidebar end-->
+
+<!-- BEGIN: Main Menu-->
+<style>
+    .slider {
+
+        width: 95%;
+        margin: 30px auto;
+        min-width: 100px;
+    }
+
+    .slick-slide {
+        margin: 0px 0px;
+    }
+
+    .slick-slide img {
+        width: 95%;
+    }
+
+    .slick-next,
+    .slick-arrow {
+        height: 50px;
+
+
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
+
+
+    .slick-slide {
+        transition: all ease-in-out .2s;
+
+    }
+
+    .slick-active {}
+
+    .slick-current {}
+
+    .box {
+
+        min-width: 100px;
+        height: 300px;
+
+
+    }
+
+    .scrolling-wrapper {
+
+
+        display: flex;
+        flex-wrap: nowrap;
+
+    }
+
+
+
+    .hours {
+        width: 100%;
+        height: 400px;
+        border: 1px solid black;
+    }
+
+    .buttonhours {
+        height: 50px;
+        position: relative;
+        margin: 5px;
+        margin-left: 10px;
+        width: 97%;
+        border-style: 5px solid red;
+
+    }
+
+    .button-week {
+        position: relative;
+        margin-bottom: 2px;
+        margin-left: 10px;
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: white;
+        height: 65px;
+        width: 100%;
+
+    }
+</style>
+
 <!--main content start-->
 <section id="main-content">
     <section class="wrapper site-min-height">
         <!-- page start-->
         <section class="panel">
             <header class="panel-heading">
-                <?php echo lang('time_schedule'); ?> (<?php echo $this->db->get_where('doctor', array('id' => $doctorr))->row()->name; ?>)
+                <?php echo lang('time_schedule'); ?> (<?php echo  $doctor->name; ?>)
                 <div class="col-md-4 clearfix pull-right">
                     <a data-toggle="modal" href="#myModal">
                         <div class="btn-group pull-right">
                             <button id="" class="btn green btn-xs">
-                                <i class="fa fa-plus-circle"></i>  <?php echo lang('add_new'); ?> 
+                                <i class="fa fa-plus-circle"></i> <?php echo lang('add_new'); ?>
                             </button>
                         </div>
-                    </a>  
+                    </a>
                 </div>
             </header>
 
-            <div class="panel-body">
-                <div class="adv-table editable-table">
-                    <table class="table table-striped table-hover table-bordered" id="editable-sample">
-                        <thead>
-                            <tr>
-                                <th> # </th>
-                                <th> <?php echo lang('weekday'); ?></th>
-                                <th> <?php echo lang('start_time'); ?></th>
-                                <th> <?php echo lang('end_time'); ?></th>
-                                <th> <?php echo lang('duration'); ?></th>
-                                <th> <?php echo lang('options'); ?></th>
+            <?php
+            // $planos_details = $this->crud_model->get_planos_by_id($param3)->row_array();
+            //  $section_details = $this->crud_model->get_section('section', $param2)->row_array();
 
-                            </tr>
-                        </thead>
-                        <tbody> 
+            $horas = unserialize($doctor->hours_available);
+            ?>
+            <div class="container">
+                <form action="<?php echo site_url('schedule/hours_settings'); ?>" method="post">
+                    <div class="row">
+                        <input type="hidden" id="id" name="id" value="<?= $doctor->id ?>">
+                        <div class="col-md-2" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px;"> SEG</b>
+                            <hr>
                             <?php
-                            $i = 0;
-                            foreach ($schedules as $schedule) {
-                                $i = $i + 1;
-                                ?>
-                                <tr class="">
-                                    <td style=""> <?php echo $i; ?></td> 
-                                    <td> <?php echo $schedule->weekday; ?></td> 
-                                    <td><?php echo $schedule->s_time; ?></td>
-                                    <td><?php echo $schedule->e_time; ?></td>
-                                    <td><?php echo $schedule->duration * 5 . ' ' . lang('minitues'); ?></td>
-                                    <td>
-                                        <!--
-                                        <button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="<?php echo $schedule->id; ?>"><i class="fa fa-edit"></i> <?php echo lang('edit'); ?></button>   
-                                        -->
-                                        <a class="btn btn-info btn-xs btn_width delete_button" href="schedule/deleteSchedule?id=<?php echo $schedule->id; ?>&doctor=<?php echo $doctorr; ?>&weekday=<?php echo $schedule->weekday; ?>" onclick="return confirm('Are you sure you want to delete this item?');"><i class="fa fa-trash"> </i> <?php echo lang('delete'); ?></a>
-                                    </td>
-                                </tr>
-                            <?php } ?>
-                        </tbody>
-                    </table>
+                            foreach ($horas['1'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="1-' . $seg . '" name="1-' . $seg . '" value = "1" checked>        
+       
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="1-' . $seg . '" name="1-' . $seg . '" value = "1" >        
+          
+            <br>';
+                                }
+                            } ?>
+                        </div>
+
+
+                        <div class="col-md-2" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px;">TER </b>
+                            <hr>
+                            <?php
+                            foreach ($horas['2'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="2-' . $seg . '" name="2-' . $seg . '" value = "1" checked>        
+      
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="2-' . $seg . '" name="2-' . $seg . '" value = "1" >        
+           
+            <br>';
+                                }
+                            } ?>
+                        </div>
+                        <div class="col-md-2" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px;">QUA </b>
+                            <hr>
+                            <?php
+                            foreach ($horas['3'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="3-' . $seg . '" name="3-' . $seg . '" value = "' . $k . '" checked>        
+      
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="3-' . $seg . '" name="3-' . $seg . '" value = "1" >        
+          
+            <br>';
+                                }
+                            } ?>
+                        </div>
+                        <div class="col-md-2" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px;">QUI </b>
+                            <hr>
+                            <?php
+                            foreach ($horas['4'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="4-' . $seg . '" name="4-' . $seg . '" value = "' . $k . '" checked>        
+      
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="4-' . $seg . '" name="4-' . $seg . '" value = "1" >        
+          
+            <br>';
+                                }
+                            } ?>
+                        </div>
+                        <div class="col-md-2" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px;">SEX </b>
+                            <hr>
+                            <?php
+                            foreach ($horas['5'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="5-' . $seg . '" name="5-' . $seg . '" value = "' . $k . '" checked>        
+      
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="6-' . $seg . '" name="5-' . $seg . '" value = "1" >        
+           
+            <br>';
+                                }
+                            } ?>
+                        </div>
+                        <div class="col-md-1" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px; ">SAB </b>
+                            <hr>
+                            <?php
+                            foreach ($horas['6'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="7-' . $seg . '" name="6-' . $seg . '" value = "' . $k . '" checked>        
+       
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="' . $seg . '" name="6-' . $seg . '" value = "1" >        
+          
+            <br>';
+                                }
+                            } ?>
+                        </div>
+                        <div class="col-md-1" style="border: 1px solid black; border-radius: 5px">
+                            <b style="margin-right: 15px;">DOM </b>
+                            <hr>
+                            <?php
+                            foreach ($horas['7'] as $seg => $k) {
+                                if ($k == '1') {
+                                    echo   '<label>' . $seg . ' </label>
+        <input type="checkbox" id="' . $seg . '" name="7-' . $seg . '" value = "' . $k . '" checked>        
+        
+        <br>';
+                                } else {
+                                    echo   '<label>' . $seg . '</label>
+            <input type="checkbox" id="' . $seg . '" name="7-' . $seg . '" value = "1" >        
+           
+            <br>';
+                                }
+                            } ?>
+                        </div>
+                    </div>
+
+                    <div class="text-right">
+                        <button class="btn btn-success" type="submit" name="button"><?php echo lang('save'); ?></button>
+                    </div>
+                </form>
+                  </div>
+            <section class="panel">
+                <div class="row">
+                <div class="col-md-3">
+                        <aside class="profile-nav">
+                            <section class="">
+                                <div class="img">
+                                    <?php if (!empty($doctor->img_url)) { ?>
+                                        <a href="#">
+                                            <img src="<?php echo $doctor->img_url; ?>" alt="" width="80%">
+                                        </a>
+                                    <?php } ?>
+
+                                </div>
+                                <div class="user-heading round">
+                                    <h1 class="card-title mb-1"><b>
+                                            <h1><?php echo $doctor->name ?>
+                                        </b></h1>
+                                    <p> <?php echo $doctor->email; ?> </p>
+                                    <?php //echo print_r($doctor);
+                                    ?>
+                                    <h6 class="text-light"><?php //var_dump($user_details);
+                                                            echo $doctor->career; ?></h6>
+                                    <h6 class="text-light"><b>CRP:<?php //var_dump($user_details);
+                                                                    echo $doctor->crp . ' | </b><b class="text-bold-700">' . $doctor->city; ?> </b></h6>
+
+                                    <span class="planos-badge best-seller"></span>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <i class="la la-star"></i>
+                                    <span class="d-inline-block average-rating"></span>
+                                    <p><span>(10 Avaliações)</span><br>
+                                        <span class="enrolled-num">
+                                            8 Sessões realizadas </span>
+
+                                    <h6 class="text-bold-700">Especialidades:</h6>
+                                    <p><?= $doctor->specialties ?></p>
+
+                                    <h6 class="text-bold-700">R$150/ 50 MINUTOS:</h6>
+                                    <p> <?php echo $doctor->biography      ?>
+                                </div>                      
+                        </aside>
+                    </div>
+
+                    <div class="col-md-9">
+                        <div class="card">
+                            <div class="card-header">
+                                <h4 class="card-title">AGENDA</h4>
+                            </div>
+                            <div class="card-body">
+                                <b>
+                                    <h3>Selecione uma data</h3>
+                                </b>
+                                <div class="center slider">
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+0 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round button-week"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('HOJE, %d/%m', strtotime('+0 day', strtotime(date("D-m-y"))))))); ?> </button>
+
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+1 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+1 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+2 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+2 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+3 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+3 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+4 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+4 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+5 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+5 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+6 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+6 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+7 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+7 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                    <div>
+                                        <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+8 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+8 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                    </div>
+                                </div>
+                                <b>
+                                    <h3>Horários disponíveis:</h3>
+                                </b>
+                                <div class="listhours slider" id="listhours" name="listhours">
+
+                                </div>
+                                <button class="btn btn-success round buttonhours"> Agendar uma Consulta Online</button>
+
+                            </div>
+                        </div>
+                      
 
                 </div>
-            </div> 
+                </div>
+                </div>
+                </div>
+
+                </script>
+                </div>
+            </section>
+            </div>
+
         </section>
-        <!-- page end-->
     </section>
-</section>
-<!--main content end-->
-<!--footer start-->
 
 
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(function() {
+                $('.icon-picker').iconpicker();
+            });
+        });
+    </script>
 
-
-<!-- Add Time Slot Modal-->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title">  <?php echo lang('add'); ?> <?php echo lang('time_slots'); ?></h4>
-            </div>
-            <div class="modal-body">
-                <form role="form" action="schedule/addSchedule" class="clearfix" method="post" enctype="multipart/form-data">
-                    <div class="form-group bootstrap-timepicker">
-                        <label for="exampleInputEmail1"> <?php echo lang('weekday'); ?></label>
-                        <div class="input-group bootstrap-timepicker">
-                            <select class="form-control m-bot15" id="weekday" name="weekday" value=''> 
-                                <option value="Friday"><?php echo lang('friday') ?></option>
-                                <option value="Saturday"><?php echo lang('saturday') ?></option>
-                                <option value="Sunday"><?php echo lang('sunday') ?></option>
-                                <option value="Monday"><?php echo lang('monday') ?></option>
-                                <option value="Tuesday"><?php echo lang('tuesday') ?></option>
-                                <option value="Wednesday"><?php echo lang('wednesday') ?></option>
-                                <option value="Thursday"><?php echo lang('thursday') ?></option>
-                            </select>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('start_time'); ?></label>
-                        <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control timepicker-default" name="s_time" id="exampleInputEmail1" value=''>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-                            </span>
-                        </div>
-
-                    </div>
-                    <div class="form-group bootstrap-timepicker">
-                        <label for="exampleInputEmail1"> <?php echo lang('end_time'); ?></label>
-                        <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control timepicker-default" name="e_time" id="exampleInputEmail1" value=''>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-                            </span>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"><?php echo lang('appointment') ?> <?php echo lang('duration') ?> </label>
-                        <select class="form-control m-bot15" name="duration" value=''>
-
-                            <option value="3" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '3') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 15 Minitues </option>
-
-                            <option value="4" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '4') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 20 Minitues </option>
-
-                            <option value="6" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '6') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 30 Minitues </option>
-
-                            <option value="9" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '9') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 45 Minitues </option>
-
-                            <option value="12" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '12') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 60 Minitues </option>
-
-                        </select>
-                    </div>
-
-                    <input type="hidden" name="doctor" value='<?php echo $doctorr; ?>'>
-                    <input type="hidden" name="redirect" value='schedule/timeSchedule?doctor=<?php echo $doctorr;?>'>
-                    <input type="hidden" name="id" value=''>
-                    <div class="form-group">
-                        <button type="submit" name="submit" class="btn btn-info pull-right"> <?php echo lang('submit'); ?></button>
-                    </div>
-                </form>
-
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
 </div>
-<!-- Add Time Slot Modal-->
-
-
-
-
-
-<!-- Edit Time Slot Modal-->
-<div class="modal fade" id="myModal2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h4 class="modal-title"><i class="fa fa-plus-circle"></i>  <?php echo lang('edit'); ?>  <?php echo lang('time_slot'); ?></h4>
-            </div>
-            <div class="modal-body">
-                <form role="form" id="editTimeSlotForm" action="schedule/addSchedule" method="post" enctype="multipart/form-data">
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"> <?php echo lang('start_time'); ?></label>
-                        <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control timepicker-default" name="s_time" id="exampleInputEmail1" value=''>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-                            </span>
-                        </div>
-
-                    </div>
-                    <div class="form-group bootstrap-timepicker">
-                        <label for="exampleInputEmail1"> <?php echo lang('end_time'); ?></label>
-                        <div class="input-group bootstrap-timepicker">
-                            <input type="text" class="form-control timepicker-default" name="e_time" id="exampleInputEmail1" value=''>
-                            <span class="input-group-btn">
-                                <button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-                            </span>
-                        </div>
-                    </div>
-                    <div class="form-group bootstrap-timepicker">
-                        <label for="exampleInputEmail1"> <?php echo lang('weekday'); ?></label>
-                        <div class="input-group bootstrap-timepicker">
-                            <select class="form-control m-bot15" id="weekday" name="weekday" value=''> 
-                                <option value="Friday"><?php echo lang('friday') ?></option>
-                                <option value="Saturday"><?php echo lang('saturday') ?></option>
-                                <option value="Sunday"><?php echo lang('sunday') ?></option>
-                                <option value="Monday"><?php echo lang('monday') ?></option>
-                                <option value="Tuesday"><?php echo lang('tuesday') ?></option>
-                                <option value="Wednesday"><?php echo lang('wednesday') ?></option>
-                                <option value="Thursday"><?php echo lang('thursday') ?></option>
-                            </select>
-
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="exampleInputEmail1"><?php echo lang('appointment') ?> <?php echo lang('duration') ?> </label>
-                        <select class="form-control m-bot15" name="duration" value=''>
-
-                            <option value="3" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '3') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 15 Minitues </option>
-
-                            <option value="4" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '4') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 20 Minitues </option>
-
-                            <option value="6" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '6') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 30 Minitues </option>
-
-                            <option value="9" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '9') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 45 Minitues </option>
-
-                            <option value="12" <?php
-                            if (!empty($settings->duration)) {
-                                if ($settings->duration == '12') {
-                                    echo 'selected';
-                                }
-                            }
-                            ?> > 60 Minitues </option>
-
-                        </select>
-                    </div>
-
-                    <input type="hidden" name="doctor" value="<?php echo $doctorr; ?>">
-                    <input type="hidden" name="redirect" value='schedule/timeSchedule'>
-                    <input type="hidden" name="id" value=''>
-                    <button type="submit" name="submit" class="btn btn-info"> <?php echo lang('submit'); ?></button>
-                </form>
-
-            </div>
-        </div><!-- /.modal-content -->
-    </div><!-- /.modal-dialog -->
 </div>
-<!-- Edit Time Slot Modal-->
+</div>
+<script src="https://code.jquery.com/jquery-2.2.0.min.js" type="text/javascript"></script>
 
-
-
-<script src="common/js/codearistos.min.js"></script>
 <script type="text/javascript">
-                                        $(document).ready(function () {
-                                        $(".editbutton").click(function (e) {
-                                        e.preventDefault(e);
-                                        // Get the record's ID via attribute  
-                                        var iid = $(this).attr('data-id');
-                                        $('#editTimeSlotForm').trigger("reset");
-                                        $('#myModal2').modal('show');
-                                        $.ajax({
-                                        url: 'schedule/editScheduleByJason?id=' + iid,
-                                                method: 'GET',
-                                                data: '',
-                                                dataType: 'json',
-                                        }).success(function (response) {
-                                        // Populate the form fields with the data returned from server
-                                        $('#editTimeSlotForm').find('[name="id"]').val(response.schedule.id).end()
-                                                $('#editTimeSlotForm').find('[name="s_time"]').val(response.schedule.s_time).end()
-                                                $('#editTimeSlotForm').find('[name="e_time"]').val(response.schedule.e_time).end()
-                                                $('#editTimeSlotForm').find('[name="weekday"]').val(response.schedule.weekday).end()
-                                        });
-                                        });
-                                        });</script>
+    $(document).on('ready', function() {
 
+        $(".center").slick({
+            dots: false,
+            infinite: false,
+            centerMode: false,
+            slidesToShow: 5,
+            slidesToScroll: 1
+        });
 
+        $(".lazy").slick({
+            lazyLoad: 'ondemand', // ondemand progressive anticipated
+            infinite: true
+        });
+    });
+</script>
 <script>
-    $(document).ready(function () {
-    var = $('#editable-sample').DataTable({
-    responsive: true,
-            dom: "<'row'<'col-sm-3'l><'col-sm-5 text-center'B><'col-sm-4'f>>" +
-            "<'row'<'col-sm-12'tr>>" +
-            "<'row'<'col-sm-5'i><'col-sm-7'p>>",
-        
-             buttons: [
-                {extend: 'copyHtml5', exportOptions: {columns: [0, 1, 2, 3, 4], }},
-                {extend: 'excelHtml5', exportOptions: {columns: [0, 1, 2, 3, 4], }},
-                {extend: 'csvHtml5', exportOptions: {columns: [0, 1, 2, 3, 4], }},
-                {extend: 'pdfHtml5', exportOptions: {columns: [0, 1, 2, 3, 4], }},
-                {extend: 'print', exportOptions: {columns: [0, 1, 2, 3, 4], }},
-            ],
-            aLengthMenu: [
-            [10, 25, 50, 100, - 1],
-            [10, 25, 50, 100, "All"]
-            ],
-            iDisplayLength: - 1,
-            "order": [[0, "desc"]],
-            "language": {
-            "lengthMenu": "_MENU_",
-                    search: "_INPUT_",
-                    searchPlaceholder: "Search..."
+    $(document).ready(function() {
+        $(".listhours").slick({
+            dots: false,
+            infinite: false,
+            centerMode: false,
+            slidesToShow: 5,
+            slidesToScroll: 2
+        }); });
+    
+
+    function verificarHoras(dia) {
+        var $opts = {
+            dots: false,
+            infinite: false,
+            centerMode: false,
+            slidesToShow: 5,
+            slidesToScroll: 2
+        }
+       // $('.listhours').slick('unslick');
+        $('.listhours').slick('unslick');
+
+
+        var start = dia
+
+        $.ajax({
+            url: "<?php echo base_url(); ?>schedule/list_hour_doctor",
+            type: "POST",
+            data: {
+                start: start
             },
-    });
-    table.buttons().container()
-            .appendTo('.custom_buttons');
-    });</script>
+            success: function(data) {
+
+                document.getElementById("listhours").innerHTML = data;
+                $('.listhours').slick($opts);
 
 
-<script>
-    $(document).ready(function () {
-    $(".flashmessage").delay(3000).fadeOut(100);
-    });
+            }
+        })
+    }
 </script>

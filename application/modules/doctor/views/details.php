@@ -1654,4 +1654,3 @@ if ($this->ion_auth->in_group('Doctor')) {
     });
 </script>
 
-
