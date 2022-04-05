@@ -600,13 +600,7 @@ if ($this->ion_auth->in_group('Doctor')) {
                         </div>
                     </div>
 
-                    <div class="col-md-4 panel">
-                        <label for="exampleInputEmail1">  <?php echo lang('doctor'); ?></label>
-                        <select class="form-control js-example-basic-single" id="adoctors" name="doctor" value=''>  
-                            <option value="">Select .....</option>
-                            <option value="<?php echo $doctor->id; ?>"><?php echo $doctor->name; ?> </option>
-                        </select>
-                    </div>
+                    <input type="hidden" id="adoctors" name="doctor"  value="<?php echo $doctor->id; ?>">
 
 
                     <div class="col-md-4 panel">

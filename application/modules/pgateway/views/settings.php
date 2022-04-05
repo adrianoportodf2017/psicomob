@@ -43,6 +43,87 @@
                                         ?>'>
                                     </div
                                 <?php } ?>
+
+                                <?php if ($settings->name == "Pagarme") { ?>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> <?php echo lang('enable'); ?> </label>
+                                        <div class="">
+                                        <select class="form-control" name="active" id="active">
+                                            <option value="0" <?=($settings->active == '0')?'selected':''?> ><?php echo lang('disable'); ?></option>
+                                            <option value="1" <?=($settings->active == '1')?'selected':''?> ><?php echo lang('enable'); ?></option>
+                                        </select>
+                                        </div>                                      
+                                    </div> 
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> <?php echo lang('test_api_key'); ?> </label>
+                                        <input type="text" class="form-control" name="api_key" id="exampleInputEmail1" value="<?php
+                                        if (!empty($settings->api_key)) {
+                                            echo $settings->api_key;
+                                        }
+                                        ?>" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> <?php echo lang('encrypted_test_key'); ?> </label>
+                                        <input type="text" class="form-control" name="api_key" id="exampleInputEmail1" value="<?php
+                                        if (!empty($settings->encrypted_test_key)) {
+                                            echo $settings->encrypted_test_key;
+                                        }
+                                        ?>" placeholder="">
+                                    </div>   
+                                    <h5>Configuração forma de pagamento</h5>
+                                <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label" for="free_installments"><?php echo lang('free_installments'); ?></label>
+                                    <div class="col-md-10">
+                                        <input type="number" class="form-control" name="free_installments" id="free_installments" value="value="<?php
+                                        if (!empty($settings->free_installments)) {
+                                            echo $settings->free_installments;
+                                        }
+                                        ?>" min="0">
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label" for="max_installments"><?php echo lang('max_installments'); ?></label>
+                                    <div class="col-md-10">
+                                        <input type="number" class="form-control" name="max_installments" id="max_installments"  value="<?php
+                                        if (!empty($settings->max_installments)) {
+                                            echo $settings->max_installments;
+                                        }
+                                        ?>" >
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label" for="interest_rate"><?php echo lang('interest_rate'); ?></label>
+                                    <div class="col-md-10">
+                                        <input type="text" class="form-control" name="interest_rate" id="interest_rate" value="<?php
+                                        if (!empty($settings->interest_rate)) {
+                                            echo $settings->interest_rate;
+                                        }
+                                        ?>" >
+                                    </div>
+                                </div>
+                                <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label" for="enable_card_cred"><?php
+                                        echo lang('enable_card_cred');
+                                        ;
+                                        ?></label>
+                                    <div class="col-md-10">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="enable_card_cred" id="enable_card_cred" value="1" <?php if ($settings->enable_card_cred == 1) echo 'checked'; ?>>
+                                            <label class="custom-control-label" for="enable_card_cred"><?php echo lang('enable_card_cred'); ?></label>
+                                        </div>
+                                    </div>
+                                    <label class="col-md-2 col-form-label" for="enable_slip"><?php
+                                        echo lang('enable_slip');
+                                        ;
+                                        ?></label>
+                                    <div class="col-md-10">
+                                        <div class="custom-control custom-checkbox">
+                                            <input type="checkbox" class="custom-control-input" name="enable_slip" id="enable_slip" value="1" <?php if ($settings->enable_slip == 1) echo 'checked'; ?>>
+                                            <label class="custom-control-label" for="enable_slip"><?php echo lang('enable_slip'); ?></label>
+                                        </div>
+                                    </div>                               
+                           
+                                <?php } ?>
                                 <?php if ($settings->name == "Authorize.Net") { ?>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"> <?php echo lang('apiloginid'); ?> </label>

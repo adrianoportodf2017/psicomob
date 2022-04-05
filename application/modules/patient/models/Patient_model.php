@@ -359,15 +359,20 @@ class Patient_model extends CI_model {
         return $data;
     }
 
-    function getPatientinfoWithAddNewOption($searchTerm) {
+    function getPatientinfoWithAddNewOption($searchTerm, $doctor) {
+    
+     //   var_dump( $doctor_id['0'] );die;
+    //var_dump($doctor);die;
         if (!empty($searchTerm)) {
             $this->db->select('*');
+            $this->db->where('doctor', ','.$doctor);
             $this->db->where("name like '%" . $searchTerm . "%' ");
             $this->db->or_where("id like '%" . $searchTerm . "%' ");
             $fetched_records = $this->db->get('patient');
             $users = $fetched_records->result_array();
         } else {
             $this->db->select('*');
+            $this->db->where('doctor', ','.$doctor);
             // $this->db->where("name like '%".$searchTerm."%' ");
             //  $this->db->or_where("id like '%".$searchTerm."%' ");
             $this->db->limit(10);

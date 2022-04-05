@@ -40,6 +40,8 @@ class pgateway extends MX_Controller {
         $merchant_mid = $this->input->post('merchant_mid');
         $merchant_website = $this->input->post('merchant_website');
         $salt = $this->input->post('salt');
+        $active = $this->input->post('active');
+        $api_key = $this->input->post('api_key');
 
         $APIUsername = $this->input->post('APIUsername');
         $APIPassword = $this->input->post('APIPassword');
@@ -120,6 +122,14 @@ class pgateway extends MX_Controller {
             // Validating Email Field
             $this->form_validation->set_rules('store_password', 'store password', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         }
+        if ($pgateway->name == 'Pagarme') {
+            // Validating Name Field
+            $this->form_validation->set_rules('active', 'active', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+            // Validating Email Field
+            $this->form_validation->set_rules('status', 'status', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+
+            $this->form_validation->set_rules('api_key', 'api_key', 'trim|required|min_length[1]|max_length[100]|xss_clean');
+        }
         if ($this->form_validation->run() == FALSE) {
             $data = array();
             //  $id = $this->ion_auth->get_user_id();
@@ -192,6 +202,17 @@ class pgateway extends MX_Controller {
                     'APISignature' => $APIUSignature,
                     'status' => $status
                 );
+            }
+
+            if ($pgateway->name == 'Pagarme') {
+                $data = array(
+                    'name' => $name,
+                    'active' => $active,
+                    'api_key' => $api_key,
+                    'status' => $status
+                );
+
+                //var_dump($data);die;
             }
 
             if (empty($this->pgateway_model->getPaymentGatewaySettingsById($id)->name)) {

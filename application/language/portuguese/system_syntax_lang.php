@@ -777,3 +777,9 @@ $lang['specialties'] = 'Especialidades';
 $lang['facebook'] = 'facebook';
 $lang['instagram'] = 'instagram';
 $lang['linkedin'] = 'linkedin';
+$lang['disable'] = 'Desativar';
+$lang['enable'] = 'Ativar';
+$lang['test_api_key'] = 'Chave da API de teste';  
+$lang['encrypted_test_key'] = 'Chave de teste Criptografada'; 
+
+

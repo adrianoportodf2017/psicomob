@@ -2210,9 +2210,12 @@ class Patient extends MX_Controller {
     public function getPatientinfoWithAddNewOption() {
 // Search term
         $searchTerm = $this->input->post('searchTerm');
+        //$doctor =   $this->id; 
+        $id = $this->doctor_model->getDoctorByIonUserId($this->ion_auth->get_user_id())->id;
+       //var_dump($id);die;
 
 // Get users
-        $response = $this->patient_model->getPatientinfoWithAddNewOption($searchTerm);
+        $response = $this->patient_model->getPatientinfoWithAddNewOption($searchTerm, $id);
 
         echo json_encode($response);
     }
