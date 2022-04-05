@@ -55,16 +55,31 @@
                                         </div>                                      
                                     </div> 
                                     <div class="form-group">
+                                        <label for="exampleInputEmail1"> <?php echo lang('public_api_key'); ?> </label>
+                                        <input type="text" class="form-control" name="public_api_key" id="exampleInputEmail1" value="<?php
+                                        if (!empty($settings->public_api_key)) {
+                                            echo $settings->public_api_key;
+                                        }
+                                        ?>" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="exampleInputEmail1"> <?php echo lang('encrypted_public_key'); ?> </label>
+                                        <input type="text" class="form-control" name="encrypted_public_key" id="exampleInputEmail1" value="<?php
+                                        if (!empty($settings->encrypted_public_key)) {
+                                            echo $settings->encrypted_public_key;
+                                        }
+                                        ?>" placeholder="">
+                                    <div class="form-group">
                                         <label for="exampleInputEmail1"> <?php echo lang('test_api_key'); ?> </label>
-                                        <input type="text" class="form-control" name="api_key" id="exampleInputEmail1" value="<?php
-                                        if (!empty($settings->api_key)) {
-                                            echo $settings->api_key;
+                                        <input type="text" class="form-control" name="test_api_key" id="exampleInputEmail1" value="<?php
+                                        if (!empty($settings->test_api_key)) {
+                                            echo $settings->test_api_key;
                                         }
                                         ?>" placeholder="">
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputEmail1"> <?php echo lang('encrypted_test_key'); ?> </label>
-                                        <input type="text" class="form-control" name="api_key" id="exampleInputEmail1" value="<?php
+                                        <input type="text" class="form-control" name="encrypted_test_key" id="exampleInputEmail1" value="<?php
                                         if (!empty($settings->encrypted_test_key)) {
                                             echo $settings->encrypted_test_key;
                                         }
@@ -74,11 +89,11 @@
                                 <div class="form-group row mb-3">
                                     <label class="col-md-2 col-form-label" for="free_installments"><?php echo lang('free_installments'); ?></label>
                                     <div class="col-md-10">
-                                        <input type="number" class="form-control" name="free_installments" id="free_installments" value="value="<?php
+                                        <input type="number" class="form-control" name="free_installments" id="free_installments" value="<?php
                                         if (!empty($settings->free_installments)) {
                                             echo $settings->free_installments;
                                         }
-                                        ?>" min="0">
+                                        ?>" >
                                     </div>
                                 </div>
                                 <div class="form-group row mb-3">
@@ -102,26 +117,20 @@
                                     </div>
                                 </div>
                                 <div class="form-group row mb-3">
-                                    <label class="col-md-2 col-form-label" for="enable_card_cred"><?php
-                                        echo lang('enable_card_cred');
-                                        ;
-                                        ?></label>
-                                    <div class="col-md-10">
+                                                                       <div class="col-md-10">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="enable_card_cred" id="enable_card_cred" value="1" <?php if ($settings->enable_card_cred == 1) echo 'checked'; ?>>
                                             <label class="custom-control-label" for="enable_card_cred"><?php echo lang('enable_card_cred'); ?></label>
                                         </div>
                                     </div>
-                                    <label class="col-md-2 col-form-label" for="enable_slip"><?php
-                                        echo lang('enable_slip');
-                                        ;
-                                        ?></label>
+                                   
                                     <div class="col-md-10">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="enable_slip" id="enable_slip" value="1" <?php if ($settings->enable_slip == 1) echo 'checked'; ?>>
                                             <label class="custom-control-label" for="enable_slip"><?php echo lang('enable_slip'); ?></label>
                                         </div>
-                                    </div>                               
+                                    </div> </div>  
+                                    <hr>                             
                            
                                 <?php } ?>
                                 <?php if ($settings->name == "Authorize.Net") { ?>

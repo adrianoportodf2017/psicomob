@@ -58,6 +58,16 @@ class pgateway extends MX_Controller {
         $apikey = $this->input->post('apikey');
         //end
         $status = $this->input->post('status');
+        $encrypted_test_key = $this->input->post('encrypted_test_key');
+
+        $public_api_key = $this->input->post('public_api_key');
+        $encrypted_public_key = $this->input->post('encrypted_public_key');
+        $test_api_key = $this->input->post('test_api_key');
+        $free_installments = $this->input->post('free_installments');
+        $max_installments = $this->input->post('max_installments');
+        $interest_rate = $this->input->post('interest_rate');
+        $enable_card_cred = $this->input->post('enable_card_cred');
+        $enable_slip = $this->input->post('enable_slip');
         $secret = $this->input->post('secret');
         $publish = $this->input->post('publish');
         $public_key = $this->input->post('public_key');
@@ -128,7 +138,6 @@ class pgateway extends MX_Controller {
             // Validating Email Field
             $this->form_validation->set_rules('status', 'status', 'trim|required|min_length[1]|max_length[100]|xss_clean');
 
-            $this->form_validation->set_rules('api_key', 'api_key', 'trim|required|min_length[1]|max_length[100]|xss_clean');
         }
         if ($this->form_validation->run() == FALSE) {
             $data = array();
@@ -208,8 +217,17 @@ class pgateway extends MX_Controller {
                 $data = array(
                     'name' => $name,
                     'active' => $active,
-                    'api_key' => $api_key,
-                    'status' => $status
+                    'api_key' => $api_key,                    
+                    'encrypted_test_key' => $encrypted_test_key,
+                    'test_api_key' => $test_api_key,
+                    'public_api_key' => $public_api_key,
+                    'encrypted_public_key' => $encrypted_public_key,
+                    'status' => $status,
+                    'free_installments' => $free_installments,
+                    'max_installments' => $max_installments,
+                    'interest_rate' => $interest_rate,
+                    'enable_card_cred' => $enable_card_cred,
+                    'enable_slip' => $enable_slip
                 );
 
                 //var_dump($data);die;
