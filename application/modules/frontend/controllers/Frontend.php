@@ -30,7 +30,20 @@ class Frontend extends MX_Controller {
         $data['reviews'] = $this->review_model->getActiveReview();
         $data['images'] = $this->gallery_model->getActiveImages();
         $data['gridsections'] = $this->gridsection_model->getActiveGrids();
-        $this->load->view('frontend', $data);
+        $this->load->view('frontend2', $data);
+    }
+
+    public function search() {
+        $data = array();
+        $data['doctors'] = $this->doctor_model->getDoctor();
+        $data['slides'] = $this->slide_model->getActiveSlide();
+        $data['services'] = $this->service_model->getService();
+        $data['featureds'] = $this->featured_model->getFeatured();
+        $data['reviews'] = $this->review_model->getActiveReview();
+        $data['images'] = $this->gallery_model->getActiveImages();
+        $data['gridsections'] = $this->gridsection_model->getActiveGrids();
+        $this->load->view('search', $data);
+        $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
     }
 
     public function two() {
@@ -39,7 +52,7 @@ class Frontend extends MX_Controller {
         $data['slides'] = $this->slide_model->getSlide();
         $data['services'] = $this->service_model->getService();
         $data['featureds'] = $this->featured_model->getFeatured();
-        $this->load->view('frontend_backup', $data);
+        $this->load->view('frontendold', $data);
     }
 
     public function addNew() {
