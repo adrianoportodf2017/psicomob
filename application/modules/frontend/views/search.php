@@ -551,8 +551,8 @@ $site_name = $this->db->get('website_settings')->row()->title;
                 dots: false,
                 infinite: false,
                 centerMode: false,
-                slidesToShow: 5,
-                slidesToScroll: 1
+                slidesToShow: 3,
+                slidesToScroll: 2
             });
 
             $(".lazy").slick({
@@ -567,7 +567,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                 dots: false,
                 infinite: false,
                 centerMode: false,
-                slidesToShow: 5,
+                slidesToShow: 3,
                 slidesToScroll: 2
             });
         });
@@ -578,7 +578,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                 dots: false,
                 infinite: false,
                 centerMode: false,
-                slidesToShow: 5,
+                slidesToShow: 3,
                 slidesToScroll: 2
             }
             // $('.listhours').slick('unslick');
