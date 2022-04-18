@@ -5,7 +5,8 @@
 $settings = $this->frontend_model->getSettings();
 $title = explode(' ', $settings->title);
 $site_name = $this->db->get('website_settings')->row()->title;
-?>
+
+ ?>
 
 <head>
     <meta charset="utf-8" />
@@ -259,7 +260,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
         position: relative;
         margin-bottom: 2px;
         margin-left: 10px;
-    
+
         text-align: center;
         font-weight: bold;
         font-size: 1.1rem;
@@ -335,303 +336,121 @@ $site_name = $this->db->get('website_settings')->row()->title;
                 </div>
             </nav>
         </div>
-        <div class="row ">   
-        <div class="col-2">Escolha um profissional:</div>
-        <div class="col-xl-8" style="margin: 10px;">
-       
-        <div class="card user-card-full" >
-                <div class="row m-l-0 m-r-0">
-                    <div class="col-sm-4 bg-c-lite-green user-profile">
-                        <div class="card-block text-center text-white">
-                            <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                            <h6 class="f-w-600">Hembo Tingor</h6>
-                            <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                            <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
-                                    <h1 class="card-title mb-1"><b>
-                                            <h1>
-                                        </b></h1>
-                                    <p> </p>
-                                    <h6 class="text-light"></h6>
-                                    <h6 class="text-light"><b>CRP: | </b><b class="text-bold-700"> </b></h6>
+        <div class="row ">
+            <div class="col-2"></div>
+            <div class="col-xl-8" style="margin: 10px;">
+                <?php
 
-                                    <span class="planos-badge best-seller"></span>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <span class="d-inline-block average-rating"></span>
-                                    <p><span>(10 Avaliações)</span><br>
-                                        <span class="enrolled-num">
-                                            8 Sessões realizadas </span>
+                foreach ($doctors as $doctor) { ?>
 
-                                    <h6 class="text-bold-700">Especialidades:</h6>
-                                    <p></p>
+                    <div class="card">
+                        <div class="card-header">
+                        </div>
+                        <div class="card-body ">
+                            <div class="row " style=" margin: auto;   text-align: center;">
+                                <div class="col-md-5 ">
+                                    <aside class="profile-nav ">
+                                        <div class="user-heading round">
+                                            <div class="row">
+                                            <div class="col-5">
+                                                    <?php if (!empty($doctor->img_url)) { ?>
+                                                        <a href="#">
+                                                            <div class="m-b-25"> <img src="<?= $doctor->img_url ?>" class="img-radius" alt="User-Profile-Image" style="max-width: 200px; width: 150px; border-radius: 50%;"> </div>
+                                                        </a>
+                                                    <?php } ?>
+                                                    <br><b>R$ 95 / 50 MINUTOS</b><p>
 
-                                    <h6 class="text-bold-700">R$150/ 50 MINUTOS:</h6>
-                                    <p>
+                                                    
+                                                </div>
+                                                <div class="col-6">
+                                                    <h5><?php echo $doctor->name ?>
+                                                        </b></h5>
+                                                        <h6 class="text-dark"><b>CRP: | </b><b class="text-bold-700"> <?= $doctor->crp ?></b></h6>
+                                                        <span>(10 Avaliações)<br>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                            <i class="fa fa-star"></i>
+                                                        <br>
+                                                            8 Sessões realizadas
+
+                                                </div>
+                                              
+                                            </div>
+                                            <div class="card-block">
+                                                <div class="row">
+                                                 
+                                                         <?php
+                                                            $specialties = explode(",", $doctor->specialties);
+                                                            foreach ($specialties as $specialtie) {
+                                                                echo '<button class="btn btn-outline-secondary" style="margin: 2px"> ' . $specialtie . '</button>';
+                                                            }
+
+                                                            ?>
+                                                        <p  style="margin: 30px;  margin: auto;  text-align: justify;"><?= mb_substr($doctor->profile, 0, 300, 'UTF-8'); ?>
+                                                </div>
+                                    </aside>
+
                                 </div>
+
+                                <div class="col-md-7">
+
+                                    <b>
+                                        <h3>Selecione uma data</h3>
+                                    </b>
+                                    <div class="center slider">
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+0 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round button-week"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('HOJE, %d/%m', strtotime('+0 day', strtotime(date("D-m-y"))))))); ?> </button>
+
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+1 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+1 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+2 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+2 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+3 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+3 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+4 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+4 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+5 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+5 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+6 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+6 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+7 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+7 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                        <div>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+8 day', strtotime(date('D-m-y')))); ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+8 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                        </div>
+                                    </div>
+                                    <b>
+                                        <h3>Horários disponíveis:</h3>
+                                    </b>
+                                    <div class="listhours slider" id="listhours" name="listhours">
+
+                                    </div>
+                                    <button style="max-width: 250px;" class="btn btn btn-outline-success round buttonhours"> Agendar uma Consulta Online</button>
+
+                                </div>
+                                <button style="max-width: 250px; margin: 30px;  text-align: center;" class="btn btn btn-outline-primary round buttonhours"> Ver Perfil</button>
+
                             </div>
-                          
-                            <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                            </ul>
+
+
                         </div>
                     </div>
+                <?php } ?>
 
-                    <div class="col-sm-8">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">AGENDA</h4>
-                            </div>
-                            <div class="card-body">
-                                <b>
-                                    <h3>Selecione uma data</h3>
-                                </b>
-                                <div class="center slider">
-                                    <div>
-                                        <button onclick="verificarHoras('2 - 2022-04-12 ')" class="btn btn-info round button-week"> HOJE<p> 12/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('3 - 2022-04-13 ')" class="btn btn-info round buttonhours"> QUA<p> 13/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('4 - 2022-04-14 ')" class="btn btn-info round buttonhours"> QUI<p> 14/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('5 - 2022-04-15 ')" class="btn btn-info round buttonhours"> SEX<p> 15/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('6 - 2022-04-16 ')" class="btn btn-info round buttonhours"> SÁB<p> 16/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('7 - 2022-04-17 ')" class="btn btn-info round buttonhours"> DOM<p> 17/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('1 - 2022-04-18 ')" class="btn btn-info round buttonhours"> SEG<p> 18/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('2 - 2022-04-19 ')" class="btn btn-info round buttonhours"> TER<p> 19/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('3 - 2022-04-20 ')" class="btn btn-info round buttonhours"> QUA<p> 20/04 </button>
-                                    </div>
-                                </div>
-                                <b>
-                                    <h3>Horários disponíveis:</h3>
-                                </b>
-                                <div class="listhours slider" id="listhours" name="listhours">
-
-                                </div>
-                                <button class="btn btn-success round buttonhours"> Agendar uma Consulta Online</button>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        <div class="card user-card-full">
-                <div class="row m-l-0 m-r-0">
-                    <div class="col-sm-4 bg-c-lite-green user-profile">
-                        <div class="card-block text-center text-white">
-                            <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                            <h6 class="f-w-600">Hembo Tingor</h6>
-                            <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                            <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
-                                    <h1 class="card-title mb-1"><b>
-                                            <h1>
-                                        </b></h1>
-                                    <p> </p>
-                                    <h6 class="text-light"></h6>
-                                    <h6 class="text-light"><b>CRP: | </b><b class="text-bold-700"> </b></h6>
-
-                                    <span class="planos-badge best-seller"></span>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <span class="d-inline-block average-rating"></span>
-                                    <p><span>(10 Avaliações)</span><br>
-                                        <span class="enrolled-num">
-                                            8 Sessões realizadas </span>
-
-                                    <h6 class="text-bold-700">Especialidades:</h6>
-                                    <p></p>
-
-                                    <h6 class="text-bold-700">R$150/ 50 MINUTOS:</h6>
-                                    <p>
-                                </div>
-                            </div>
-                          
-                            <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">AGENDA</h4>
-                            </div>
-                            <div class="card-body">
-                                <b>
-                                    <h3>Selecione uma data</h3>
-                                </b>
-                                <div class="center slider">
-                                    <div>
-                                        <button onclick="verificarHoras('2 - 2022-04-12 ')" class="btn btn-info round button-week"> HOJE<p> 12/04 </button>
-
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('3 - 2022-04-13 ')" class="btn btn-info round buttonhours"> QUA<p> 13/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('4 - 2022-04-14 ')" class="btn btn-info round buttonhours"> QUI<p> 14/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('5 - 2022-04-15 ')" class="btn btn-info round buttonhours"> SEX<p> 15/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('6 - 2022-04-16 ')" class="btn btn-info round buttonhours"> SÁB<p> 16/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('7 - 2022-04-17 ')" class="btn btn-info round buttonhours"> DOM<p> 17/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('1 - 2022-04-18 ')" class="btn btn-info round buttonhours"> SEG<p> 18/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('2 - 2022-04-19 ')" class="btn btn-info round buttonhours"> TER<p> 19/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('3 - 2022-04-20 ')" class="btn btn-info round buttonhours"> QUA<p> 20/04 </button>
-                                    </div>
-                                </div>
-                                <b>
-                                    <h3>Horários disponíveis:</h3>
-                                </b>
-                                <div class="listhours slider" id="listhours" name="listhours">
-
-                                </div>
-                                <button class="btn btn-success round buttonhours"> Agendar uma Consulta Online</button>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="card user-card-full">
-                <div class="row m-l-0 m-r-0">
-                    <div class="col-sm-4 bg-c-lite-green user-profile">
-                        <div class="card-block text-center text-white">
-                            <div class="m-b-25"> <img src="https://img.icons8.com/bubbles/100/000000/user.png" class="img-radius" alt="User-Profile-Image"> </div>
-                            <h6 class="f-w-600">Hembo Tingor</h6>
-                            <p>Web Designer</p> <i class=" mdi mdi-square-edit-outline feather icon-edit m-t-10 f-16"></i>
-                            <div class="card-block">
-                                <h6 class="m-b-20 p-b-5 b-b-default f-w-600">Information</h6>
-                                <div class="row">
-                                    <h1 class="card-title mb-1"><b>
-                                            <h1>
-                                        </b></h1>
-                                    <p> </p>
-                                    <h6 class="text-light"></h6>
-                                    <h6 class="text-light"><b>CRP: | </b><b class="text-bold-700"> </b></h6>
-
-                                    <span class="planos-badge best-seller"></span>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <i class="la la-star"></i>
-                                    <span class="d-inline-block average-rating"></span>
-                                    <p><span>(10 Avaliações)</span><br>
-                                        <span class="enrolled-num">
-                                            8 Sessões realizadas </span>
-
-                                    <h6 class="text-bold-700">Especialidades:</h6>
-                                    <p></p>
-
-                                    <h6 class="text-bold-700">R$150/ 50 MINUTOS:</h6>
-                                    <p>
-                                </div>
-                            </div>
-                          
-                            <ul class="social-link list-unstyled m-t-40 m-b-10">
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="facebook" data-abc="true"><i class="mdi mdi-facebook feather icon-facebook facebook" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="twitter" data-abc="true"><i class="mdi mdi-twitter feather icon-twitter twitter" aria-hidden="true"></i></a></li>
-                                <li><a href="#!" data-toggle="tooltip" data-placement="bottom" title="" data-original-title="instagram" data-abc="true"><i class="mdi mdi-instagram feather icon-instagram instagram" aria-hidden="true"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="col-sm-6">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4 class="card-title">AGENDA</h4>
-                            </div>
-                            <div class="card-body">
-                                <b>
-                                    <h3>Selecione uma data</h3>
-                                </b>
-                                <div class="center slider">
-                                    <div>
-                                        <button onclick="verificarHoras('2 - 2022-04-12 ')" class="btn btn-info round button-week"> HOJE<p> 12/04 </button>
-
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('3 - 2022-04-13 ')" class="btn btn-info round buttonhours"> QUA<p> 13/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('4 - 2022-04-14 ')" class="btn btn-info round buttonhours"> QUI<p> 14/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('5 - 2022-04-15 ')" class="btn btn-info round buttonhours"> SEX<p> 15/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('6 - 2022-04-16 ')" class="btn btn-info round buttonhours"> SÁB<p> 16/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('7 - 2022-04-17 ')" class="btn btn-info round buttonhours"> DOM<p> 17/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('1 - 2022-04-18 ')" class="btn btn-info round buttonhours"> SEG<p> 18/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('2 - 2022-04-19 ')" class="btn btn-info round buttonhours"> TER<p> 19/04 </button>
-                                    </div>
-                                    <div>
-                                        <button onclick="verificarHoras('3 - 2022-04-20 ')" class="btn btn-info round buttonhours"> QUA<p> 20/04 </button>
-                                    </div>
-                                </div>
-                                <b>
-                                    <h3>Horários disponíveis:</h3>
-                                </b>
-                                <div class="listhours slider" id="listhours" name="listhours">
-
-                                </div>
-                                <button class="btn btn-success round buttonhours"> Agendar uma Consulta Online</button>
-
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </div>
-   
+
 
     </section>
 
@@ -712,8 +531,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
     <!--<script type="text/javascript" src="<?php echo site_url('front/assets/revolution_slider/rs-plugin/js/jquery.themepunch.plugins.min.js'); ?>"></script>
                     <script type="text/javascript" src="<?php echo site_url('front/assets/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js'); ?>"></script>
                     <script src="front/js/revulation-slide.js"></script>-->
-    <script>
-        < script type = "text/javascript" >
+        <script type = "text/javascript" >
             $(document).ready(function() {
                 $(function() {
                     $('.icon-picker').iconpicker();
@@ -770,7 +588,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
             var start = dia
 
             $.ajax({
-                url: "<?php echo base_url(); ?>schedule/list_hour_doctor",
+                url: "<?php echo base_url(); ?>frontend/list_hour_doctor",
                 type: "POST",
                 data: {
                     start: start

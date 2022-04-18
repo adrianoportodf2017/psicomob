@@ -9,6 +9,7 @@ class Frontend extends MX_Controller {
         parent::__construct();
         $this->load->model('frontend_model');
         $this->load->model('doctor/doctor_model');
+        $this->load->model('schedule/schedule_model');
         $this->load->model('patient/patient_model');
         $this->load->model('slide/slide_model');
         $this->load->model('service/service_model');
@@ -33,18 +34,82 @@ class Frontend extends MX_Controller {
         $this->load->view('frontend2', $data);
     }
 
-    public function search() {
+    public function search($search = NULL, $order = NULL, $dir = NULL) {
         $data = array();
-        $data['doctors'] = $this->doctor_model->getDoctor();
-        $data['slides'] = $this->slide_model->getActiveSlide();
-        $data['services'] = $this->service_model->getService();
-        $data['featureds'] = $this->featured_model->getFeatured();
-        $data['reviews'] = $this->review_model->getActiveReview();
-        $data['images'] = $this->gallery_model->getActiveImages();
-        $data['gridsections'] = $this->gridsection_model->getActiveGrids();
+        $data['doctors'] = $this->doctor_model->getDoctorBySearch($search, $order, $dir);
         $this->load->view('search', $data);
         $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
     }
+
+    public function list_hour_doctor (){
+        $date = $_POST['start'];
+        $day_week = strval(substr($date, 0, 1));
+        $today = str_replace(' ', '', strval(substr($date, 3)));
+        $date_compare = strval(date('Y-m-d'));
+        // var_dump($dataCompare);
+        //var_dump(str_replace(' ', '', $data));
+
+        $data = "";
+        $doctor_ion_id = $this->ion_auth->get_user_id();
+        $user_id = 1;
+        $event_data = $this->db->get_where('doctor', array('id' => $user_id))->row();
+        $hours_available =  unserialize($event_data->hours_available);
+        //var_dump($day_week);die;
+        foreach ($hours_available[$day_week] as $hours => $k) {
+            if ($date_compare == $today) {
+                $current_time = strval(date('H', strtotime('+1 hours')));
+                //echo $current_time;
+                if ($k == '1' && $current_time < $hours) {
+                    // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
+                    $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $user_id);
+                    var_dump($liberado);
+                    if (!$liberado) {
+                        $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
+              </div>';
+                    } else {
+                        $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
+                  </div>';
+                    }
+                } else {
+                    if ($k == '1') {
+                        $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
+                    </div>';
+                    }
+                }
+                //echo $datahoje;die;
+
+            } else if ($k == '1') {
+                // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
+                $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $user_id);
+                var_dump($liberado);
+                if (!$liberado) {
+                    $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
+          </div>';
+                } else {
+                    $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
+              </div>';
+                }
+            }
+        }
+        /*$user_id = $this->session->userdata('user_id');
+         // var_dump($user_id);
+          $event_data = $this->fullcalendar_model->fetch_all_event($user_id);
+         // var_dump($event_data);
+          foreach ($event_data->result_array() as $row) {
+              $data[] = array(
+                  'id' => $row['id'],
+                  'title' => $row['title'],
+                  'start' => $row['start_event'],
+                  'end' => $row['end_event']
+                  
+              );
+          }*/
+        echo die(die(($data)));
+    }
+
+
+
+    
 
     public function two() {
         $data = array();
