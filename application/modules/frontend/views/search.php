@@ -259,12 +259,13 @@ $site_name = $this->db->get('website_settings')->row()->title;
         position: relative;
         margin-bottom: 2px;
         margin-left: 10px;
+    
         text-align: center;
         font-weight: bold;
         font-size: 1.1rem;
         color: white;
         height: 65px;
-        width: 100%;
+        width: 90%;
 
     }
 </style>
@@ -335,9 +336,10 @@ $site_name = $this->db->get('website_settings')->row()->title;
             </nav>
         </div>
         <div class="row ">   
-        <div class="col-xl-2 col-md-2">Escolha um profissional:</div>
-        <div class="col-xl-8 col-md-4">
-        <div class="card user-card-full">
+        <div class="col-2">Escolha um profissional:</div>
+        <div class="col-xl-8" style="margin: 10px;">
+       
+        <div class="card user-card-full" >
                 <div class="row m-l-0 m-r-0">
                     <div class="col-sm-4 bg-c-lite-green user-profile">
                         <div class="card-block text-center text-white">
@@ -381,7 +383,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                         </div>
                     </div>
 
-                    <div class="col-sm-6">
+                    <div class="col-sm-8">
                         <div class="card">
                             <div class="card-header">
                                 <h4 class="card-title">AGENDA</h4>
@@ -393,7 +395,6 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                 <div class="center slider">
                                     <div>
                                         <button onclick="verificarHoras('2 - 2022-04-12 ')" class="btn btn-info round button-week"> HOJE<p> 12/04 </button>
-
                                     </div>
                                     <div>
                                         <button onclick="verificarHoras('3 - 2022-04-13 ')" class="btn btn-info round buttonhours"> QUA<p> 13/04 </button>
