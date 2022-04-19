@@ -85,7 +85,7 @@ class Frontend extends MX_Controller {
                     $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                     var_dump($liberado);
                     if (!$liberado) {
-                        (str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3)));
+                        md5(str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3)));
                         $data = $data . '<div><a href="'.base_url('frontend/checkout?id='.str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3))).'&hour='.$hours.'" class="btn btn-info round buttonhours">' . $hours . '</button>
                         </div>';
                     } else {
@@ -112,19 +112,7 @@ class Frontend extends MX_Controller {
                 }
             }
         }
-        /*$user_id = $this->session->userdata('user_id');
-         // var_dump($user_id);
-          $event_data = $this->fullcalendar_model->fetch_all_event($user_id);
-         // var_dump($event_data);
-          foreach ($event_data->result_array() as $row) {
-              $data[] = array(
-                  'id' => $row['id'],
-                  'title' => $row['title'],
-                  'start' => $row['start_event'],
-                  'end' => $row['end_event']
-                  
-              );
-          }*/
+     
         echo die(die(($data)));
     }
 
