@@ -43,6 +43,7 @@ class Frontend extends MX_Controller {
 
     public function list_hour_doctor (){
         $date = $_POST['start'];
+        $id_doctor = $_POST['id'];
         $day_week = strval(substr($date, 0, 1));
         $today = str_replace(' ', '', strval(substr($date, 3)));
         $date_compare = strval(date('Y-m-d'));
@@ -50,9 +51,16 @@ class Frontend extends MX_Controller {
         //var_dump(str_replace(' ', '', $data));
 
         $data = "";
-        $doctor_ion_id = $this->ion_auth->get_user_id();
-        $user_id = 1;
-        $event_data = $this->db->get_where('doctor', array('id' => $user_id))->row();
+      //  $doctor_ion_id = $this->ion_auth->get_user_id();
+       // $user_id = 1;
+        $event_data = $this->db->get_where('doctor', array('id' => $id_doctor))->row();
+       // var_dump($event_data->hours_available);
+        if($event_data->hours_available == NULL || $event_data->hours_available == "" ){
+            
+            echo die(die(("error")));
+
+
+        }
         $hours_available =  unserialize($event_data->hours_available);
         //var_dump($day_week);die;
         foreach ($hours_available[$day_week] as $hours => $k) {
@@ -61,7 +69,7 @@ class Frontend extends MX_Controller {
                 //echo $current_time;
                 if ($k == '1' && $current_time < $hours) {
                     // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
-                    $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $user_id);
+                    $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                     var_dump($liberado);
                     if (!$liberado) {
                         $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
@@ -80,8 +88,7 @@ class Frontend extends MX_Controller {
 
             } else if ($k == '1') {
                 // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
-                $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $user_id);
-                var_dump($liberado);
+                $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                 if (!$liberado) {
                     $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
           </div>';
