@@ -41,6 +41,19 @@ class Frontend extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
     }
 
+    public function checkout(){
+        $hour =  $_GET['hour'];
+        $date =  $_GET['date'];
+        $doctor_id = $_GET['id'];
+
+        var_dump($doctor_id);
+        var_dump($hour);
+        var_dump($date);
+
+
+
+    }
+
     public function list_hour_doctor (){
         $date = $_POST['start'];
         $id_doctor = $_POST['id'];
@@ -72,8 +85,9 @@ class Frontend extends MX_Controller {
                     $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                     var_dump($liberado);
                     if (!$liberado) {
-                        $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
-              </div>';
+                        (str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3)));
+                        $data = $data . '<div><a href="'.base_url('frontend/checkout?id='.str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3))).'&hour='.$hours.'" class="btn btn-info round buttonhours">' . $hours . '</button>
+                        </div>';
                     } else {
                         $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
                   </div>';
@@ -90,7 +104,7 @@ class Frontend extends MX_Controller {
                 // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
                 $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                 if (!$liberado) {
-                    $data = $data . '<div><button class="btn btn-info round buttonhours">' . $hours . '</button>
+                    $data = $data . '<div><a href="'.base_url('frontend/checkout?id='.str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3))).'&hour='.$hours.'" class="btn btn-info round buttonhours">' . $hours . '</button>
           </div>';
                 } else {
                     $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
