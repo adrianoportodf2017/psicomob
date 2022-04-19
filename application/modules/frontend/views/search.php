@@ -593,8 +593,9 @@ $site_name = $this->db->get('website_settings')->row()->title;
           
            // $(".listhours").slideUp();
             $("#"+id+"").slideUp();
-            $(".listhours").slick('unslick');
             $(".listhours").slideUp();
+            $(".listhours").slick('unslick');
+           
 
           
 
@@ -619,7 +620,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                     }
                     else{
                    // $('.listhours').html = data;
-                   $(".listhours").slideDown();
+                   $("#"+id+"").slideDown();
                    $("#msg"+id+"").html(''); 
                    $("#"+id+"").html(data);
                    // document.getElementById(" "+id+" ").innerHTML = data;
