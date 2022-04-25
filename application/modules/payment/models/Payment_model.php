@@ -732,8 +732,8 @@ class Payment_model extends CI_Model {
             $pagarme = new PagarMe\Client($publicKey);
             $calculateInstallments = $pagarme->transactions()->calculateInstallments([
                 'amount' => ($amount * 100),
-                'free_installments' => $free_installments,
-                'max_installments' => $max_installments,
+                'free_installments' => '1',
+                'max_installments' => '3',
                 'interest_rate' => '2'
             ]);
             return $calculateInstallments;
