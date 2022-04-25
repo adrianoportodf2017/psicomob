@@ -726,7 +726,7 @@ class Payment_model extends CI_Model {
             }
         }
     }
-    public function checkar_taxa_juros($publicKey, $amount = null, $free_installments = null, $max_installments = null, $insterest_rate = null) {
+    public function checkar_taxa_juros($publicKey, $amount , $free_installments , $max_installments , $insterest_rate) {
         
             require_once(APPPATH . '../vendor/autoload.php');
             $pagarme = new PagarMe\Client($publicKey);
