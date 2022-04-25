@@ -734,7 +734,7 @@ class Payment_model extends CI_Model {
                 'amount' => ($amount * 100),
                 'free_installments' => $free_installments,
                 'max_installments' => $max_installments,
-                'interest_rate' => $insterest_rate
+                'interest_rate' => '2'
             ]);
             return $calculateInstallments;
         }
