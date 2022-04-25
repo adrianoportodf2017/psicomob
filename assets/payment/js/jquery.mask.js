@@ -226,7 +226,7 @@
                         }
                     }
 
-                    // if the planosr is at the end keep it there
+                    // if the cursor is at the end keep it there
                     if (caretPosNew > oldValL) {
                       caretPosNew = newValL * 10;
                     } else if (caretPosOld >= caretPosNew && caretPosOld !== oldValL) {

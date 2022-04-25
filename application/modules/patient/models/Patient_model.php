@@ -14,6 +14,14 @@ class Patient_model extends CI_model {
         $this->db->insert('patient', $data);
     }
 
+
+    function getPatientWithDoctor($patiente, $doctor) {
+        $this->db->where('ion_user_id',$patiente);
+        $this->db->where('doctor', $doctor);
+        $query = $this->db->get('patient');
+        return $query->row();
+    }
+
     function getPatient() {
         $this->db->order_by('id', 'desc');
         $query = $this->db->get('patient');

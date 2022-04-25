@@ -8,6 +8,7 @@ class Frontend extends MX_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('frontend_model');
+        $this->load->model('payment/payment_model');
         $this->load->model('doctor/doctor_model');
         $this->load->model('schedule/schedule_model');
         $this->load->model('patient/patient_model');
@@ -41,15 +42,32 @@ class Frontend extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
     }
 
-    public function checkout(){
+    public function checkout($payment_request = "only_for_mobile"){
+
+        $paytm = $this->db->get_where('paymentGateway', array('name =' => 'pagarme'))->row();
+       //var_dump( $paytm);
+     if($this->ion_auth->user()->row()){
+        $page_data['user'] =  $this->ion_auth->user()->row();
+        $patient = $this->patient_model->getPatientWithDoctor($page_data['user']->id, $_GET['id']);
+       if($patient != NULL){
+            $patient = $patient->row();             
+        }}else{
+            $patient = NULL;
+
+        }
+        $doctor = $this->db->get_where('doctor', array('id =' =>  $_GET['id']))->row();      
+        $page_data['payment_request'] = $payment_request;
+        $page_data['amount_to_pay'] = 1000;
+        $page_data['discounted'] = 950;
+        $page_data['profile_details'] =  $paytm;
+        $this->load->view('checkout', $page_data);
+        $this->load->view('home/footer');
+
         $hour =  $_GET['hour'];
         $date =  $_GET['date'];
         $doctor_id = $_GET['id'];
 
-        var_dump($doctor_id);
-        var_dump($hour);
-        var_dump($date);
-
+      
 
 
     }
