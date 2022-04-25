@@ -44,7 +44,7 @@ class Frontend extends MX_Controller {
 
     public function checkout($payment_request = "only_for_mobile"){
 
-        $paytm = $this->db->get_where('paymentGateway', array('name =' => 'pagarme'))->row();
+        $paytm = $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
        //var_dump( $paytm);
      if($this->ion_auth->user()->row()){
         $page_data['user'] =  $this->ion_auth->user()->row();
