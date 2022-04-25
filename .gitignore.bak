@@ -5,3 +5,8 @@ application/cache
 application/language
 !application/logs/index.html
 !application/logs/.htaccess
+/vendor/
+vendor/
+uploads/
+update/
+update_pack/ 
