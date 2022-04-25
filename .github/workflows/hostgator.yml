@@ -14,7 +14,7 @@ jobs:
     - name: 📂 Sync files
       uses: SamKirkland/FTP-Deploy-Action@4.2.0
       with:
-        server: ${{ secrets.FTP_SERVER_TESTE }}
-        username: ${{ secrets.FTP_USERNAME_TESTE}}
-        password: ${{ secrets.FTP_PASSWORD_TESTE }}
-        server-dir: psicomob/
+        server: ${{ secrets.FTP_SERVER_HOSTGATOR }}
+        username: ${{ secrets.FTP_USERNAME_HOSTGATOR}}
+        password: ${{ secrets.FTP_PASSWORD_HOSTGATOR }}
+        server-dir: /
