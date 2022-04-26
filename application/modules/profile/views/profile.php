@@ -4,6 +4,8 @@
     <section class="wrapper site-min-height">
         <!-- page start-->
         <div class="row">
+        <div class="col-md-8">
+        <div class="row">
          
     
             <section class="panel">
@@ -119,8 +121,8 @@
                                 <div class=" col-md-4 form-group">
                                     <label for="exampleInputEmail1"><?php echo lang('address'); ?></label>
                                     <input type="text" class="form-control" name="address" id="exampleInputEmail1" value='<?php
-                                    if (!empty($doctor->adress)) {
-                                        echo $doctor->adress;
+                                    if (!empty($doctor->address)) {
+                                        echo $doctor->address;
                                     }
                                     ?>'>
                                 </div>
@@ -188,8 +190,8 @@
                                     echo $profile->id;
                                 }
                                 ?>'>
-                                 </div>
-                                <div class="form-group">
+                                </div>
+                                <div class="col-md-4 form-group">
                                     <button type="submit" name="submit" class="btn btn-info pull-right"><?php echo lang('submit'); ?></button>
                                 </div>
                             </form>
