@@ -317,25 +317,17 @@ $site_name = $this->db->get('website_settings')->row()->title;
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
                             <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend#"><?php echo lang('home'); ?></a>
+                                <a class="nav-link" href="frontend">Inicio</a>
+                            </li>                        
+                                                  <li class="nav-item ml-3">
+                                <a class="nav-link" href="frontend/search"><?php echo lang('doctors'); ?></a>
                             </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend#why_choose_us"><?php echo lang('book_an_appointment'); ?></a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend#featured_services"><?php echo lang('services'); ?></a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend#doctor"><?php echo lang('doctors'); ?></a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend#portfolio"><?php echo lang('portfolio'); ?></a>
-                            </li>
+                          
                         </ul>
                     </div>
                 </div>
             </nav>
-        </div>
+        </div> 
         <div class="row ">
             <div class="col-2"></div>
             <div class="col-xl-8" style="margin: 10px;">

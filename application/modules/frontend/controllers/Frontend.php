@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Frontend extends MX_Controller {
+class Frontend extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model('frontend_model');
         $this->load->model('payment/payment_model');
@@ -23,7 +25,8 @@ class Frontend extends MX_Controller {
         $this->lang->load('system_syntax', $language);
     }
 
-    public function index() {
+    public function index()
+    {
         $data = array();
         $data['doctors'] = $this->doctor_model->getDoctor();
         $data['slides'] = $this->slide_model->getActiveSlide();
@@ -35,44 +38,113 @@ class Frontend extends MX_Controller {
         $this->load->view('frontend2', $data);
     }
 
-    public function search($search = NULL, $order = NULL, $dir = NULL) {
+    public function search($search = NULL, $order = NULL, $dir = NULL)
+    {
         $data = array();
         $data['doctors'] = $this->doctor_model->getDoctorBySearch($search, $order, $dir);
         $this->load->view('search', $data);
         $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
     }
 
-    public function checkout($payment_request = "only_for_mobile"){
+    public function checkout($payment_request = "only_for_mobile")
+    {
 
         $paytm = $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
-       //var_dump( $paytm);
-     if($this->ion_auth->user()->row()){
-        $page_data['user'] =  $this->ion_auth->user()->row();
-        $patient = $this->patient_model->getPatientWithDoctor($page_data['user']->id, $_GET['id']);
-       if($patient != NULL){
-            $patient = $patient->row();             
-        }}else{
+        //var_dump( $paytm);
+        if ($this->ion_auth->user()->row()) {
+            $page_data['user'] =  $this->ion_auth->user()->row();
+            $patient = $this->patient_model->getPatientWithDoctor($page_data['user']->id, $_GET['id']);
+            if ($patient != NULL) {
+                $patient = $patient->row();
+            }
+        } else {
             $patient = NULL;
-
         }
-        $doctor = $this->db->get_where('doctor', array('id =' =>  $_GET['id']))->row();      
+        $doctor = $this->db->get_where('doctor', array('id =' =>  $_GET['id']))->row();
         $page_data['payment_request'] = $payment_request;
-        $page_data['amount_to_pay'] = 1000;
+        $page_data['amount_to_pay'] =  $doctor->amount_to_pay;
         $page_data['discounted'] = null;
         $page_data['profile_details'] =  $paytm;
+        $page_data['doctor'] =  $doctor;
+        $page_data['date'] =   $_GET['date'];
+        $page_data['hour'] =   $_GET['hour'];
+
         $this->load->view('checkout', $page_data);
         $this->load->view('home/footer');
 
         $hour =  $_GET['hour'];
         $date =  $_GET['date'];
         $doctor_id = $_GET['id'];
-
-      
-
-
     }
 
-    public function list_hour_doctor (){
+     public function pagarme_payment() {
+            $post = $this->input->post();
+            $profile_details =  $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
+            if ($profile_details->status == 'test') {
+                $public_key = $profile_details->test_api_key;
+                $secret_key = $profile_details->encrypted_test_key;
+            } else {
+                $public_key = $profile_details->public_api_key;
+                $secret_key = $profile_details->encrypted_public_key;
+            }
+            $user =  $this->db->get_where('users', array('email =' =>  $post['email']))->row();
+
+            if ($user != NULL) {
+                $post['user_id'] = $user->id;
+                $this->patient_model->updateUserCheckout($post);
+            } else {
+                $user_add['first_name'] = $post['first_name'];
+                $user_add['last_name'] = $post['last_name'];
+                $user_add['email'] = $post['email'];
+                $user_add['password'] = $this->payment_model->soNumero($post['cpf']);
+                $user_add['cpf'] = $post['cpf'];
+                $user_id = $this->user_model->add_user_checkout($user_add);
+                $post['user_id'] = $user_id;
+            }
+            if (empty($this->user_model->has_address($post)->row_array())) {
+                $this->user_model->insert_user_address($post);
+            }
+            //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
+            $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card');
+            if ($payment['status'] == 'paid') {
+                $this->crud_model->enrol_student($post['user_id']);
+                if ($post['class'] != NULL || $post['class'] != "" || $post['class'] != " ") {
+                    $this->crud_model->enrol_a_student_automatic_class($post['class'], $post['user_id']);
+                }
+                $this->crud_model->course_purchase($post['user_id'], 'pagarme', $post['amount']);
+                $this->crud_model->insert_log_payment($post, 'pago', 'pagamento efetuado com sucesso');
+                $this->email_model->course_purchase_notification_pagarme($post['user_id'], 'pagarme', $post['amount'], $post);
+                $this->session->set_flashdata('flash_message', 'Pagamento efetuado com sucesso!');
+                $itens = $this->session->userdata('cart_items');
+                $this->session->set_userdata('cart_items', []);
+                $redirect = base_url() . 'home/checkout_success/' . $post['course_id'] . '/' . $post['user_id'];
+                echo json_encode(array('html' => $redirect, 'redirect' => true));
+            } elseif ($payment['status'] == 'waiting_payment') {
+                $dadosBoleto = $this->session->userdata('transaction');
+                $this->crud_model->insert_log_payment($post, 'processando', 'aguardando pagamento boleto');
+                $msg = $this->email_model->purchase_notification_pagarme_boleto($payment['amount'], $post, $dadosBoleto);
+                $htmlContent = $this->load->view('email/template', $msg, TRUE);
+                echo json_encode(array('html' => $htmlContent, 'situacao' => true));
+            } else {
+                if (strpos($payment['erro'], 'action_forbidden') !== false) {
+                    $payment['message'] = 'Ocorreu um erro durante o pagamento. Verifique os dados do cartão, caso de falha no sistema por favor entrar em contato com nossa equipe.';
+                }
+                if (strpos($payment['erro'], 'internal_error' !== false)) {
+                    $payment['message'] = 'Ocorreu um erro durante o pagamento. Erro interno do servidor, por favor entre em contato com a nossa equipe.';
+                }
+                $error = explode(".", $payment['erro']);
+                $msg['error_message'] = $payment['erro'];
+                $this->crud_model->insert_log_payment($post, $error[0], $error[2]);
+                $this->session->set_flashdata('error_message', $payment['message']);
+                echo json_encode(array('mensagem' => $payment['message'], 'situacao' => false));
+            }
+        }
+
+        
+   
+
+    public function list_hour_doctor()
+    {
         $date = $_POST['start'];
         $id_doctor = $_POST['id'];
         $day_week = strval(substr($date, 0, 1));
@@ -82,15 +154,13 @@ class Frontend extends MX_Controller {
         //var_dump(str_replace(' ', '', $data));
 
         $data = "";
-      //  $doctor_ion_id = $this->ion_auth->get_user_id();
-       // $user_id = 1;
+        //  $doctor_ion_id = $this->ion_auth->get_user_id();
+        // $user_id = 1;
         $event_data = $this->db->get_where('doctor', array('id' => $id_doctor))->row();
-       // var_dump($event_data->hours_available);
-        if($event_data->hours_available == NULL || $event_data->hours_available == "" ){
-            
+        // var_dump($event_data->hours_available);
+        if ($event_data->hours_available == NULL || $event_data->hours_available == "") {
+
             echo die(die(("error")));
-
-
         }
         $hours_available =  unserialize($event_data->hours_available);
         //var_dump($day_week);die;
@@ -103,8 +173,8 @@ class Frontend extends MX_Controller {
                     $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                     var_dump($liberado);
                     if (!$liberado) {
-                        md5(str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3)));
-                        $data = $data . '<div><a href="'.base_url('frontend/checkout?id='.str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3))).'&hour='.$hours.'" class="btn btn-info round buttonhours">' . $hours . '</button>
+                        md5(str_replace(' ', '', $id_doctor) . '&date=' . str_replace(' ', '', substr($date, 3)));
+                        $data = $data . '<div><a href="' . base_url('frontend/checkout?id=' . str_replace(' ', '', $id_doctor) . '&date=' . str_replace(' ', '', substr($date, 3))) . '&hour=' . $hours . '" class="btn btn-info round buttonhours">' . $hours . '</button>
                         </div>';
                     } else {
                         $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
@@ -122,7 +192,7 @@ class Frontend extends MX_Controller {
                 // echo str_replace(' ', '', substr($date, 3)).' '.$hours.':00';
                 $liberado =  $this->schedule_model->hour_compare(str_replace(' ', '', substr($date, 3)) . ' ' . $hours . ':00', $id_doctor);
                 if (!$liberado) {
-                    $data = $data . '<div><a href="'.base_url('frontend/checkout?id='.str_replace(' ', '',$id_doctor).'&date='.str_replace(' ', '', substr($date, 3))).'&hour='.$hours.'" class="btn btn-info round buttonhours">' . $hours . '</button>
+                    $data = $data . '<div><a href="' . base_url('frontend/checkout?id=' . str_replace(' ', '', $id_doctor) . '&date=' . str_replace(' ', '', substr($date, 3))) . '&hour=' . $hours . '" class="btn btn-info round buttonhours">' . $hours . '</button>
           </div>';
                 } else {
                     $data = $data . '<div><button class="btn btn round buttonhours" disabled>' . $hours . '</button>
@@ -130,15 +200,16 @@ class Frontend extends MX_Controller {
                 }
             }
         }
-     
+
         echo die(die(($data)));
     }
 
 
 
-    
 
-    public function two() {
+
+    public function two()
+    {
         $data = array();
         $data['doctors'] = $this->doctor_model->getDoctor();
         $data['slides'] = $this->slide_model->getSlide();
@@ -147,7 +218,8 @@ class Frontend extends MX_Controller {
         $this->load->view('frontendold', $data);
     }
 
-    public function addNew() {
+    public function addNew()
+    {
         $id = $this->input->post('id');
 
         $patient = $this->input->post('patient');
@@ -372,7 +444,8 @@ class Frontend extends MX_Controller {
         }
     }
 
-    function getArrayKey($s_time) {
+    function getArrayKey($s_time)
+    {
         $all_slot = array(
             0 => '12:00 PM',
             1 => '12:05 AM',
@@ -668,7 +741,8 @@ class Frontend extends MX_Controller {
         return $key;
     }
 
-    public function settings() {
+    public function settings()
+    {
         $data = array();
         $data['settings'] = $this->frontend_model->getSettings();
         $this->load->view('home/dashboard'); // just the header file
@@ -676,7 +750,8 @@ class Frontend extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    public function update() {
+    public function update()
+    {
         $id = $this->input->post('id');
         $title = $this->input->post('title');
         $description = $this->input->post('description');
@@ -832,8 +907,8 @@ class Frontend extends MX_Controller {
                         'appointment_description' => $appointment_description
                     );
                 }
-//                print_r($data);
-//                die();
+                //                print_r($data);
+                //                die();
                 //$error = array('error' => $this->upload->display_errors());
                 $this->frontend_model->updateSettings($id, $data);
                 $data2 = array();
@@ -883,7 +958,8 @@ class Frontend extends MX_Controller {
         }
     }
 
-    function getAvailableSlotByDoctorByDateByJason() {
+    function getAvailableSlotByDoctorByDateByJason()
+    {
         $data = array();
         $date = $this->input->get('date');
         if (!empty($date)) {
@@ -895,9 +971,7 @@ class Frontend extends MX_Controller {
         }
         echo json_encode($data);
     }
-
 }
 
 /* End of file appointment.php */
     /* Location: ./application/modules/appointment/controllers/appointment.php */
-    

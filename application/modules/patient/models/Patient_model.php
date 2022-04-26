@@ -321,6 +321,31 @@ class Patient_model extends CI_model {
         $this->db->update('users', $uptade_ion_user);
     }
 
+    function  updateUserCheckout($data){
+
+        $data = array(
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'cpf' => $data['cpf'],
+            'email' => $data['email'],
+            'address' => $data['address'],
+            'phone' => $data['$phone'],           
+            'postal_code' => $data['postal_code'],
+            'country' => $data['country'],
+            'state' => $data['state'],
+            'city' => $data['city'],
+            'district' => $data['district'],
+            'complement' => $data['complement'],
+            'number' => $data['number']
+          
+
+        );
+
+
+
+
+    }
+
     function getDueBalanceByPatientId($patient) {
         $query = $this->db->get_where('payment', array('patient' => $patient))->result();
         $deposits = $this->db->get_where('patient_deposit', array('patient' => $patient))->result();

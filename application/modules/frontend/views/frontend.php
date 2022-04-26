@@ -1,42 +1,306 @@
-<!doctype html>
-<html class="no-js" lang="en">
-    <?php
-    $settings = $this->frontend_model->getSettings();
-    $title = explode(' ', $settings->title);
-    ?>
-    <head>
-        <base href="<?php echo base_url(); ?>">
-        <meta charset="utf-8">
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Hospital Management </title>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
-        <link rel="shortcut icon" type="image/x-icon" href="front/img/favicon/favicon-16x16.png" />
-        <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,400i,700&display=swap" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,300,400,400i,700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="front/css/font-awesome/css/font-awesome.min.css">
-        <link rel="stylesheet" href="front/css/bootstrap/bootstrap.min.css">
-        <link rel="stylesheet" href="common/assets/bootstrap-datepicker/css/datepicker.css" />
-        <link rel="stylesheet" type="text/css" href="common/assets/bootstrap-timepicker/compiled/timepicker.css">
-        <link rel="stylesheet" href="front/css/flexslider.css"/>
-        <link href="front/assets/bxslider/jquery.bxslider.css" rel="stylesheet" />
-        <link href="front/assets/fancybox/source/jquery.fancybox.css" rel="stylesheet" />
-        <link rel="stylesheet" href="front/assets/revolution_slider/css/rs-style.css" media="screen">
-        <link rel="stylesheet" href="front/assets/revolution_slider/rs-plugin/css/settings.css" media="screen">
-        <link rel="stylesheet" href="front/css/animate/animate.min.css">
-        <link rel="stylesheet" href="front/css/style.css">
-        <link rel="stylesheet" href="front/css/responsive.css">
+<!DOCTYPE html>
+<html lang="en">
+<base href="<?php echo base_url(); ?>">
+<?php
+$settings = $this->frontend_model->getSettings();
+$title = explode(' ', $settings->title);
+$site_name = $this->db->get('website_settings')->row()->title;
 
+ ?>
+
+
+    <!-- Bootstrap Core CSS -->
+    <link rel="stylesheet" href="<?php echo site_url('front/site_assets/vendor/bootstrap/css/bootstrap.min.css'); ?>" />
+    <!-- Font-awesome -->
+
+    <head>
+    <meta charset="utf-8">
+        <title>Finalizar Pedido
+        </title>
+        <!-- SEO Meta Tags-->
+        <meta name="description" content="Psicomob">
+        <meta name="keywords" content="bootstrap, shop, e-commerce, market, modern, responsive,  business, mobile, bootstrap 4, html5, css3, jquery, js, gallery, slider, touch, creative, clean">
+        <meta name="author" content="Createx Studio">
+        <!-- Viewport-->
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Favicon and Touch Icons-->
+        <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+        <link rel="mask-icon" color="#111" href="safari-pinned-tab.svg">
+        <meta name="msapplication-TileColor" content="#111">
+        <meta name="theme-color" content="#ffffff">
+        <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
+        <link rel="stylesheet" media="screen" href="<?= base_url() ?>assets/payment/css/vendor.min.css">
+        <!-- Main Theme Styles + Bootstrap-->
+        <link rel="stylesheet" media="screen" id="main-styles" href="<?= base_url() ?>assets/payment/css/theme.min.css">
+        <!-- Customizer styles and scripts-->
+        <link rel="stylesheet" media="screen" href="<?= base_url() ?>assets/payment/customizer/customizer.min.css">
+        <link rel="stylesheet" href="<?php echo base_url() . 'assets/global/toastr/toastr.css' ?>">
+
+
+    <div class="page-title-wrapper divPedido" aria-label="Page title">
+        <!-- Google Tag Manager-->
     </head>
 
-    <body data-spy="scroll" data-target=".navbar" data-offset="20">
+</head>
+<style>
+    .topbar-texts,
+    .footer-description {
+        font-family: "Roboto", sans-serif !important;
+        font-size: 15px !important;
+    }
+
+    body {
+        background-color: #f9f9fa
+    }
+
+    .padding {
+        padding: 3rem !important
+    }
+
+    .user-card-full {
+        overflow: hidden
+    }
+
+    .card {
+        border-radius: 5px;
+        -webkit-box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+        box-shadow: 0 1px 20px 0 rgba(69, 90, 100, 0.08);
+        border: none;
+        margin-bottom: 30px
+    }
+
+    .m-r-0 {
+        margin-right: 0px
+    }
+
+    .m-l-0 {
+        margin-left: 0px
+    }
+
+    .user-card-full .user-profile {
+        border-radius: 5px 0 0 5px
+    }
+
+    .bg-c-lite-green {
+        background: -webkit-gradient(linear, left top, right top, from(#f29263), to(#ee5a6f));
+        background: linear-gradient(to right, #ee5a6f, #f29263)
+    }
+
+    .user-profile {
+        padding: 20px 0
+    }
+
+    .card-block {
+        padding: 1.25rem
+    }
+
+    .m-b-25 {
+        margin-bottom: 25px
+    }
+
+    .img-radius {
+        border-radius: 5px
+    }
+
+    h6 {
+        font-size: 14px
+    }
+
+    .card .card-block p {
+        line-height: 25px
+    }
+
+    @media only screen and (min-width: 1400px) {
+        p {
+            font-size: 14px
+        }
+    }
+
+    .card-block {
+        padding: 1.25rem
+    }
+
+    .b-b-default {
+        border-bottom: 1px solid #e0e0e0
+    }
+
+    .m-b-20 {
+        margin-bottom: 20px
+    }
+
+    .p-b-5 {
+        padding-bottom: 5px !important
+    }
+
+    .card .card-block p {
+        line-height: 25px
+    }
+
+    .m-b-10 {
+        margin-bottom: 10px
+    }
+
+    .text-muted {
+        color: #919aa3 !important
+    }
+
+    .b-b-default {
+        border-bottom: 1px solid #e0e0e0
+    }
+
+    .f-w-600 {
+        font-weight: 600
+    }
+
+    .m-b-20 {
+        margin-bottom: 20px
+    }
+
+    .m-t-40 {
+        margin-top: 20px
+    }
+
+    .p-b-5 {
+        padding-bottom: 5px !important
+    }
+
+    .m-b-10 {
+        margin-bottom: 10px
+    }
+
+    .m-t-40 {
+        margin-top: 20px
+    }
+
+    .user-card-full .social-link li {
+        display: inline-block
+    }
+
+    .user-card-full .social-link li a {
+        font-size: 20px;
+        margin: 0 10px 0 0;
+        -webkit-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out
+    }
+</style>
+
+<!-- BEGIN: Main Menu-->
+<style>
+    .slider {
+
+        width: 95%;
+        margin: 30px auto;
+        min-width: 100px;
+    }
+
+    .slick-slide {
+        margin: 0px 0px;
+    }
+
+    .slick-slide img {
+        width: 95%;
+    }
+
+    .slick-next,
+    .slick-arrow {
+        height: 50px;
 
 
-        <header>
-            <nav class="navbar navbar-expand-lg py-3 fixed-top scrollTop bg-light">
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+        color: black;
+    }
+
+
+    .slick-slide {
+        transition: all ease-in-out .2s;
+
+    }
+
+    .slick-active {}
+
+    .slick-current {}
+
+    .box {
+
+        min-width: 100px;
+        height: 300px;
+
+
+    }
+
+    .scrolling-wrapper {
+
+
+        display: flex;
+        flex-wrap: nowrap;
+
+    }
+
+
+
+    .hours {
+        width: 100%;
+        height: 400px;
+        border: 1px solid black;
+    }
+
+    .buttonhours {
+        height: 50px;
+        position: relative;
+        margin: 5px;
+        margin-left: 10px;
+        width: 97%;
+        border-style: 5px solid red;
+
+    }
+
+    .button-week {
+        position: relative;
+        margin-bottom: 2px;
+        margin-left: 10px;
+
+        text-align: center;
+        font-weight: bold;
+        font-size: 1.1rem;
+        color: white;
+        height: 65px;
+        width: 90%;
+
+    }
+</style>
+
+<body onload="">
+
+
+    <!---------------- Start Main Navbar ---------------->
+    <div id="header_menu_top" class="bg-dark text-white pt-3">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="topbar-texts"><?php echo $settings->address; ?></p>
+                </div>
+                <div class="col-md-4">
+                    <p class="topbar-texts float-right ml-3">
+                        <i class="fa fa-phone" aria-hidden="true"></i> &nbsp;
+                        <span><?php echo $settings->phone; ?></span>
+                    </p>
+                </div>
+                <div class="col-md-2">
+                    <a href="<?php echo site_url('auth/login') ?>" class="float-right"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; <span>Sign In</span></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="header">
+        <div class="navbar-wrap">
+            <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
-                    <a class="navbar-brand" href="frontend#header">
+                    <a class="navbar-brand" href="frontend#">
                         <?php
                         if (!empty($settings->logo)) {
                             if (file_exists($settings->logo)) {
@@ -49,22 +313,31 @@
                         }
                         ?>
                     </a>
-                    <button class="navbar-toggler" data-toggle="collapse" data-target="#bar"> 
-                        <span><i class="fa fa-bars"></i></span>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
                     </button>
-                    <div class="collapse navbar-collapse" id="bar">
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
                         <ul class="navbar-nav ml-auto">
-                            <li class="nav-item"><a class="nav-link active" href="#header">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="frontend#hospital-management">Book Appointment</a></li>
-                            <li class="nav-item"><a class="nav-link" href="frontend#service">Service</a></li>
-                            <li class="nav-item"><a class="nav-link" href="frontend#package">Featured Doctor</a></li>
-                            <li class="nav-item"><a class="nav-link" href="frontend#footer">Contact</a></li>
+                            <li class="nav-item ml-3">
+                                <a class="nav-link" href="frontend">Inicio</a>
+                            </li>                        
+                                                  <li class="nav-item ml-3">
+                                <a class="nav-link" href="frontend/search"><?php echo lang('doctors'); ?></a>
+                            </li>
+                          
                         </ul>
                     </div>
                 </div>
             </nav>
-        </header>
-
+        </div>
+        <div class="row ">
+             <!-- Page Content-->
+    <div  class="container pb-5 mb-sm-4 mt-n2 mt-md-n3 divPedido">
+        <?php if (!empty($error_message)): ?>
+            <div class="alert alert-danger" role="alert">
+                <?= $error_message ?>
+            </div>
 
         <section id="header" class="py-5">
             <!-- revolution slider start -->
