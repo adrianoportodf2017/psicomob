@@ -8,15 +8,23 @@ class Profile extends MX_Controller {
     function __construct() {
         parent::__construct();
         $this->load->model('profile_model');
+        $this->load->model('doctor/doctor_model');
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
     }
 
     public function index() {
+        $ion_user_id = $this->ion_auth->get_user_id();
+        $group_id = $this->profile_model->getUsersGroups($ion_user_id)->row()->group_id;
+        $group_name = $this->profile_model->getGroups($group_id)->row()->name;
+        $group_name = strtolower($group_name);
+
         $data = array();
         $id = $this->ion_auth->get_user_id();
+        var_dump($this->ion_auth->get_user_id());
         $data['profile'] = $this->profile_model->getProfileById($id);
+        $data['doctor'] = $this->doctor_model->getDoctorByIonUserId($id);
         $this->load->view('home/dashboard'); // just the header file
         $this->load->view('profile', $data);
         $this->load->view('home/footer'); // just the footer file
@@ -27,6 +35,23 @@ class Profile extends MX_Controller {
         $name = $this->input->post('name');
         $password = $this->input->post('password');
         $email = $this->input->post('email');
+        $address = $this->input->post('address');
+        $phone = $this->input->post('phone');
+        $cpf = $this->input->post('cpf');
+        $postal_code = $this->input->post('postal_code');
+        $country = $this->input->post('country');
+        $state = $this->input->post('state');
+        $city = $this->input->post('city');
+        $district = $this->input->post('district');
+        $complement = $this->input->post('complement');
+        $number = $this->input->post('number');
+        $date_of_birth = $this->input->post('date_of_birth');
+        $biography = $this->input->post('biography');
+        $crp = $this->input->post('crp');
+        $specialties = $this->input->post('specialties');
+        $facebook = $this->input->post('facebook');
+        $instagram = $this->input->post('instagram');
+        $amount_to_pay = $this->input->post('amount_to_pay');
 
         $data['profile'] = $this->profile_model->getProfileById($id);
         if ($data['profile']->email != $email) {
@@ -35,6 +60,13 @@ class Profile extends MX_Controller {
                 redirect('profile');
             }
         }
+
+        $ion_user_id = $this->ion_auth->get_user_id();
+            $group_id = $this->profile_model->getUsersGroups($ion_user_id)->row()->group_id;
+            $group_name = $this->profile_model->getGroups($group_id)->row()->name;
+            $group_name = strtolower($group_name);
+
+
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
@@ -45,7 +77,7 @@ class Profile extends MX_Controller {
             $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[5]|max_length[100]|xss_clean');
         }
         // Validating Email Field
-        $this->form_validation->set_rules('email', 'Email', 'trim|required|min_length[5]|max_length[100]|xss_clean');
+       
         if ($this->form_validation->run() == FALSE) {
             $data = array();
             $id = $this->ion_auth->get_user_id();
@@ -58,13 +90,31 @@ class Profile extends MX_Controller {
             $data = array(
                 'name' => $name,
                 'email' => $email,
+                'address' => $address,
+                'phone' => $phone,
+                'cpf' => $cpf,
+                'postal_code' => $postal_code,
+                'country' => $country,
+                'state' => $state,
+                'city' => $city,
+                'district' => $district,
+                'complement' => $complement,
+                'date_of_birth' => $date_of_birth,
+                'number' => $number,
+                'biography' => $biography,
+                'crp' => $crp,
+                'specialties' => $specialties,
+                'facebook' => $facebook,
+                'instagram' => $instagram,
+                'amount_to_pay' => $amount_to_pay,
+
             );
 
+            var_dump($data);;
+
             $username = $this->input->post('name');
-            $ion_user_id = $this->ion_auth->get_user_id();
-            $group_id = $this->profile_model->getUsersGroups($ion_user_id)->row()->group_id;
-            $group_name = $this->profile_model->getGroups($group_id)->row()->name;
-            $group_name = strtolower($group_name);
+            
+            //var_dump($group_name);die;
             if (empty($password)) {
                 $password = $this->db->get_where('users', array('id' => $ion_user_id))->row()->password;
             } else {
@@ -77,7 +127,7 @@ class Profile extends MX_Controller {
             $this->session->set_flashdata('feedback', lang('updated'));
 
             // Loading View
-            redirect('profile');
+            //redirect('profile');
         }
     }
 

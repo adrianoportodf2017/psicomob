@@ -358,7 +358,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                                             <div class="m-b-25"> <img src="<?= $doctor->img_url ?>" class="img-radius" alt="User-Profile-Image" style="max-width: 200px; width: 150px; border-radius: 50%;"> </div>
                                                         </a>
                                                     <?php } ?>
-                                                    <br><b>R$ 95 / 50 MINUTOS</b><p>
+                                                    <br><b>R$ <?php echo number_format($doctor->amount_to_pay, '2', ',', '.') ?> / 50 MINUTOS</b><p>
 
                                                     
                                                 </div>

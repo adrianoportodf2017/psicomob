@@ -87,3 +87,4 @@ public function upload_user_image($user_id) {
     }
 
 }
+}

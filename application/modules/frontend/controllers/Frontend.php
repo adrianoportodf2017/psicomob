@@ -58,7 +58,7 @@ class Frontend extends MX_Controller {
         $doctor = $this->db->get_where('doctor', array('id =' =>  $_GET['id']))->row();      
         $page_data['payment_request'] = $payment_request;
         $page_data['amount_to_pay'] = 1000;
-        $page_data['discounted'] = 950;
+        $page_data['discounted'] = null;
         $page_data['profile_details'] =  $paytm;
         $this->load->view('checkout', $page_data);
         $this->load->view('home/footer');

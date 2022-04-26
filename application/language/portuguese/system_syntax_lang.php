@@ -784,6 +784,7 @@ $lang['encrypted_test_key'] = 'Chave de teste Criptografada';
 $lang['encrypted_public_key'] = 'Chave Publica Criptografada'; 
 $lang['public_api_key'] = 'Chave da API Publica';  
 $lang['enable_slip'] = 'Habilitar rateio';
+$lang['amount_to_pay'] = 'Valor da Consulta';
 
 
 
