@@ -22,7 +22,6 @@ class Profile extends MX_Controller {
 
         $data = array();
         $id = $this->ion_auth->get_user_id();
-        var_dump($this->ion_auth->get_user_id());
         $data['profile'] = $this->profile_model->getProfileById($id);
         $data['doctor'] = $this->doctor_model->getDoctorByIonUserId($id);
         $this->load->view('home/dashboard'); // just the header file
@@ -110,7 +109,6 @@ class Profile extends MX_Controller {
 
             );
 
-            var_dump($data);;
 
             $username = $this->input->post('name');
             
@@ -127,7 +125,7 @@ class Profile extends MX_Controller {
             $this->session->set_flashdata('feedback', lang('updated'));
 
             // Loading View
-            //redirect('profile');
+            redirect('profile');
         }
     }
 
