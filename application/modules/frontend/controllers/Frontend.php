@@ -116,7 +116,7 @@ class Frontend extends MX_Controller
             $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@example.com';
         }
         if (!empty($p_name)) {
-            $password = $p_name . '-' . rand(1, 100000000);
+            $password = $this->input->post('cpf');
         }
 
         $data_p = array(
@@ -164,9 +164,7 @@ class Frontend extends MX_Controller
                 $this->email->to($p_email);
                 $this->email->subject($subject);
                 $this->email->message($message);
-
-
-                $this->email->send(); echo 'teste cadastro'; die;
+                $this->email->send(); 
 
         //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
         $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card');
