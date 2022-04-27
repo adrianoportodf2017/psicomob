@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group row mb-3">
-                                                                       <div class="col-md-10">
+                                                                       <div class="col-md-8">
                                         <div class="custom-control custom-checkbox">
                                             <input type="checkbox" class="custom-control-input" name="enable_card_cred" id="enable_card_cred" value="1" <?php if ($settings->enable_card_cred == 1) echo 'checked'; ?>>
                                             <label class="custom-control-label" for="enable_card_cred"><?php echo lang('enable_card_cred'); ?></label>
@@ -130,6 +130,37 @@
                                             <label class="custom-control-label" for="enable_slip"><?php echo lang('enable_slip'); ?></label>
                                         </div>
                                     </div> </div>  
+                                    <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label" for="percentage_doctor"><?php echo lang('percentage_doctor'); ?></label>
+                                    <div class="col-md-10">
+                                            <input type="text" class="form-control" name="percentage_doctor" id="percentage_doctor" value="<?php
+                                        if (!empty($settings->percentage_doctor)) {
+                                            echo $settings->percentage_doctor;  }
+                                        ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label"  for="percentage"><?php echo lang('percentage'); ?></label>
+                                    <div class="col-md-10">
+                                            <input type="text" class="form-control" name="percentage" id="percentage" value="<?php
+                                        if (!empty($settings->percentage)) {
+                                            echo $settings->percentage;  }
+                                        ?>" >
+                                        </div>
+                                    </div>
+                                    <div class="form-group row mb-3">
+                                    <label class="col-md-2 col-form-label"  for="recipient_id"><?php echo lang('recipient_id'); ?></label>
+                                    <div class="col-md-10">
+                                    <input type="text" class="form-control" name="recipient_id" id="recipient_id" value="<?php
+                                        if (!empty($settings->recipient_id)) {
+                                            echo $settings->recipient_id;  }
+                                        ?>" >
+                                        </div>
+                                    </div>
+                                  
+                                
+                                
+                                </div> 
                                     <hr>                             
                            
                                 <?php } ?>

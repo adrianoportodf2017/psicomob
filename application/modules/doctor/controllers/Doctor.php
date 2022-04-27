@@ -60,6 +60,8 @@ class Doctor extends MX_Controller {
         $facebook = $this->input->post('facebook');
         $instagram = $this->input->post('instagram');
         $linkedin = $this->input->post('linkedin');
+        $recipient_id = $this->input->post('recipient_id');
+        $amount_to_pay = $this->input->post('amount_to_pay');
 
 
         $this->load->library('form_validation');
@@ -77,7 +79,6 @@ class Doctor extends MX_Controller {
         // Validating Phone Field           
         $this->form_validation->set_rules('phone', 'Phone', 'trim|required|min_length[1]|max_length[50]|xss_clean');
         // Validating Phone Field           
-        $this->form_validation->set_rules('profile', 'Profile', 'trim|required|min_length[1]|max_length[50]|xss_clean');
 
 
         if ($this->form_validation->run() == FALSE) {
@@ -148,6 +149,9 @@ class Doctor extends MX_Controller {
                     'facebook' => $facebook,
                     'instagram' => $instagram,
                     'linkedin' => $linkedin,
+                    'recipient_id' => $recipient_id,
+                    'amount_to_pay' => $amount_to_pay,
+                    
                 );
             } else {
                 //$error = array('error' => $this->upload->display_errors());
@@ -175,6 +179,10 @@ class Doctor extends MX_Controller {
                     'facebook' => $facebook,
                     'instagram' => $instagram,
                     'linkedin' => $linkedin,
+                    'recipient_id' => $recipient_id,
+                    'amount_to_pay' => $amount_to_pay,
+
+                    
                 );
             }
             $username = $this->input->post('name');

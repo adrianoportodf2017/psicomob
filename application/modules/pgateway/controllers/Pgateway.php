@@ -71,6 +71,9 @@ class pgateway extends MX_Controller {
         $secret = $this->input->post('secret');
         $publish = $this->input->post('publish');
         $public_key = $this->input->post('public_key');
+        $percentage_doctor = $this->input->post('percentage_doctor');
+        $percentage = $this->input->post('percentage');
+        $recipient_id = $this->input->post('recipient_id');
         $pgateway = $this->pgateway_model->getPaymentGatewaySettingsById($id);
         $store_id = $this->input->post('store_id');
         $store_password = $this->input->post('store_password');
@@ -227,6 +230,9 @@ class pgateway extends MX_Controller {
                     'max_installments' => $max_installments,
                     'interest_rate' => $interest_rate,
                     'enable_card_cred' => $enable_card_cred,
+                    'percentage_doctor' => $percentage_doctor,
+                    'percentage' => $percentage,
+                    'recipient_id' => $recipient_id,
                     'enable_slip' => $enable_slip
                 );
 

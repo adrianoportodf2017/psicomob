@@ -240,6 +240,14 @@
                         <label for="exampleInputEmail1"><?php echo lang('linkedin'); ?></label>
                         <input type="text" class="form-control" name="linkedin" id="exampleInputEmail1" value='' placeholder="">
                     </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('recipient_doctor'); ?></label>
+                        <input type="text" class="form-control" name="recipient_id" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('amount_to_pay'); ?></label>
+                        <input type="text" class="form-control" name="amount_to_pay" id="exampleInputEmail1" value='' placeholder="">
+                    </div>
                     <div class="form-group last col-md-6">
                         <label class="control-label">Image Upload</label>
                         <div class="">
@@ -409,6 +417,15 @@
                         <div class="linkedinClass"></div>
                     </div>
 
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('recipient_id'); ?></label>
+                        <div class="recipient_idClass"></div>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="exampleInputEmail1"><?php echo lang('amount_to_pay'); ?></label>
+                        <div class="amount_to_payClass"></div>
+                    </div>
+
 
                 </form>
 
@@ -461,6 +478,8 @@
                 $('#editDoctorForm').find('[name="facebook"]').val(response.doctor.facebook).end()
                 $('#editDoctorForm').find('[name="instagram"]').val(response.doctor.instagram).end()
                 $('#editDoctorForm').find('[name="linkedin"]').val(response.doctor.linkedin).end()
+                $('#editDoctorForm').find('[name="recipient_id"]').val(response.doctor.recipient_id).end()
+                $('#editDoctorForm').find('[name="amount_to_pay"]').val(response.doctor.amount_to_pay).end()
 
 
                 if (typeof response.doctor.img_url !== 'undefined' && response.doctor.img_url != '') {
@@ -505,6 +524,8 @@
             $('.facebookClass').html("").end()
             $('.instagramClass').html("").end()
             $('.linkedinClass').html("").end()
+            $('.recipient_idClass').html("").end()
+            $('.amount_to_payClass').html("").end()
             $.ajax({
                 url: 'doctor/editDoctorByJason?id=' + iid,
                 method: 'GET',
@@ -535,6 +556,8 @@
                 $('.facebookClass').append(response.doctor.facebook).end()
                 $('.instagramClass').append(response.doctor.instagram).end()
                 $('.linkedinClass').append(response.doctor.linkedin).end()
+                $('.recipient_idClass').append(response.doctor.recipient_id).end()
+                $('.amount_to_payClass').append(response.doctor.amount_to_pay).end()
                
 
                 if (typeof response.doctor.img_url !== 'undefined' && response.doctor.img_url != '') {

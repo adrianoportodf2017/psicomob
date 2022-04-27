@@ -74,9 +74,13 @@ class Frontend extends MX_Controller
     }
 
     public function pagarme_payment()
+    
     {
-        $patient_id = '';
         $post = $this->input->post();
+       // var_dump($post);
+        $doctor = $this->db->get_where('doctor', array('id =' =>  $post['doctor']))->row();
+        $patient_id = '';
+       
         $profile_details =  $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
         if ($profile_details->status == 'test') {
             $public_key = $profile_details->test_api_key;
@@ -134,7 +138,7 @@ class Frontend extends MX_Controller
             $this->patient_model->updatePatient($patient->id, $data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
 
-            echo 'teste cadastro'; 
+           // echo 'teste cadastro'; 
 
            // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
            // redirect($redirect);
@@ -167,20 +171,12 @@ class Frontend extends MX_Controller
                 $this->email->send(); 
 
         //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
-        $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card');
+        $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card', $doctor);
         if ($payment['status'] == 'paid') {
-            $this->crud_model->enrol_student($post['user_id']);
-            if ($post['class'] != NULL || $post['class'] != "" || $post['class'] != " ") {
-                $this->crud_model->enrol_a_student_automatic_class($post['class'], $post['user_id']);
-            }
-            $this->crud_model->course_purchase($post['user_id'], 'pagarme', $post['amount']);
-            $this->crud_model->insert_log_payment($post, 'pago', 'pagamento efetuado com sucesso');
-            $this->email_model->course_purchase_notification_pagarme($post['user_id'], 'pagarme', $post['amount'], $post);
-            $this->session->set_flashdata('flash_message', 'Pagamento efetuado com sucesso!');
-            $itens = $this->session->userdata('cart_items');
-            $this->session->set_userdata('cart_items', []);
+          
             $redirect = base_url() . 'home/checkout_success/' . $post['course_id'] . '/' . $post['user_id'];
-            echo json_encode(array('html' => $redirect, 'redirect' => true));
+            echo 'deu certo';
+            echo json_encode(array('html' => $redirect, 'redirect' => true)); die;
         } elseif ($payment['status'] == 'waiting_payment') {
             $dadosBoleto = $this->session->userdata('transaction');
             $this->crud_model->insert_log_payment($post, 'processando', 'aguardando pagamento boleto');
@@ -196,7 +192,6 @@ class Frontend extends MX_Controller
             }
             $error = explode(".", $payment['erro']);
             $msg['error_message'] = $payment['erro'];
-            $this->crud_model->insert_log_payment($post, $error[0], $error[2]);
             $this->session->set_flashdata('error_message', $payment['message']);
             echo json_encode(array('mensagem' => $payment['message'], 'situacao' => false));
         }

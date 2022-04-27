@@ -74,42 +74,34 @@ class Payment_model extends CI_Model {
         }
     }
     // VALIDATE PAGAR.ME PAYMENT
-    public function pagarme_payment($post = "", $public_key = "", $payment_method = "credit_card") {
+    public function pagarme_payment($post = "", $public_key = "", $payment_method = "credit_card", $doctor) {
+    
         require_once(APPPATH . '../vendor/autoload.php');
+        $paytm = $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
         $pagarme = new PagarMe\Client($post['public_key']);
-        $user_details = $this->user_model->get_all_user($post['user_id'])->row_array();
-        $user_address = $this->user_model->has_address($post)->row_array();
-        $telefones = [];
-        if (!empty($post['celular'])) {
-            array_push($telefones, '+55' . $this->soNumero($post['celular']));
+        $telefones = []; 
+        if (!empty($post['phone'])) {
+            array_push($telefones, '+55' . $this->soNumero($post['phone']));
         }
-        if (!empty($post['telefone'])) {
-            array_push($telefones, '+55' . $this->soNumero($post['telefone']));
-        }
+                    
         $itens = [];
         $counter = 0;
-        $split_rules = $this->crud_model->list_profile_user_payment($post['profile_id']);
-        $parcelas = $this->payment_model->checkar_taxa_juros($post['public_key'], $post['amount'], $post['course_id']);
-        $course_details = $this->crud_model->get_course_by_id($post['course_id'])->row_array();
-        $instructor_details = $this->user_model->get_all_user($course_details['user_id'])->row_array();
-        if ($course_details['discounted_price'] > '0' && $course_details['discounted_price'] < $course_details['price'] || $course_details['discounted_price'] > 0 && $course_details['discounted_price'] < $course_details['price']) {
-            $page_data['amount_to_pay'] = $course_details['discounted_price'];
-            $desconto = $course_details['price'] - $course_details['discounted_price'];
-            $page_data['total'] = $course_details['price'] - $desconto;
-            $page_data['amount_to_pay'] = $page_data['total'];
-        } else {
-            $page_data['amount_to_pay'] = $course_details['price'];
-        }
-        $i = 0;
-        foreach($split_rules as $user) {
-            $split[$i] = [
-                'percentage' => $user->percentage,
-                'recipient_id' => $user->recipient_id,
+        $parcelas = $this->payment_model->checkar_taxa_juros($post['public_key'], $post['amount'], $free_installments = NULL , $max_installments  = NULL , $insterest_rate = NULL );
+        $page_data['amount_to_pay'] = $post['amount'] / 100;
+                  $split['0'] = [
+                'percentage' => $paytm->percentage_doctor,
+                'recipient_id' => $doctor->recipient_id,
                 'charge_processing_fee' => true,
                 'liable' => true
             ];
-            $i++;
-        }
+            $split['1'] = [
+                'percentage' => $paytm->percentage,
+                'recipient_id' => $paytm->recipient_id,
+                'charge_processing_fee' => true,
+                'liable' => true
+            ];
+           
+        
         if($post['parcelas'] > 1 || $post['parcelas'] > '1') {
             foreach ($parcelas->installments as $parcela):
                 if ($parcela->installment == $post['parcelas']) {
@@ -127,7 +119,7 @@ class Payment_model extends CI_Model {
             $amount = preg_replace("/[^0-9]/", "", $amount);
         }
 
-        if(!isset($user_details['first_name']) || $user_details['first_name'] == " " || $user_details['first_name'] == "" || $user_details['first_name'] == null) {
+        if(!isset($post['first_name']) || $post['first_name'] == " " || $post['first_name'] == "" || $post['first_name'] == null) {
             $user_details['first_name'] = $post['first_name'];
             $user_details['last_name'] = $post['last_name'];
         }
@@ -137,8 +129,8 @@ class Payment_model extends CI_Model {
             $amount = preg_replace("/[^0-9]/", "", $amount);
         }
         $itens[] = [
-            'id' => $post['course_id'],
-            'title' => $course_details['title'],
+            'id' => $doctor->id,
+            'title' => 'Agendamento de Consulta '.$doctor->name,
             'unit_price' => (int) $amount,
             'quantity' => 1,
             'tangible' => false
@@ -154,7 +146,7 @@ class Payment_model extends CI_Model {
             'amount' => (int) $amount,
             'payment_method' => $payment_method,
             'customer' => [
-                'external_id' => $user_details['id'],
+                'external_id' => $doctor->id,
                 'name' => $post['first_name'] . " " . $post['last_name'],
                 'email' => $post['email'],
                 'type' => $type,
@@ -171,12 +163,12 @@ class Payment_model extends CI_Model {
                 'name' => $post['first_name'] . " " . $post['last_name'],
                 'address' => [
                     'country' => 'br',
-                    'street' => $post['endereco'],
-                    'street_number' => $post['numero'],
-                    'state' => $post['estado'],
-                    'city' => $post['cidade'],
-                    'neighborhood' => $post['bairro'],
-                    'zipcode' => $this->soNumero($post['cep'])
+                    'street' => $post['adress'],
+                    'street_number' => $post['number'],
+                    'state' => $post['state'],
+                    'city' => $post['city'],
+                    'neighborhood' => $post['district'],
+                    'zipcode' => $this->soNumero($post['postal_code'])
                 ]
             ],
             'items' => $itens,

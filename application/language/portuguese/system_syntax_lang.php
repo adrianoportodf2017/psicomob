@@ -785,6 +785,10 @@ $lang['encrypted_public_key'] = 'Chave Publica Criptografada';
 $lang['public_api_key'] = 'Chave da API Publica';  
 $lang['enable_slip'] = 'Habilitar rateio';
 $lang['amount_to_pay'] = 'Valor da Consulta';
+$lang['percentage_doctor'] = 'Porcentagem valor da consulta para o Psicólogo';
+$lang['percentage'] = 'Porcentagem valor da consulta para a empresa';
+$lang['recipient_id'] = 'Código do recebedor (no caso a empresa)';
+$lang['recipient_doctor'] = 'Código do recebedor (no caso Doutor)';
 
 
 
