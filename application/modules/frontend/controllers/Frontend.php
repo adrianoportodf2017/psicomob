@@ -71,77 +71,137 @@ class Frontend extends MX_Controller
 
         $this->load->view('checkout', $page_data);
         $this->load->view('home/footer');
-
-        $hour =  $_GET['hour'];
-        $date =  $_GET['date'];
-        $doctor_id = $_GET['id'];
     }
 
-     public function pagarme_payment() {
-            $post = $this->input->post();
-            $profile_details =  $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
-            if ($profile_details->status == 'test') {
-                $public_key = $profile_details->test_api_key;
-                $secret_key = $profile_details->encrypted_test_key;
-            } else {
-                $public_key = $profile_details->public_api_key;
-                $secret_key = $profile_details->encrypted_public_key;
-            }
-            $user =  $this->db->get_where('users', array('email =' =>  $post['email']))->row();
-
-            if ($user != NULL) {
-                $post['user_id'] = $user->id;
-                $this->patient_model->updateUserCheckout($post);
-            } else {
-                $user_add['first_name'] = $post['first_name'];
-                $user_add['last_name'] = $post['last_name'];
-                $user_add['email'] = $post['email'];
-                $user_add['password'] = $this->payment_model->soNumero($post['cpf']);
-                $user_add['cpf'] = $post['cpf'];
-                $user_id = $this->user_model->add_user_checkout($user_add);
-                $post['user_id'] = $user_id;
-            }
-            if (empty($this->user_model->has_address($post)->row_array())) {
-                $this->user_model->insert_user_address($post);
-            }
-            //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
-            $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card');
-            if ($payment['status'] == 'paid') {
-                $this->crud_model->enrol_student($post['user_id']);
-                if ($post['class'] != NULL || $post['class'] != "" || $post['class'] != " ") {
-                    $this->crud_model->enrol_a_student_automatic_class($post['class'], $post['user_id']);
-                }
-                $this->crud_model->course_purchase($post['user_id'], 'pagarme', $post['amount']);
-                $this->crud_model->insert_log_payment($post, 'pago', 'pagamento efetuado com sucesso');
-                $this->email_model->course_purchase_notification_pagarme($post['user_id'], 'pagarme', $post['amount'], $post);
-                $this->session->set_flashdata('flash_message', 'Pagamento efetuado com sucesso!');
-                $itens = $this->session->userdata('cart_items');
-                $this->session->set_userdata('cart_items', []);
-                $redirect = base_url() . 'home/checkout_success/' . $post['course_id'] . '/' . $post['user_id'];
-                echo json_encode(array('html' => $redirect, 'redirect' => true));
-            } elseif ($payment['status'] == 'waiting_payment') {
-                $dadosBoleto = $this->session->userdata('transaction');
-                $this->crud_model->insert_log_payment($post, 'processando', 'aguardando pagamento boleto');
-                $msg = $this->email_model->purchase_notification_pagarme_boleto($payment['amount'], $post, $dadosBoleto);
-                $htmlContent = $this->load->view('email/template', $msg, TRUE);
-                echo json_encode(array('html' => $htmlContent, 'situacao' => true));
-            } else {
-                if (strpos($payment['erro'], 'action_forbidden') !== false) {
-                    $payment['message'] = 'Ocorreu um erro durante o pagamento. Verifique os dados do cartão, caso de falha no sistema por favor entrar em contato com nossa equipe.';
-                }
-                if (strpos($payment['erro'], 'internal_error' !== false)) {
-                    $payment['message'] = 'Ocorreu um erro durante o pagamento. Erro interno do servidor, por favor entre em contato com a nossa equipe.';
-                }
-                $error = explode(".", $payment['erro']);
-                $msg['error_message'] = $payment['erro'];
-                $this->crud_model->insert_log_payment($post, $error[0], $error[2]);
-                $this->session->set_flashdata('error_message', $payment['message']);
-                echo json_encode(array('mensagem' => $payment['message'], 'situacao' => false));
-            }
+    public function pagarme_payment()
+    {
+        $patient_id = '';
+        $post = $this->input->post();
+        $profile_details =  $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
+        if ($profile_details->status == 'test') {
+            $public_key = $profile_details->test_api_key;
+            $secret_key = $profile_details->encrypted_test_key;
+        } else {
+            $public_key = $profile_details->public_api_key;
+            $secret_key = $profile_details->encrypted_public_key;
         }
 
-        
-   
+        $user =  $this->db->get_where('users', array('email =' =>  $post['email']))->row();
+        if ($user != NULL) {
+            $ion_user_id = $user->id;
+            $patient =  $this->db->get_where('patient', array('ion_user_id =' =>  $ion_user_id))->row();
+            if ($patient != NULL) {
+                $patient_id = $patient->patient_id;
+            }
+        } else {
+
+            $add_date = date('m/d/y');
+            $registration_time = time();
+            $patient_add_date = $add_date;
+            $patient_registration_time = $registration_time;
+            $patient_id = rand(10000, 1000000);
+
+        }
+        $p_name = $this->input->post('first_name').' '.$this->input->post('last_name');
+        $p_email = $this->input->post('email');
+        $p_phone = $this->input->post('phone');
+        //$p_age = $this->input->post('p_age');
+       // $p_gender = $this->input->post('p_gender');
+        $username = $this->input->post('email');
+
+
+        if (empty($p_email)) {
+            $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@example.com';
+        }
+        if (!empty($p_name)) {
+            $password = $p_name . '-' . rand(1, 100000000);
+        }
+
+        $data_p = array(
+            'patient_id' => $patient_id,
+            'name' => $p_name,
+            'email' => $p_email,
+            'phone' => $p_phone,
+            //'sex' => $p_gender,
+            //'age' => $p_age,
+            'add_date' => $patient_add_date,
+            'registration_time' => $patient_registration_time,
+            'how_added' => 'from_appointment'
+        );
+        if ($this->ion_auth->email_check($p_email)) {
+            $this->patient_model->updatePatient($data_p, $ion_user_id);
+            echo 'teste cadastro'; die;
+
+           // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
+           // redirect($redirect);
+        } else {
+            $dfg = 5;
+            $this->ion_auth->register($username, $password, $p_email, $dfg);
+            $ion_user_id = $this->db->get_where('users', array('email' => $p_email))->row()->id;
+            $this->patient_model->insertPatient($data_p);
+            $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
+            $id_info = array('ion_user_id' => $ion_user_id);
+            $this->patient_model->updatePatient($patient_user_id, $id_info);
+        }
+        $patient = $patient_user_id;
+
+        $mail_provider = $this->settings_model->getSettings()->emailtype;
+                $email_settings = $this->email_model->getEmailSettingsByType($mail_provider);
+                $settngsname = $this->settings_model->getSettings()->system_vendor;
+                $base_url = str_replace(array('http://', 'https://', '/'), '', base_url());
+                $subject = $base_url . ' - Detalhes do registro';
+                $message = 'Olá ' . $p_name . ',<br> Seja bem vindo a Psicomob. <br><br> Aqui estão os detalhes do seu login .<br>  Link: ' . base_url() . 'auth/login <br> Username: ' . $p_email . ' <br> Password: ' . $password . '<br><br> Obrigado, <br>' . $this->settings->title;
+                if ($mail_provider == 'Domain Email') {
+                    $this->email->from($email_settings->admin_email, $settngsname);
+                }
+                if ($mail_provider == 'Smtp') {
+                    $this->email->from($email_settings->user, $settngsname);
+                }
+                $this->email->to($p_email);
+                $this->email->subject($subject);
+                $this->email->message($message);
+
+
+                $this->email->send(); echo 'teste cadastro'; die;
+
+        //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
+        $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card');
+        if ($payment['status'] == 'paid') {
+            $this->crud_model->enrol_student($post['user_id']);
+            if ($post['class'] != NULL || $post['class'] != "" || $post['class'] != " ") {
+                $this->crud_model->enrol_a_student_automatic_class($post['class'], $post['user_id']);
+            }
+            $this->crud_model->course_purchase($post['user_id'], 'pagarme', $post['amount']);
+            $this->crud_model->insert_log_payment($post, 'pago', 'pagamento efetuado com sucesso');
+            $this->email_model->course_purchase_notification_pagarme($post['user_id'], 'pagarme', $post['amount'], $post);
+            $this->session->set_flashdata('flash_message', 'Pagamento efetuado com sucesso!');
+            $itens = $this->session->userdata('cart_items');
+            $this->session->set_userdata('cart_items', []);
+            $redirect = base_url() . 'home/checkout_success/' . $post['course_id'] . '/' . $post['user_id'];
+            echo json_encode(array('html' => $redirect, 'redirect' => true));
+        } elseif ($payment['status'] == 'waiting_payment') {
+            $dadosBoleto = $this->session->userdata('transaction');
+            $this->crud_model->insert_log_payment($post, 'processando', 'aguardando pagamento boleto');
+            $msg = $this->email_model->purchase_notification_pagarme_boleto($payment['amount'], $post, $dadosBoleto);
+            $htmlContent = $this->load->view('email/template', $msg, TRUE);
+            echo json_encode(array('html' => $htmlContent, 'situacao' => true));
+        } else {
+            if (strpos($payment['erro'], 'action_forbidden') !== false) {
+                $payment['message'] = 'Ocorreu um erro durante o pagamento. Verifique os dados do cartão, caso de falha no sistema por favor entrar em contato com nossa equipe.';
+            }
+            if (strpos($payment['erro'], 'internal_error' !== false)) {
+                $payment['message'] = 'Ocorreu um erro durante o pagamento. Erro interno do servidor, por favor entre em contato com a nossa equipe.';
+            }
+            $error = explode(".", $payment['erro']);
+            $msg['error_message'] = $payment['erro'];
+            $this->crud_model->insert_log_payment($post, $error[0], $error[2]);
+            $this->session->set_flashdata('error_message', $payment['message']);
+            echo json_encode(array('mensagem' => $payment['message'], 'situacao' => false));
+        }
+    }
+
+
+
 
     public function list_hour_doctor()
     {
