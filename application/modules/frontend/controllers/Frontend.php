@@ -92,6 +92,8 @@ class Frontend extends MX_Controller
             $patient =  $this->db->get_where('patient', array('ion_user_id =' =>  $ion_user_id))->row();
             if ($patient != NULL) {
                 $patient_id = $patient->patient_id;
+                $patient_add_date = $patient->add_date;
+                $patient_registration_time = $patient->registration_time;
             }
         } else {
 
@@ -129,8 +131,10 @@ class Frontend extends MX_Controller
             'how_added' => 'from_appointment'
         );
         if ($this->ion_auth->email_check($p_email)) {
-            $this->patient_model->updatePatient($data_p, $ion_user_id);
-            echo 'teste cadastro'; die;
+            $this->patient_model->updatePatient($patient->id, $data_p);
+            $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
+
+            echo 'teste cadastro'; 
 
            // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
            // redirect($redirect);
