@@ -10,6 +10,7 @@ class Frontend extends MX_Controller
     {
         parent::__construct();
         $this->load->model('frontend_model');
+        $this->load->model('finance/finance_model');
         $this->load->model('payment/payment_model');
         $this->load->model('doctor/doctor_model');
         $this->load->model('schedule/schedule_model');
@@ -77,7 +78,9 @@ class Frontend extends MX_Controller
     
     {
         $post = $this->input->post();
-       // var_dump($post);
+        $paytm = $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
+
+       // var_dump($post);die;
         $doctor = $this->db->get_where('doctor', array('id =' =>  $post['doctor']))->row();
         $patient_id = '';
        
@@ -173,6 +176,117 @@ class Frontend extends MX_Controller
         //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
         $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card', $doctor);
         if ($payment['status'] == 'paid') {
+
+        $date = time();
+        $date_string = date('d-m-y', $date);
+        $amount = $post['amount']/100;
+        $data = array(
+            'category_name' => 'Atendimento',
+            'patient' => $patient,
+            'date' => $date,
+            'amount' => $amount,
+            'doctor' => $doctor->id,
+            //'discount' => $discount,
+           // 'flat_discount' => $flat_discount,
+            'gross_total' => $post['amount']/100,
+            'status' => 'paid',
+            'hospital_amount' =>  ($amount/100)* $paytm->percentage,
+            'doctor_amount' => ($amount/100)* $paytm->percentage_doctor,
+            'user' => $user->id,
+            'patient_name' => $post['first_name'],
+            'patient_phone' => $post['phone'],
+            'patient_address' => $post['adress'],
+            'doctor_name' => $doctor->name,
+            'date_string' => $date_string,
+            'deposit_type' => 'cred_card'
+           // 'remarks' => $remarks
+        );
+
+
+        $this->finance_model->insertPayment($data);
+        $inserted_id = $this->db->insert_id();
+        $data1 = array(
+            'date' => $date,
+            'patient' => $patient,
+            'deposited_amount' =>  $amount,
+            'payment_id' => $inserted_id,
+            'amount_received_id' => $inserted_id . '.' . 'R$',
+            'deposit_type' => 'cred_card',
+            'user' => $user->id
+        );
+        $this->finance_model->insertDeposit($data1);
+
+
+        $data = array();
+            $date = $post['date'];
+            $s_time = $post['hour'];
+            $e_time = date( 'H:i', strtotime( '+1 hour' , strtotime($s_time) ) );
+            //$e_time = $post['hour'] + '1';
+           // var_dump($e_time);die;
+
+        
+            $patientname = $this->patient_model->getPatientById($patient)->name;
+            $patient_phone = $this->patient_model->getPatientById($patient)->phone;
+            $doctorname = $this->doctor_model->getDoctorById($doctor->id)->name;
+            $room_id = 'hms-meeting-' . $patient_phone . '-' . rand(10000, 1000000);
+            $live_meeting_link = 'https://meet.jit.si/' . $room_id;
+            $app_time = strtotime($date . ' ' . $s_time);
+            //var_dump(date("Y-m-d H:i:s", $app_time));die;
+            $app_time_full_format = date('d-m-Y', strtotime($date)) . ' ' . $s_time . ' AM-' . $e_time.' PM';
+            $time_slot = date("h:i A", strtotime($s_time)).' To '.date("h:i A", strtotime($e_time));
+            $add_date = date('m/d/y');
+            $registration_time = time();
+            $patient_add_date = $add_date;
+            $patient_registration_time = $registration_time;
+           
+            $data = array(
+                'patient' => $patient,
+                'patientname' => $patientname,
+                'doctor' => $doctor->id,
+                'doctorname' => $doctorname,
+                'date' => strtotime($date),
+                's_time' => date("h:i A", strtotime($s_time)),
+                'e_time' => date("h:i A", strtotime($e_time)),
+                'time_slot' => $time_slot,
+                //'remarks' => $remarks,
+                'add_date' =>  $add_date,
+                'registration_time' => $registration_time,
+                'status' => 'Confirmed',
+                's_time_key' => '120',
+                'user' => $user->id,
+                'request' => 'Yes',
+                'room_id' => $room_id,
+                'live_meeting_link' => $live_meeting_link,
+                'app_time' => $app_time,
+                'app_time_full_format' => $app_time_full_format,
+            );
+               $username = $this->input->post('first_name');
+                // Adding New department
+                $this->frontend_model->insertAppointment($data);
+
+                if (!empty($sms)) {
+                    $this->sms->sendSmsDuringAppointment($patient, $doctor, $date, $s_time, $e_time);
+                }
+
+                $patient_doctor = $this->patient_model->getPatientById($patient)->doctor;
+
+                $patient_doctors = explode(',', $patient_doctor);
+
+
+
+                if (!in_array($doctor->id, $patient_doctors)) {
+                    $patient_doctors[] = $doctor->id;
+                    $doctorss = implode(',', $patient_doctors);
+                    $data_d = array();
+                    $data_d = array('doctor' => $doctorss);
+                    $this->patient_model->updatePatient($patient, $data_d);
+                }
+
+                //$this->session->set_flashdata('success', lang('appointment_added_successfully_please_wait_you_will_get_a_confirmation_sms'));
+            
+
+
+
           
             $redirect = base_url() . 'home/checkout_success/' . $post['course_id'] . '/' . $post['user_id'];
             echo 'deu certo';
