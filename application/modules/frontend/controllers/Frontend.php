@@ -137,7 +137,7 @@ class Frontend extends MX_Controller
             'registration_time' => $patient_registration_time,
             'how_added' => 'from_appointment'
         );
-        if ($this->ion_auth->email_check($p_email)) {
+        if (!$this->ion_auth->email_check($p_email)) {
             $this->patient_model->updatePatient($patient->id, $data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
 
@@ -152,7 +152,9 @@ class Frontend extends MX_Controller
             $this->patient_model->insertPatient($data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
             $id_info = array('ion_user_id' => $ion_user_id);
-            $this->patient_model->updatePatient($patient_user_id, $id_info);
+            $this->patient_model->updatePatient($patient_user_id, $id_info);      
+            
+            
 
             $mail_provider = $this->settings_model->getSettings()->emailtype;
             $email_settings = $this->email_model->getEmailSettingsByType($mail_provider);
@@ -169,7 +171,7 @@ class Frontend extends MX_Controller
             $this->email->to($p_email);
             $this->email->subject($subject);
             $this->email->message($message);
-            $this->email->send(); 
+            $this->email->send();
         }
         $patient = $patient_user_id;
 
