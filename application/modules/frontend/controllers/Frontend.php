@@ -299,8 +299,9 @@ class Frontend extends MX_Controller
                         'firstname' => $this->input->post('first_name'),
                         'lastname' => $this->input->post('last_name'),
                         'name' => $patientname,
-                        'doctorname' => $$doctorname,
+                        'doctorname' => $doctorname,
                         'appoinmentdate' => date('d-m-Y', $data['date']),
+                        'link' =>  $live_meeting_link,
                         'time_slot' => $time_slot,
                         'hospital_name' => 'Psicomob'
                     );
