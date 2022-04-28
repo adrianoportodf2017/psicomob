@@ -50,7 +50,6 @@ class Frontend extends MX_Controller
     public function checkout_sucess()
     {
         $this->load->view('checkout_sucess');
-        $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
     }
 
     public function checkout($payment_request = "only_for_mobile")
