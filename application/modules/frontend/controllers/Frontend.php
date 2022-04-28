@@ -301,7 +301,7 @@ class Frontend extends MX_Controller
                         'name' => $patientname,
                         'doctorname' => $doctorname,
                         'appoinmentdate' => date('d-m-Y', $data['date']),
-                        'link' =>  $live_meeting_link,
+                        'meeting_link' =>  $live_meeting_link,
                         'time_slot' => $time_slot,
                         'hospital_name' => 'Psicomob'
                     );
