@@ -133,7 +133,7 @@ class Frontend extends MX_Controller
             $password = preg_replace('/[-\@\.\;\" "]+/', '', $this->input->post('cpf'));
     
 
-        var_dump($password);
+      //  var_dump($password);
 
         $data_p = array(
             'patient_id' => $patient_id,
@@ -150,7 +150,7 @@ class Frontend extends MX_Controller
             $this->patient_model->updatePatient($patient->id, $data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
 
-            echo 'teste cadastro'; 
+           // echo 'teste cadastro'; 
 
            // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
            // redirect($redirect);
