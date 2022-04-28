@@ -124,7 +124,7 @@ class Frontend extends MX_Controller
             $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@example.com';
         }
       
-            $password = preg_replace('/[0-9\@\.\;\" "]+/', '', $this->input->post('cpf'));
+            $password = preg_replace('/[-\@\.\;\" "]+/', '', $this->input->post('cpf'));
     
 
         var_dump($password);

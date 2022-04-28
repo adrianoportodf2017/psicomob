@@ -302,6 +302,13 @@ $site_name = $this->db->get('website_settings')->row()->title;
             </div>
         </div>
     </div>
+
+    <?php
+ echo   preg_replace('/[-\@\.\;\" "]+/', '','037.519.661-70');
+  // echo str_replace('.', "", '037.519.661-70');die;
+    
+    
+    ?>
     <div id="header">
         <div class="navbar-wrap">
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light">
