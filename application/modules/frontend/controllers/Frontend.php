@@ -123,9 +123,9 @@ class Frontend extends MX_Controller
         if (empty($p_email)) {
             $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@example.com';
         }
-        if (!empty($p_name)) {
+      
             $password = preg_replace('/[0-9\@\.\;\" "]+/', '', $this->input->post('cpf'));
-        }
+    
 
         var_dump($password);
 
@@ -140,11 +140,11 @@ class Frontend extends MX_Controller
             'registration_time' => $patient_registration_time,
             'how_added' => 'from_appointment'
         );
-        if ($this->ion_auth->email_check($p_email)) {
+        if ($this->ion_auth->email_check($p_email) != NULL) {
             $this->patient_model->updatePatient($patient->id, $data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
 
-           // echo 'teste cadastro'; 
+            echo 'teste cadastro'; 
 
            // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
            // redirect($redirect);
