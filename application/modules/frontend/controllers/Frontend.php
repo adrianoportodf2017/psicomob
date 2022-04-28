@@ -153,25 +153,27 @@ class Frontend extends MX_Controller
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
             $id_info = array('ion_user_id' => $ion_user_id);
             $this->patient_model->updatePatient($patient_user_id, $id_info);
+
+            $mail_provider = $this->settings_model->getSettings()->emailtype;
+            $email_settings = $this->email_model->getEmailSettingsByType($mail_provider);
+            $settngsname = $this->settings_model->getSettings()->system_vendor;
+            $base_url = str_replace(array('http://', 'https://', '/'), '', base_url());
+            $subject = $base_url . ' - Detalhes do registro';
+            $message = 'Olá ' . $p_name . ',<br> Seja bem vindo a Psicomob. <br><br> Aqui estão os detalhes do seu login .<br>  Link: ' . base_url() . 'auth/login <br> Username: ' . $p_email . ' <br> Password: ' . $password . '<br><br> Obrigado, <br>' . $this->settings->title;
+            if ($mail_provider == 'Domain Email') {
+                $this->email->from($email_settings->admin_email, $settngsname);
+            }
+            if ($mail_provider == 'Smtp') {
+                $this->email->from($email_settings->user, $settngsname);
+            }
+            $this->email->to($p_email);
+            $this->email->subject($subject);
+            $this->email->message($message);
+            $this->email->send(); 
         }
         $patient = $patient_user_id;
 
-        $mail_provider = $this->settings_model->getSettings()->emailtype;
-                $email_settings = $this->email_model->getEmailSettingsByType($mail_provider);
-                $settngsname = $this->settings_model->getSettings()->system_vendor;
-                $base_url = str_replace(array('http://', 'https://', '/'), '', base_url());
-                $subject = $base_url . ' - Detalhes do registro';
-                $message = 'Olá ' . $p_name . ',<br> Seja bem vindo a Psicomob. <br><br> Aqui estão os detalhes do seu login .<br>  Link: ' . base_url() . 'auth/login <br> Username: ' . $p_email . ' <br> Password: ' . $password . '<br><br> Obrigado, <br>' . $this->settings->title;
-                if ($mail_provider == 'Domain Email') {
-                    $this->email->from($email_settings->admin_email, $settngsname);
-                }
-                if ($mail_provider == 'Smtp') {
-                    $this->email->from($email_settings->user, $settngsname);
-                }
-                $this->email->to($p_email);
-                $this->email->subject($subject);
-                $this->email->message($message);
-                $this->email->send(); 
+      
 
         //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
         $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card', $doctor);
@@ -288,6 +290,16 @@ class Frontend extends MX_Controller
                     $mail_provider = $this->settings_model->getSettings()->emailtype;
                     $settngs_name = $this->settings_model->getSettings()->system_vendor;
                     $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
+                    $data1 = array(
+                        'firstname' => $this->input->post('first_name'),
+                        'lastname' => $this->input->post('last_name'),
+                        'name' => $patientname,
+                        'doctorname' => $$doctorname,
+                        'appoinmentdate' => date('d-m-Y', $data['date']),
+                        'time_slot' => $time_slot,
+                        'hospital_name' => 'Psicomob'
+                    );
+                   
                     $message1 = $autoemail->message;
                     $messageprint1 = $this->parser->parse_string($message1, $data1);
                     if ($mail_provider == 'Domain Email') {
