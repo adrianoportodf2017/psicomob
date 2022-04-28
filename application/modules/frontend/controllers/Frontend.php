@@ -80,6 +80,7 @@ class Frontend extends MX_Controller
         $post = $this->input->post();
         $paytm = $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
 
+
        // var_dump($post);die;
         $doctor = $this->db->get_where('doctor', array('id =' =>  $post['doctor']))->row();
         $patient_id = '';
@@ -123,8 +124,10 @@ class Frontend extends MX_Controller
             $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@example.com';
         }
         if (!empty($p_name)) {
-            $password = $this->input->post('cpf');
+            $password = preg_replace('/[0-9\@\.\;\" "]+/', '', $this->input->post('cpf'));
         }
+
+        var_dump($password);
 
         $data_p = array(
             'patient_id' => $patient_id,
@@ -137,7 +140,7 @@ class Frontend extends MX_Controller
             'registration_time' => $patient_registration_time,
             'how_added' => 'from_appointment'
         );
-        if (!$this->ion_auth->email_check($p_email)) {
+        if ($this->ion_auth->email_check($p_email)) {
             $this->patient_model->updatePatient($patient->id, $data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
 
