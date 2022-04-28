@@ -303,13 +303,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
         </div>
     </div>
 
-    <?php
- echo   preg_replace('/[-\@\.\;\" "]+/', '','037.519.661-70');
-  // echo str_replace('.', "", '037.519.661-70');die;
-    
-    
-    ?>
-    <div id="header">
+      <div id="header">
         <div class="navbar-wrap">
             <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light">
                 <div class="container">
@@ -614,36 +608,10 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                         </div>
                                     </div>
                                 </div> <?php
-                                    endif;
-                                    if ($profile_details->enable_slip == '1') :
-                                        ?>
-                                <div class="card">
-                                    <div class="card-header" role="tab">
-                                        <h3 class="accordion-heading"><a class="collapsed" href="#paypal" data-toggle="collapse"><i class="mr-2"></i>Pague com Boleto Bancário<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
-                                    </div>
-                                    <div class="collapse" id="paypal" data-parent="#payment-method" role="tabpanel">
-                                        <div class="card-body">
-                                            <p><strong>Boleto bancário!</strong> Selecione para pagar com boleto</p>
-                                            <form class="row" method="post">
-                                                <div class="col-sm-6">
-                                                    <div class="form-group">
-                                                        <input class="deal-checkbox" type="checkbox" name="boleto"> <label class="" for="boleto"> Boleto Bancário</label>
-                                                    </div>
-                                                </div>
-
-                                                <div class="col-12">
-                                                    <div class="col-lg-3 mt-5 order-md-2 course_col hidden" id="btn_img_loader2" style="text-align: center; display: none">
-                                                        <img src="<?php echo base_url('assets/backend/images/loader.gif'); ?>" alt="" height="50" width="50">
-                                                    </div>
-                                                    <button class="btn btn-outline-primary mt-0" type="submit" id="btn_bt_loader2" onclick="validate_boleto('')">Gerar Boleto</button>
-                                                </div>
-                                        </div>
-                                    <?php endif; ?>
-                                    <button class="btn btn-outline-primary mt-0" id="enviar_pgto" style="text-align: center; display: none" type="submit" id="btn_bt_loader2"></button>
+                                    endif;?>
+                                   
                                     </div> 
                                   </div>
-                                </div> 
-                        </div>
                         <?php
                         $valorAPagar = $amount_to_pay;
                         $formatado = number_format(($valorAPagar), '2');
@@ -729,10 +697,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                     <img data-v-05505c32="" src="<?= base_url() ?>assets/payment/brands/HIPERCARD.svg" alt="HIPERCARD" style="flex-basis: 33.3333%;">
                                     <img data-v-05505c32="" src="<?= base_url() ?>assets/payment/brands/HIPER.svg" alt="HIPER" style="flex-basis: 33.3333%;">
                                     <img data-v-05505c32="" src="<?= base_url() ?>assets/payment/brands/DINERS.svg" alt="DINERS" style="flex-basis: 33.3333%;">
-                                    <?php
-                                    if ($profile_details->enable_slip == '1') :
-                                    ?><img data-v-05505c32="" src="<?= base_url() ?>assets/payment/brands/BILLET.svg" alt="Boleto" style="flex-basis: 33.3333%;">
-                                    <?php endif; ?>
+                                  
                                     <!---->
                                     <!---->
                                     <!---->
