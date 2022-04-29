@@ -35,8 +35,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
     <link rel="stylesheet" href="<?php echo site_url('front/assets/revolution_slider/css/rs-style.css'); ?>" media="screen">
     <link rel="stylesheet" href="<?php echo site_url('front/assets/revolution_slider/rs-plugin/css/settings.css'); ?>" media="screen">
     <!-- CSS Stylesheet -->
-    <link href="<?php echo site_url('front/site_assets/css/style.css'); ?>" rel="stylesheet" />
-    <link href="<?php echo site_url('front/site_assets/css/responsive.css') ?>" rel="stylesheet" />
+    
     <meta name="theme-color" content="#ffffff">
     <!-- Vendor Styles including: Font Icons, Plugins, etc.-->
     <link rel="stylesheet" media="screen" href="<?= base_url() ?>assets/payment/css/vendor.min.css">

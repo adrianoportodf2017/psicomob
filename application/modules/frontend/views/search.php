@@ -6,7 +6,7 @@ $settings = $this->frontend_model->getSettings();
 $title = explode(' ', $settings->title);
 $site_name = $this->db->get('website_settings')->row()->title;
 
- ?>
+?>
 
 <head>
     <meta charset="utf-8" />
@@ -26,8 +26,16 @@ $site_name = $this->db->get('website_settings')->row()->title;
     <link rel="stylesheet" href="<?php echo site_url('front/site_assets/vendor/magnific-popup/magnific-popup.css'); ?>" />
     <link rel="stylesheet" href="<?php echo site_url('common/assets/bootstrap-datepicker/css/bootstrap-datepicker.css'); ?>" />
     <link rel="stylesheet" type="text/css" href="<?php echo site_url('common/assets/bootstrap-timepicker/compiled/timepicker.css'); ?>">
-    <!--<link rel="stylesheet" href="<?php echo site_url('front/css/style.css'); ?>">-->
-    <link rel="stylesheet" href="<?php echo site_url('front/css/responsive.css'); ?>">
+    <link rel="stylesheet" href="<?php echo base_url(); ?>assets/css/bootstrap.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <!--external css-->
+    <!-- Nucleo Icons -->
+    <link href="<?php echo base_url(); ?>assets/css/nucleo-icons.css" rel="stylesheet" />
+    <link href="<?php echo base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link href="<?php echo base_url(); ?>assets/css/nucleo-svg.css" rel="stylesheet" />
+    <!-- CSS Files -->
+    <link id="pagestyle" href="<?php echo base_url(); ?>assets/css/argon-dashboard.css?v=2.0.2" rel="stylesheet" />
 
     <link rel="stylesheet" href="<?php echo site_url('front/assets/revolution_slider/css/rs-style.css'); ?>" media="screen">
     <link rel="stylesheet" href="<?php echo site_url('front/assets/revolution_slider/rs-plugin/css/settings.css'); ?>" media="screen">
@@ -41,6 +49,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
     <link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick-theme.css">
 </head>
+
 <style>
     .topbar-texts,
     .footer-description {
@@ -271,64 +280,79 @@ $site_name = $this->db->get('website_settings')->row()->title;
     }
 </style>
 
-<body onload="">
-
-
-    <!---------------- Start Main Navbar ---------------->
-    <div id="header_menu_top" class="bg-dark text-white pt-3">
+<body class="">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="topbar-texts"><?php echo $settings->address; ?></p>
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white" href="../pages/dashboard.html">
+                Psicomob
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                                <ul class="navbar-nav mx-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?php echo base_url(); ?>/frontend">
+                                            <i class="fa fa-chart-pie opacity-6 text me-1"></i>
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="<?php echo base_url(); ?>frontend/search">
+                                            <i class="fa fa-user opacity-6 text me-1"></i>
+                                            Psicologos
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="<?php echo base_url(); ?>">
+                                            <i class="fas fa-user-circle opacity-6 text me-1"></i>
+                                            Acessar Sua Conta
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <ul class="navbar-nav d-lg-block d-none">
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>frontend/search" class="btn btn-sm mb-0 me-1 btn-dark">Agendar consulta</a>
+                                    </li>
+                                </ul>
+                            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <main class="main-content  mt-0">
+        <div class="page-header position-relative" style="background-image: url('https://demos.creative-tim.com/argon-dashboard-pro/assets/img/pricing-header-bg.jpg');
+background-size: cover;">
+            <span class="mask bg-gradient-primary opacity-6"></span>
+            <div class="container pb-lg-9 pb-10 pt-7 postion-relative z-index-2">
+                <div class="row mt-4">
+                    <div class="col-md-6 mx-auto text-center">
+                        <h3 class="text-white">Encontre seu especialista</h3>
+                        <p class="text-white"> Converse com um profissional sem sair de casa
+</p>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <p class="topbar-texts float-right ml-3">
-                        <i class="fa fa-phone" aria-hidden="true"></i> &nbsp;
-                        <span><?php echo $settings->phone; ?></span>
-                    </p>
-                </div>
-                <div class="col-md-2">
-                    <a href="<?php echo site_url('auth/login') ?>" class="float-right"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; <span>Sign In</span></a>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-7 mx-auto text-center">
+                        <div class="nav-wrapper mt-5 position-relative z-index-2">
+                         
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div id="header">
-        <div class="navbar-wrap">
-            <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="frontend#">
-                        <?php
-                        if (!empty($settings->logo)) {
-                            if (file_exists($settings->logo)) {
-                                echo '<img width="200" src=' . $settings->logo . '>';
-                            } else {
-                                echo $title[0] . '<span> ' . $title[1] . '</span>';
-                            }
-                        } else {
-                            echo $title[0] . '<span> ' . $title[1] . '</span>';
-                        }
-                        ?>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend">Inicio</a>
-                            </li>                        
-                                                  <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend/search"><?php echo lang('doctors'); ?></a>
-                            </li>
-                          
-                        </ul>
-                    </div>
-                </div>
-            </nav>
-        </div> 
-        <div class="row ">
+       
+        </div>
+    
+         <!-- End Navbar -->
+    </main>
+    <div class="container-fluid py-4">
+        <div class="row">
             <div class="col-2"></div>
             <div class="col-xl-8" style="margin: 10px;">
                 <?php
@@ -344,44 +368,44 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                     <aside class="profile-nav ">
                                         <div class="user-heading round">
                                             <div class="row">
-                                            <div class="col-5">
+                                                <div class="col-5">
                                                     <?php if (!empty($doctor->img_url)) { ?>
                                                         <a href="#">
                                                             <div class="m-b-25"> <img src="<?= $doctor->img_url ?>" class="img-radius" alt="User-Profile-Image" style="max-width: 200px; width: 150px; border-radius: 50%;"> </div>
                                                         </a>
                                                     <?php } ?>
-                                                    <br><b>R$ <?php echo number_format($doctor->amount_to_pay, '2', ',', '.') ?> / 50 MINUTOS</b><p>
+                                                    <br><b>R$ <?php echo number_format($doctor->amount_to_pay, '2', ',', '.') ?> / 50 MINUTOS</b>
+                                                    <p>
 
-                                                    
+
                                                 </div>
                                                 <div class="col-6">
                                                     <h5><?php echo $doctor->name ?>
                                                         </b></h5>
-                                                        <h6 class="text-dark"><b>CRP: | </b><b class="text-bold-700"> <?= $doctor->crp ?></b></h6>
-                                                        <span>(10 Avaliações)<br>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
-                                                            <i class="fa fa-star"></i>
+                                                    <h6 class="text-dark"><b>CRP: | </b><b class="text-bold-700"> <?= $doctor->crp ?></b></h6>
+                                                    <span>(10 Avaliações)<br>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
+                                                        <i class="fa fa-star"></i>
                                                         <br>
-                                                            8 Sessões realizadas
+                                                        8 Sessões realizadas
 
                                                 </div>
-                                              
+
                                             </div>
                                             <div class="card-block">
-                                                <div class="row">
-                                                 
-                                                         <?php
-                                                            $specialties = explode(",", $doctor->specialties);
-                                                            foreach ($specialties as $specialtie) {
-                                                                echo '<button class="btn btn-outline-secondary" style="margin: 2px"> ' . $specialtie . '</button>';
-                                                            }
 
-                                                            ?>
-                                                        <p  style="margin: 30px;  margin: auto;  text-align: justify;"><?= mb_substr($doctor->profile, 0, 300, 'UTF-8'); ?>
-                                                </div>
+                                                <?php
+                                                $specialties = explode(",", $doctor->specialties);
+                                                foreach ($specialties as $specialtie) {
+                                                    echo '<button class="btn btn-outline-secondary" style="margin: 2px"> ' . $specialtie . '</button>';
+                                                }
+
+                                                ?>
+                                                <p style="margin: 30px;  margin: auto;  text-align: justify;"><?= mb_substr($doctor->profile, 0, 300, 'UTF-8'); ?>
+
                                     </aside>
 
                                 </div>
@@ -393,41 +417,41 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                     </b>
                                     <div class="center slider">
                                         <div>
-                                            <button id=""  onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+0 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round button-week" value="teste"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('HOJE, %d/%m', strtotime('+0 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button id="" onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+0 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round button-week" value="teste"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('HOJE, %d/%m', strtotime('+0 day', strtotime(date("D-m-y"))))))); ?> </button>
 
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+1 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+1 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+1 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+1 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+2 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+2 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+2 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+2 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+3 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+3 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+3 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+3 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+4 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+4 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+4 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+4 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+5 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+5 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+5 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+5 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+6 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+6 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+6 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+6 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+7 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+7 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+7 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+7 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                         <div>
-                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+8 day', strtotime(date('D-m-y')))).','.$doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+8 day', strtotime(date("D-m-y"))))))); ?> </button>
+                                            <button onclick="verificarHoras('<?php echo strftime('%u - %Y-%m-%d', strtotime('+8 day', strtotime(date('D-m-y')))) . ',' . $doctor->id; ?> ')" class="btn btn-info round buttonhours"> <?php echo str_replace(',', '<p>', mb_strtoupper(utf8_encode(strftime('%a, %d/%m', strtotime('+8 day', strtotime(date("D-m-y"))))))); ?> </button>
                                         </div>
                                     </div>
                                     <b>
                                         <h3>Horários disponíveis:</h3>
                                     </b>
-                                    <div class="listhours slider" id="<?= $doctor->id?>" name="listhours">
+                                    <div class="listhours slider" id="<?= $doctor->id ?>" name="listhours">
 
                                     </div>
-                                    <div id="msg<?= $doctor->id?>">
+                                    <div id="msg<?= $doctor->id ?>">
 
 
                                     </div>
@@ -527,12 +551,12 @@ $site_name = $this->db->get('website_settings')->row()->title;
     <!--<script type="text/javascript" src="<?php echo site_url('front/assets/revolution_slider/rs-plugin/js/jquery.themepunch.plugins.min.js'); ?>"></script>
                     <script type="text/javascript" src="<?php echo site_url('front/assets/revolution_slider/rs-plugin/js/jquery.themepunch.revolution.min.js'); ?>"></script>
                     <script src="front/js/revulation-slide.js"></script>-->
-        <script type = "text/javascript" >
-            $(document).ready(function() {
-                $(function() {
-                    $('.icon-picker').iconpicker();
-                });
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(function() {
+                $('.icon-picker').iconpicker();
             });
+        });
     </script>
 
     </div>
@@ -579,17 +603,17 @@ $site_name = $this->db->get('website_settings')->row()->title;
             }
             dados = dados.split(",")
             var start = dados['0'];
-            var id =  dados['1'];
-            var agenda = 'listhours'+id;
-          
-          
-           // $(".listhours").slideUp();
-            $("#"+id+"").slideUp();
+            var id = dados['1'];
+            var agenda = 'listhours' + id;
+
+
+            // $(".listhours").slideUp();
+            $("#" + id + "").slideUp();
             $(".listhours").slideUp();
             $(".listhours").slick('unslick');
-           
 
-          
+
+
 
             $.ajax({
                 url: "<?php echo base_url(); ?>frontend/list_hour_doctor",
@@ -599,29 +623,29 @@ $site_name = $this->db->get('website_settings')->row()->title;
                     id: id
                 },
                 success: function(data) {
-                    if(data == "error"){
+                    if (data == "error") {
 
-                        $("#msg"+id+"").html('Nenhum Horário Disponível!');                      
-                       // $(".listhours").slick($opts);
-                      //  $(".listhours").slideDown();
-                     //   $("#"+id+"").slideDown();
+                        $("#msg" + id + "").html('Nenhum Horário Disponível!');
+                        // $(".listhours").slick($opts);
+                        //  $(".listhours").slideDown();
+                        //   $("#"+id+"").slideDown();
 
-                        
-                        
+
+
+
+                    } else {
+                        // $('.listhours').html = data;
+                        $("#" + id + "").slideDown();
+                        $("#msg" + id + "").html('');
+                        $("#" + id + "").html(data);
+                        // document.getElementById(" "+id+" ").innerHTML = data;
+                        $(".listhours").slick($opts);
+
+
+
 
                     }
-                    else{
-                   // $('.listhours').html = data;
-                   $("#"+id+"").slideDown();
-                   $("#msg"+id+"").html(''); 
-                   $("#"+id+"").html(data);
-                   // document.getElementById(" "+id+" ").innerHTML = data;
-                   $(".listhours").slick($opts); 
-            
-                  
-
-
-                }}
+                }
             })
         }
     </script>

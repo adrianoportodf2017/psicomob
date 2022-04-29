@@ -56,12 +56,9 @@
                     </aside>
                 </div>
             </div>
-        </section>
-
-
-        <!-- page end-->
-    </section>
-</section>
+            </div>
+            </div>
+      
 
 
 
@@ -81,7 +78,7 @@
         document.getElementById('meeting');
         const options = {
             roomName: "<?php echo $appointment_details->room_id; ?>",
-            height: 500,
+            height: 800,
             parentNode: document.querySelector("#meeting"),
             userInfo: {
                 email: $('#email').val(),
@@ -89,7 +86,7 @@
             },
             enableClosePage: true,
             SHOW_PROMOTIONAL_CLOSE_PAGE: true,
-            // ALWAYS_TRUST_MODE_ENABLED=true
+           // ALWAYS_TRUST_MODE_ENABLED=true
         };
         const api = new JitsiMeetExternalAPI(domain, options);
     });
