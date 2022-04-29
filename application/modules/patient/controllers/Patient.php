@@ -32,9 +32,9 @@ class Patient extends MX_Controller {
         $data['doctors'] = $this->doctor_model->getDoctor();
         $data['groups'] = $this->donor_model->getBloodBank();
         $data['settings'] = $this->settings_model->getSettings();
-        $this->load->view('home/dashboard'); // just the header file
+     //   $this->load->view('home/dashboard'); // just the header file
         $this->load->view('patient', $data);
-        $this->load->view('home/footer'); // just the header file
+       // $this->load->view('home/footer'); // just the header file
     }
 
     public function calendar() {
@@ -1046,7 +1046,7 @@ class Patient extends MX_Controller {
         }
         $this->load->view('home/dashboard'); // just the header file
         $this->load->view('medical_history', $data);
-        $this->load->view('home/footer'); // just the footer file
+       $this->load->view('home/footer'); // just the footer file
     }
 
     function editMedicalHistoryByJason() {

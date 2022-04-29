@@ -1,6 +1,13 @@
+<div class="container-fluid py-4" style="margin-top: 50px;">
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-md-8">
+            <div class="card mb-4">
+                <div class="card-header pb-0">
+                    <h6>Minhas Sessões</h6>
+                </div>
+                <div class="card-body" style="min-height: 800px;">
 
-<section id="main-content">
-    <section class="wrapper site-min-height">
 
         <?php
         $appointment_details = $this->appointment_model->getAppointmentById($appointmentid);
@@ -16,19 +23,13 @@
         ?>
 
 
-        <!-- page start-->
-        <section class="col-md-8">
-            <header class="panel-heading">
-                <?php echo lang('live'); ?> <?php echo lang('appointment'); ?> 
-            </header>
-
-            <div class="">
                 <div class="tab-content"  id="meeting">
                     <input type="hidden" name="appointmentid" id="appointmentid"value="<?php echo $appointmentid; ?>">
                     <input type="hidden" name="username" id="username"value="<?php echo $display_name; ?>">
                     <input type="hidden" name="email" id="email" value="<?php echo $email; ?>">
                 </div>
-            </div>
+
+         
         </section>
 
         <section class="col-md-4">
