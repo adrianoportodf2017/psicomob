@@ -18,7 +18,7 @@ class Home extends MX_Controller {
         $data['settings'] = $this->settings_model->getSettings();
         $data['sum'] = $this->home_model->getSum('gross_total', 'payment');
         $data['payments'] = $this->finance_model->getPayment();
-        $data['this_month'] = $this->finance_model->getThisMonth();
+    //    $data['this_month'] = $this->finance_model->getThisMonth();
         $data['expenses'] = $this->finance_model->getExpense();
         if ($this->ion_auth->in_group(array('Doctor'))) {
             redirect('doctor/details');
