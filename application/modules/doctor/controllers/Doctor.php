@@ -288,7 +288,7 @@ class Doctor extends MX_Controller {
 
 
         $data['doctor'] = $this->doctor_model->getDoctorById($id);
-        $data['doctorr'] = $id;
+        //var_dump( $data['doctor']);die;
 
         $data['todays_appointments'] = $this->appointment_model->getAppointmentByDoctorByToday($id);
         $data['appointments'] = $this->appointment_model->getAppointmentByDoctor($id);
@@ -301,8 +301,8 @@ class Doctor extends MX_Controller {
 
 
 
-        $this->load->view('home/dashboard'); // just the header file
-        $this->load->view('details', $data);
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('details');
         $this->load->view('home/footer'); // just the footer file
     }
 
