@@ -142,7 +142,7 @@
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-calendar-grid-58 text-warning text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Tables</span>
+                        <span class="nav-link-text ms-1">Clientes</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -150,7 +150,7 @@
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-credit-card text-success text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Billing</span>
+                        <span class="nav-link-text ms-1">Minha Conta</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -158,7 +158,7 @@
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-app text-info text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Virtual Reality</span>
+                        <span class="nav-link-text ms-1">Meu Plano</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -166,26 +166,18 @@
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-world-2 text-danger text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">RTL</span>
+                        <span class="nav-link-text ms-1">Gerenciar disponibilidade</span>
                     </a>
                 </li>
                 <li class="nav-item mt-3">
-                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Account pages</h6>
+                    <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">Conta</h6>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link " href="../pages/profile.html">
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-single-02 text-dark text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Profile</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="../pages/sign-in.html">
-                        <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                            <i class="ni ni-single-copy-04 text-warning text-sm opacity-10"></i>
-                        </div>
-                        <span class="nav-link-text ms-1">Sign In</span>
+                        <span class="nav-link-text ms-1">Meu perfil</span>
                     </a>
                 </li>
                 <li class="nav-item">
@@ -193,7 +185,7 @@
                         <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
                             <i class="ni ni-collection text-info text-sm opacity-10"></i>
                         </div>
-                        <span class="nav-link-text ms-1">Sign Up</span>
+                        <span class="nav-link-text ms-1">Sair</span>
                     </a>
                 </li>
             </ul>
@@ -203,13 +195,13 @@
                 <img class="w-50 mx-auto" src="../assets/img/illustrations/icon-documentation.svg" alt="sidebar_illustration">
                 <div class="card-body text-center p-3 w-100 pt-0">
                     <div class="docs-info">
-                        <h6 class="mb-0">Need help?</h6>
-                        <p class="text-xs font-weight-bold mb-0">Please check our docs</p>
+                        <h6 class="mb-0">Perguntas Frequentes</h6>
+                        <p class="text-xs font-weight-bold mb-0">Por favor verifique os documentos</p>
                     </div>
                 </div>
             </div>
-            <a href="https://www.creative-tim.com/learning-lab/bootstrap/license/argon-dashboard" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentation</a>
-            <a class="btn btn-primary btn-sm mb-0 w-100" href="https://www.creative-tim.com/product/argon-dashboard-pro?ref=sidebarfree" type="button">Upgrade to pro</a>
+            <a href="" target="_blank" class="btn btn-dark btn-sm w-100 mb-3">Documentação</a>
+            <a class="btn btn-primary btn-sm mb-0 w-100" href="" type="button">Assinar Premiun</a>
         </div>
     </aside>
     <main class="main-content position-relative border-radius-lg ">
@@ -427,7 +419,7 @@
                                         </a>
                                     </li>
                                 </ul>
-                            <?php }} ?>
+                       
                             </li>
                     </ul>
                 </div>
@@ -481,5 +473,5 @@
     </div>
         <!-- End Navbar -->
        
-             
+        <?php }} ?>       
            
