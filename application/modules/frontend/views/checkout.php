@@ -50,66 +50,82 @@ $site_name = $this->db->get('website_settings')->row()->title;
     <link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick-theme.css">
 </head>
 
-<body onload="">
 
-
-    <!---------------- Start Main Navbar ---------------->
-    <div id="header_menu_top" class="bg-dark text-white pt-3">
+<body class="">
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg position-absolute top-0 z-index-3 w-100 shadow-none my-3 navbar-transparent mt-4">
         <div class="container">
-            <div class="row">
-                <div class="col-md-6">
-                    <p class="topbar-texts"><?php echo $settings->address; ?></p>
+            <a class="navbar-brand font-weight-bolder ms-lg-0 ms-3 text-white" href="../pages/dashboard.html">
+                Psicomob
+            </a>
+            <button class="navbar-toggler shadow-none ms-2" type="button" data-bs-toggle="collapse" data-bs-target="#navigation" aria-controls="navigation" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon mt-2">
+                    <span class="navbar-toggler-bar bar1"></span>
+                    <span class="navbar-toggler-bar bar2"></span>
+                    <span class="navbar-toggler-bar bar3"></span>
+                </span>
+            </button>
+            <div class="collapse navbar-collapse" id="navigation">
+                                <ul class="navbar-nav mx-auto">
+                                    <li class="nav-item">
+                                        <a class="nav-link d-flex align-items-center me-2 active" aria-current="page" href="<?php echo base_url(); ?>/frontend">
+                                            <i class="fa fa-chart-pie opacity-6 text me-1"></i>
+                                            Home
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="<?php echo base_url(); ?>frontend/search">
+                                            <i class="fa fa-user opacity-6 text me-1"></i>
+                                            Psicologos
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link me-2" href="<?php echo base_url(); ?>">
+                                            <i class="fas fa-user-circle opacity-6 text me-1"></i>
+                                            Acessar Sua Conta
+                                        </a>
+                                    </li>
+
+                                </ul>
+                                <ul class="navbar-nav d-lg-block d-none">
+                                    <li class="nav-item">
+                                        <a href="<?php echo base_url(); ?>frontend/search" class="btn btn-sm mb-0 me-1 btn-dark">Agendar consulta</a>
+                                    </li>
+                                </ul>
+                            </div>
+        </div>
+    </nav>
+    <!-- End Navbar -->
+    <main class="main-content  mt-0">
+        <div class="page-header position-relative" style="background-image: url('https://demos.creative-tim.com/argon-dashboard-pro/assets/img/pricing-header-bg.jpg');
+background-size: cover;">
+            <span class="mask bg-gradient-primary opacity-6"></span>
+            <div class="container pb-lg-9 pb-10 pt-7 postion-relative z-index-2">
+                <div class="row mt-4">
+                    <div class="col-md-6 mx-auto text-center">
+                        <h3 class="text-white">Encontre seu especialista</h3>
+                        <p class="text-white"> Converse com um profissional sem sair de casa
+</p>
+                    </div>
                 </div>
-                <div class="col-md-4">
-                    <p class="topbar-texts float-right ml-3">
-                        <i class="fa fa-phone" aria-hidden="true"></i> &nbsp;
-                        <span><?php echo $settings->phone; ?></span>
-                    </p>
-                </div>
-                <div class="col-md-2">
-                    <a href="<?php echo site_url('auth/login') ?>" class="float-right"><i class="fa fa-sign-in" aria-hidden="true"></i> &nbsp; <span>Sign In</span></a>
+                <div class="row">
+                    <div class="col-lg-4 col-md-6 col-7 mx-auto text-center">
+                        <div class="nav-wrapper mt-5 position-relative z-index-2">
+                         
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-
-      <div id="header">
-        <div class="navbar-wrap">
-            <nav id="navbar_top" class="navbar navbar-expand-lg navbar-light bg-light">
-                <div class="container">
-                    <a class="navbar-brand" href="frontend#">
-                        <?php
-                        if (!empty($settings->logo)) {
-                            if (file_exists($settings->logo)) {
-                                echo '<img width="200" src=' . $settings->logo . '>';
-                            } else {
-                                echo $title[0] . '<span> ' . $title[1] . '</span>';
-                            }
-                        } else {
-                            echo $title[0] . '<span> ' . $title[1] . '</span>';
-                        }
-                        ?>
-                    </a>
-                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                        <ul class="navbar-nav ml-auto">
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend">Inicio</a>
-                            </li>
-                            <li class="nav-item ml-3">
-                                <a class="nav-link" href="frontend/search"><?php echo lang('doctors'); ?></a>
-                            </li>
-
-                        </ul>
-                    </div>
-                </div>
-            </nav>
+       
         </div>
-        <div class="row ">
-            <!-- Page Content-->
+    
+         <!-- End Navbar -->
+    </main>
+    <div class="container-fluid py-4">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-md-10" style="margin: 10px;">
             <div class="container pb-5 mb-sm-4 mt-n2 mt-md-n3 divPedido">
                 <?php if (!empty($error_message)) : ?>
                     <div class="alert alert-danger" role="alert">
@@ -270,26 +286,17 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                     <div class="card-header" role="tab">
                                         <h3 class="accordion-heading"><a class="collapsed" href="#card" data-toggle="collapse"><i class="mr-2"></i>Pague com Cartão de Crédito<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
                                     </div>
-                                    <div class="collapse show" id="card" data-parent="#payment-method" role="tabpanel">
-                                        <div class="card-body" style=" margin: auto;   text-align: center;">
-                                            <!--                            <p>We accept following credit cards:&nbsp;&nbsp;<img class="d-inline-block align-middle" src="img/cards.png" style="width: 187px;" alt="Cerdit Cards"></p>-->
-                                            <div class="row" >
-                                              
-                                                <div class="col-md-8">
-
-                                                    <div class="interactive-credit-card col-md-12" style=" margin-top: 30px">
-                                                        <div class="row">
-                                                            <div class="col-md-5"></div>
-                                                        <div class="col-md-6">
-                                                    <div class="card-wrapper">
+                                    <div class="collapse show" id="card" data-parent="#payment-method" role="tabpanel">                                    
+                                               
+                                                    <div class="interactive-credit-card" style="">
+                                                     <div class="card-wrapper">
 
                                                     </div>
-                                                </div>
-                                                <div class="col-md-2"></div>
+                                                    <hr>
+                                                   </div>                                             
 
-                                                            <div class="col-md-12" style="margin-left: 50px;" >
                                                                 <label class="sr-only" for="inlineFormInputGroup">Número do cartão</label>
-                                                                <div class="input-group mb-2" style="display: flex;">
+                                                                <div class="input-group mb-2" style="">
                                                                     <div class="input-group-prepend">
                                                                         <div class="input-group-text">
                                                                             <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-credit-card" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -370,19 +377,17 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                                                     </div>
                                                                 </div>
                                                                 
-                                                            </div>
+                                                      
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                </div> <?php
+                                       
+                                    
+                                 <?php
                                     endif;?>
                                    
-                                    </div> 
-                                  </div>
-                        <?php
+                                   <?php
                         $valorAPagar = $amount_to_pay;
                         $formatado = number_format(($valorAPagar), '2');
                         $valor = str_replace('.', ',', $formatado);
@@ -395,7 +400,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                         $ValorDesconto = number_format(($ValorDesconto), '2');
                         $ValorDesconto = str_replace('.', ',', $ValorDesconto);
                         ?>
-                        <div class="col-xl-4 col-md-5 pt-4 mt-3 pt-md-0 mt-md-0">
+                        <div class="col-md-4">
                             <div class="card" style=" margin-bottom: 30px; border: 1px solid #graytext; ">
                                 <div class="card-body">
                                     <br>
