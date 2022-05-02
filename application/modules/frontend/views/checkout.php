@@ -286,14 +286,16 @@ background-size: cover;">
                                     <div class="card-header" role="tab">
                                         <h3 class="accordion-heading"><a class="collapsed" href="#card" data-toggle="collapse"><i class="mr-2"></i>Pague com Cartão de Crédito<span class="accordion-indicator"><i data-feather="chevron-up"></i></span></a></h3>
                                     </div>
+                                    
+
                                     <div class="collapse show" id="card" data-parent="#payment-method" role="tabpanel">                                    
                                                
-                                                    <div class="interactive-credit-card" style="">
+                                                    <div class="interactive-credit-card mb-4" style="">
                                                      <div class="card-wrapper">
 
                                                     </div>
                                                     <hr>
-                                                   </div>                                             
+                                                                                              
 
                                                                 <label class="sr-only" for="inlineFormInputGroup">Número do cartão</label>
                                                                 <div class="input-group mb-2" style="">
@@ -381,7 +383,7 @@ background-size: cover;">
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </div> </div> 
                                        
                                     
                                  <?php
