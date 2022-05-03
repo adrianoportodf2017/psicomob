@@ -325,7 +325,7 @@ $site_name = $this->db->get('website_settings')->row()->title;
                                 </ul>
                                 <ul class="navbar-nav d-lg-block d-none">
                                     <li class="nav-item">
-                                        <a href="<?php echo base_url(); ?>frontend/sou-profissional" class="btn btn-sm mb-0 me-1 btn-dark">Eu quero ser Psicomob</a>
+                                        <a href="<?php echo base_url(); ?>frontend/sou_profissional" class="btn btn-sm mb-0 me-1 btn-dark">Eu quero ser Psicomob</a>
                                     </li>
                                 </ul>
                             </div>
