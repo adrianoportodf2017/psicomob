@@ -36,20 +36,28 @@ class Frontend extends MX_Controller
         $data['reviews'] = $this->review_model->getActiveReview();
         $data['images'] = $this->gallery_model->getActiveImages();
         $data['gridsections'] = $this->gridsection_model->getActiveGrids();
-        $this->load->view('frontend2', $data);
+        $this->load->view('header', $data);
+        $this->load->view('frontend2');
+        $this->load->view('footer'); 
+
     }
 
     public function search($search = NULL, $order = NULL, $dir = NULL)
     {
         $data = array();
         $data['doctors'] = $this->doctor_model->getDoctorBySearch($search, $order, $dir);
-        $this->load->view('search', $data);
-        $this->load->view('home/footer'); // just the footer file        //$this->load->view('frontend2', $data);
+        $this->load->view('header', $data);
+        $this->load->view('search'); 
+        $this->load->view('footer'); 
     }
 
     public function checkout_sucess()
-    {
+    { 
+        $data['doctors'] = $this->doctor_model->getDoctorBySearch($search, $order, $dir);
+
+        $this->load->view('header', $data);
         $this->load->view('checkout_sucess');
+        $this->load->view('footer'); 
     }
 
     public function checkout($payment_request = "only_for_mobile")
