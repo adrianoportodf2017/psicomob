@@ -8,23 +8,20 @@
             <h5>Faça parte da maior comunidade de especialistas do Brasil
               Conheça os benefícios de fazer parte da rede de especialistas Psicomob</h5>
           </div>
-
-
           <ul>
             <li>Consultório virtual prático e seguro. </li><br>
             <li>Centenas de clientes cadastrados.</li><br>
             <li>Desenvolvimento e crescimento profissional.</li><br>
             <li>Planos que cabem no seu bolso.</li><br>
 
-        </div>
-
+            <label>DATA</label>
+<input type="text" class="date"
+      </div>
         <div class="card z-index-0">
           <div class="card-header text-center pt-4">
             <h5>Faça parte</h5>
           </div>
           <div class="row px-xl-5 px-sm-4 px-3">
-
-
           </div>
           <div class="card-body">
           <form method="post" id="myform" action="<?php echo site_url('frontend/salvar_profissional/'); ?>" name="myform" onSubmit="return false">
@@ -76,8 +73,6 @@
                   </div>
                 </div>
                 <button type="submit" class="btn btn-primary">Cadastrar</button>
-
-
               </div>
             </form>
           </div>
@@ -86,67 +81,8 @@
     </div>
   </div>
 </main>
+  <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
+  
 
-<script src="<?= base_url() ?>assets/payment/js/jquery.3.5.3.min.js"></script>
-    <script src="<?= base_url() ?>assets/payment/js/jquery.mask.js"></script>
-<script>
-        $(document).ready(function() {
-            $('.date').mask('00/00/0000');
-            $('.time').mask('00:00:00');
-            $('.date_time').mask('00/00/0000 00:00:00');
-            $('.cep').mask('00000-000');
-            $('.phone').mask('0000-0000');
-            $('.phone_with_ddd').mask('(00) 0000-0000');
-            $('.cel_with_ddd').mask('(00) 00000-0000');
-            $('.phone_us').mask('(000) 000-0000');
-            $('.mixed').mask('AAA 000-S0S');
-            //$('.cpf').mask('000.000.000-00', {reverse: true});
-            //$('.cnpj').mask('00.000.000/0000-00', {reverse: true}); 
-            $('.money').mask('000.000.000.000.000,00', {
-                reverse: true
-            });
-            $('.money2').mask("#.##0,00", {
-                reverse: true
-            });
-            $('.ip_address').mask('0ZZ.0ZZ.0ZZ.0ZZ', {
-                translation: {
-                    'Z': {
-                        pattern: /[0-9]/,
-                        optional: true
-                    }
-                }
-            });
-            $('.ip_address').mask('099.099.099.099');
-            $('.percent').mask('##0,00%', {
-                reverse: true
-            });
-            $('.clear-if-not-match').mask("00/00/0000", {
-                clearIfNotMatch: true
-            });
-            $('.placeholder').mask("00/00/0000", {
-                placeholder: "__/__/____"
-            });
-            $('.fallback').mask("00r00r0000", {
-                translation: {
-                    'r': {
-                        pattern: /[\/]/,
-                        fallback: '/'
-                    },
-                    placeholder: "__/__/____"
-                }
-            });
-            $('.selectonfocus').mask("00/00/0000", {
-                selectOnFocus: true
-            });
 
-            $("#parcelas").on('change', function() {
-                var parcela = $(this).children('option:selected').val();
-                var valor = $("#total-" + parcela).text();
-                var amount = $("#total-" + parcela).data('valor');
 
-                $('#valor').val(valor);
-                $('#amount').val(amount);
-            })
-
-        });
-        </script>

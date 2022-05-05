@@ -39,6 +39,7 @@ class Frontend extends MX_Controller
         $this->load->view('header', $data);
         $this->load->view('frontend2');
         $this->load->view('footer'); 
+        $this->load->view('scripts'); 
 
     }
 
@@ -49,6 +50,21 @@ class Frontend extends MX_Controller
         $this->load->view('header', $data);
         $this->load->view('search'); 
         $this->load->view('footer'); 
+        $this->load->view('scripts'); 
+
+    }
+    
+    function sou_profissional(){
+        $data = array();
+        $data['settings'] = $this->frontend_model->getSettings();
+        $this->load->view('header', $data); // just the header file
+        $this->load->view('sou_profissional');
+        $this->load->view('footer'); // just the footer file
+        $this->load->view('scripts'); 
+
+
+
+
     }
 
     public function checkout_sucess()
@@ -58,6 +74,8 @@ class Frontend extends MX_Controller
         $this->load->view('header', $data);
         $this->load->view('checkout_sucess');
         $this->load->view('footer'); 
+        $this->load->view('scripts'); 
+
     }
 
     public function checkout($payment_request = "only_for_mobile")
@@ -85,6 +103,8 @@ class Frontend extends MX_Controller
 
         $this->load->view('checkout', $page_data);
         $this->load->view('home/footer');
+        $this->load->view('scripts'); 
+
     }
 
     public function pagarme_payment()
@@ -454,17 +474,6 @@ class Frontend extends MX_Controller
     }
 
 
-    function sou_profissional(){
-        $data = array();
-        $data['settings'] = $this->frontend_model->getSettings();
-        $this->load->view('header', $data); // just the header file
-        $this->load->view('sou_profissional');
-        $this->load->view('footer'); // just the footer file
-
-
-
-
-    }
 }
 
 /* End of file appointment.php */

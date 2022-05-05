@@ -48,6 +48,8 @@ $site_name = $this->db->get('website_settings')->row()->title;
 
     <link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick.css">
     <link rel="stylesheet" type="text/css" href="<?= base_url(''); ?>app-assets/slick/slick-theme.css">
+    <script src="<?= base_url() ?>assets/payment/js/jquery.3.5.3.min.js"></script>
+
 </head>
 
 <style>
