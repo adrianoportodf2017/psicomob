@@ -332,42 +332,8 @@ class Frontend extends MX_Controller
                     $this->email->message($messageprint1);
                     $this->email->send();
                 }
-
-                if ($autoemail->status == 'Active') {
-                    $mail_provider = $this->settings_model->getSettings()->emailtype;
-                    $settngs_name = $this->settings_model->getSettings()->system_vendor;
-                    $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
-                    $data1 = array(
-                        'firstname' => $this->input->post('first_name'),
-                        'lastname' => $this->input->post('last_name'),
-                        'name' => $doctorname,
-                        'doctorname' => $patientname,
-                        'appoinmentdate' => date('d-m-Y', $data['date']),
-                        'meeting_link' =>  $live_meeting_link,
-                        'time_slot' => $time_slot,
-                        'hospital_name' => 'Psicomob'
-                    );
-                   
-                    $message1 = $autoemail->message;
-                    $messageprint1 = $this->parser->parse_string($message1, $data1);
-                    if ($mail_provider == 'Domain Email') {
-                        $this->email->from($email_Settings->admin_email);
-                    }
-                    if ($mail_provider == 'Smtp') {
-                        $this->email->from($email_Settings->user, $settngs_name);
-                    }
-                    $this->email->to($post['email']);
-                    $this->email->subject(lang('appointment'));
-                    $this->email->message($messageprint1);
-                    $this->email->send();
-                }
-
-                //$this->session->set_flashdata('success', lang('appointment_added_successfully_please_wait_you_will_get_a_confirmation_sms'));
-            
-
-
-
-          
+                          //$this->session->set_flashdata('success', lang('appointment_added_successfully_please_wait_you_will_get_a_confirmation_sms'));
+                  
             $redirect = base_url() . 'frontend/checkout_sucess/';
            // echo 'deu certo';
             echo json_encode(array('html' => $redirect, 'redirect' => true)); die;
