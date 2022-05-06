@@ -38,9 +38,8 @@ class Frontend extends MX_Controller
         $data['gridsections'] = $this->gridsection_model->getActiveGrids();
         $this->load->view('header', $data);
         $this->load->view('frontend2');
-        $this->load->view('footer'); 
-        $this->load->view('scripts'); 
-
+        $this->load->view('footer');
+        $this->load->view('scripts');
     }
 
     public function search($search = NULL, $order = NULL, $dir = NULL)
@@ -48,34 +47,112 @@ class Frontend extends MX_Controller
         $data = array();
         $data['doctors'] = $this->doctor_model->getDoctorBySearch($search, $order, $dir);
         $this->load->view('header', $data);
-        $this->load->view('search'); 
-        $this->load->view('footer'); 
-        $this->load->view('scripts'); 
-
+        $this->load->view('search');
+        $this->load->view('footer');
+        $this->load->view('scripts');
     }
-    
-    function sou_profissional(){
+
+    function sou_profissional()
+    {
         $data = array();
         $data['settings'] = $this->frontend_model->getSettings();
         $this->load->view('header', $data); // just the header file
         $this->load->view('sou_profissional');
         $this->load->view('footer'); // just the footer file
-        $this->load->view('scripts'); 
-
-
-
-
+        $this->load->view('scripts');
     }
 
+    function salvarProfissional()
+    {
+        // var_dump($_POST);
+        $ion_user_id = $this->db->get_where('users', array('email' => $_POST['email']))->row();
+        $cpf = $this->db->get_where('doctor', array('cpf' => preg_replace('/[-\@\.\;\" "]+/', '', $_POST['cpf'])))->row();
+        if (isset($ion_user_id)) {
+            echo json_encode(array('mensagem' => 'Já existe uma conta cadastrada com esse e-mail', 'situacao' => false));
+            die;
+        }
+        elseif (isset($cpf)) {
+            echo json_encode(array('mensagem' => 'Já existe uma CPF cadastrado', 'situacao' => false));           
+            die;
+        } else {
+            $data = array(
+                'name' => $_POST['first_name'],
+                'email' => $_POST['email'],            
+                'phone' => $_POST['phone'],               
+                'cpf' => preg_replace('/[-\@\.\;\" "]+/', '', $_POST['cpf']),           
+                'crp' => $_POST['crp'],
+                'specialties' => $_POST['specialties'],           
+           );
+
+            $username = $_POST['email'];          
+                $dfg = 4;
+                    $this->ion_auth->register($username, $_POST['password'], $_POST['email'], $dfg);
+                    $ion_user_id = $this->db->get_where('users', array('email' => $_POST['email']))->row()->id;
+                    $this->doctor_model->insertDoctor($data);
+                    $doctor_user_id = $this->db->get_where('doctor', array('email' => $_POST['email']))->row()->id;
+                    $id_info = array('ion_user_id' => $ion_user_id);
+                    $this->doctor_model->updateDoctor($doctor_user_id, $id_info);
+
+                    //sms
+                    $set['settings'] = $this->settings_model->getSettings();
+                    $autosms = $this->sms_model->getAutoSmsByType('doctor');
+                    $message = $autosms->message;
+                    $to = $_POST['phone'];
+                    $name1 = $_POST['first_name'];
+                   
+                    $data1 = array(
+                        'firstname' => $_POST['first_name'],
+                       // 'lastname' => $name1[1],
+                        'name' => $_POST['first_name'],
+                        'company' => $set['settings']->system_vendor
+                    );
+
+                 $autoemail = $this->email_model->getAutoEmailByType('doctor');
+                    if ($autoemail->status == 'Active') {
+                        $mail_provider = $this->settings_model->getSettings()->emailtype;
+                        $settngs_name = $this->settings_model->getSettings()->system_vendor;
+                        $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
+
+                        $this->load->library('encryption');
+
+                        $message1 = $autoemail->message;
+                        $messageprint1 = $this->parser->parse_string($message1, $data1);
+                        if ($mail_provider == 'Domain Email') {
+                            $this->email->from($email_Settings->admin_email);
+                        }
+                        if ($mail_provider == 'Smtp') {
+                            $this->email->from($email_Settings->user, $settngs_name);
+                        }
+                        $this->email->to('adrianobr00@gmail.com');
+                        $this->email->subject('Registration confirmation');
+                        $this->email->message($messageprint1);
+                        $this->email->send();
+                    }
+                    $redirect = base_url() . 'frontend/cadastro_sucess';
+                    // echo 'deu certo';
+                    echo json_encode(array('html' => $redirect, 'redirect' => true));
+                    die;
+                   
+
+                }
+            }
+    
+    
+            public function cadastro_sucess()
+            {              
+        
+                $this->load->view('cadastro_sucess');             
+                
+            }
+
     public function checkout_sucess()
-    { 
+    {
         $data['doctors'] = $this->doctor_model->getDoctorBySearch($search, $order, $dir);
 
         $this->load->view('header', $data);
         $this->load->view('checkout_sucess');
-        $this->load->view('footer'); 
-        $this->load->view('scripts'); 
-
+        $this->load->view('footer');
+        $this->load->view('scripts');
     }
 
     public function checkout($payment_request = "only_for_mobile")
@@ -103,21 +180,20 @@ class Frontend extends MX_Controller
 
         $this->load->view('checkout', $page_data);
         $this->load->view('home/footer');
-        $this->load->view('scripts'); 
-
+        $this->load->view('scripts');
     }
 
     public function pagarme_payment()
-    
+
     {
         $post = $this->input->post();
         $paytm = $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
 
 
-       // var_dump($post);die;
+        // var_dump($post);die;
         $doctor = $this->db->get_where('doctor', array('id =' =>  $post['doctor']))->row();
         $patient_id = '';
-       
+
         $profile_details =  $this->db->get_where('paymentgateway', array('name =' => 'pagarme'))->row();
         if ($profile_details->status == 'test') {
             $public_key = $profile_details->test_api_key;
@@ -143,24 +219,23 @@ class Frontend extends MX_Controller
             $patient_add_date = $add_date;
             $patient_registration_time = $registration_time;
             $patient_id = rand(10000, 1000000);
-
         }
-        $p_name = $this->input->post('first_name').' '.$this->input->post('last_name');
+        $p_name = $this->input->post('first_name') . ' ' . $this->input->post('last_name');
         $p_email = $this->input->post('email');
         $p_phone = $this->input->post('phone');
         //$p_age = $this->input->post('p_age');
-       // $p_gender = $this->input->post('p_gender');
+        // $p_gender = $this->input->post('p_gender');
         $username = $this->input->post('email');
 
 
         if (empty($p_email)) {
             $p_email = $p_name . '-' . rand(1, 1000) . '-' . $p_name . '-' . rand(1, 1000) . '@example.com';
         }
-      
-            $password = preg_replace('/[-\@\.\;\" "]+/', '', $this->input->post('cpf'));
-    
 
-      //  var_dump($password);
+        $password = preg_replace('/[-\@\.\;\" "]+/', '', $this->input->post('cpf'));
+
+
+        //  var_dump($password);
 
         $data_p = array(
             'patient_id' => $patient_id,
@@ -177,10 +252,10 @@ class Frontend extends MX_Controller
             $this->patient_model->updatePatient($patient->id, $data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
 
-           // echo 'teste cadastro'; 
+            // echo 'teste cadastro'; 
 
-           // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
-           // redirect($redirect);
+            // $this->session->set_flashdata('warning', lang('this_email_address_is_already_registered'));
+            // redirect($redirect);
         } else {
             $dfg = 5;
             $this->ion_auth->register($username, $password, $p_email, $dfg);
@@ -188,9 +263,9 @@ class Frontend extends MX_Controller
             $this->patient_model->insertPatient($data_p);
             $patient_user_id = $this->db->get_where('patient', array('email' => $p_email))->row()->id;
             $id_info = array('ion_user_id' => $ion_user_id);
-            $this->patient_model->updatePatient($patient_user_id, $id_info);      
-            
-            
+            $this->patient_model->updatePatient($patient_user_id, $id_info);
+
+
 
             $mail_provider = $this->settings_model->getSettings()->emailtype;
             $email_settings = $this->email_model->getEmailSettingsByType($mail_provider);
@@ -211,60 +286,60 @@ class Frontend extends MX_Controller
         }
         $patient = $patient_user_id;
 
-      
+
 
         //THIS IS HOW I CHECKED THE STRIPE PAYMENT STATUS
         $payment = $this->payment_model->pagarme_payment($post, $public_key, isset($post['boleto']) ? 'boleto' : 'credit_card', $doctor);
         if ($payment['status'] == 'paid') {
 
-        $date = time();
-        $date_string = date('d-m-y', $date);
-        $amount = $post['amount']/100;
-        $data = array(
-            'category_name' => 'Atendimento',
-            'patient' => $patient,
-            'date' => $date,
-            'amount' => $amount,
-            'doctor' => $doctor->id,
-            //'discount' => $discount,
-           // 'flat_discount' => $flat_discount,
-            'gross_total' => $post['amount']/100,
-            'status' => 'paid',
-            'hospital_amount' =>  ($amount/100)* $paytm->percentage,
-            'doctor_amount' => ($amount/100)* $paytm->percentage_doctor,
-            'user' => $user->id,
-            'patient_name' => $post['first_name'],
-            'patient_phone' => $post['phone'],
-            'patient_address' => $post['adress'],
-            'doctor_name' => $doctor->name,
-            'date_string' => $date_string,
-            'deposit_type' => 'cred_card'
-           // 'remarks' => $remarks
-        );
+            $date = time();
+            $date_string = date('d-m-y', $date);
+            $amount = $post['amount'] / 100;
+            $data = array(
+                'category_name' => 'Atendimento',
+                'patient' => $patient,
+                'date' => $date,
+                'amount' => $amount,
+                'doctor' => $doctor->id,
+                //'discount' => $discount,
+                // 'flat_discount' => $flat_discount,
+                'gross_total' => $post['amount'] / 100,
+                'status' => 'paid',
+                'hospital_amount' => ($amount / 100) * $paytm->percentage,
+                'doctor_amount' => ($amount / 100) * $paytm->percentage_doctor,
+                'user' => $user->id,
+                'patient_name' => $post['first_name'],
+                'patient_phone' => $post['phone'],
+                'patient_address' => $post['adress'],
+                'doctor_name' => $doctor->name,
+                'date_string' => $date_string,
+                'deposit_type' => 'cred_card'
+                // 'remarks' => $remarks
+            );
 
 
-        $this->finance_model->insertPayment($data);
-        $inserted_id = $this->db->insert_id();
-        $data1 = array(
-            'date' => $date,
-            'patient' => $patient,
-            'deposited_amount' =>  $amount,
-            'payment_id' => $inserted_id,
-            'amount_received_id' => $inserted_id . '.' . 'R$',
-            'deposit_type' => 'cred_card',
-            'user' => $user->id
-        );
-        $this->finance_model->insertDeposit($data1);
+            $this->finance_model->insertPayment($data);
+            $inserted_id = $this->db->insert_id();
+            $data1 = array(
+                'date' => $date,
+                'patient' => $patient,
+                'deposited_amount' =>  $amount,
+                'payment_id' => $inserted_id,
+                'amount_received_id' => $inserted_id . '.' . 'R$',
+                'deposit_type' => 'cred_card',
+                'user' => $user->id
+            );
+            $this->finance_model->insertDeposit($data1);
 
 
-        $data = array();
+            $data = array();
             $date = $post['date'];
             $s_time = $post['hour'];
-            $e_time = date( 'H:i', strtotime( '+1 hour' , strtotime($s_time) ) );
+            $e_time = date('H:i', strtotime('+1 hour', strtotime($s_time)));
             //$e_time = $post['hour'] + '1';
-           // var_dump($e_time);die;
+            // var_dump($e_time);die;
 
-        
+
             $patientname = $this->patient_model->getPatientById($patient)->name;
             $patient_phone = $this->patient_model->getPatientById($patient)->phone;
             $doctorname = $this->doctor_model->getDoctorById($doctor->id)->name;
@@ -272,13 +347,13 @@ class Frontend extends MX_Controller
             $live_meeting_link = 'https://meet.jit.si/' . $room_id;
             $app_time = strtotime($date . ' ' . $s_time);
             //var_dump(date("Y-m-d H:i:s", $app_time));die;
-            $app_time_full_format = date('d-m-Y', strtotime($date)) . ' ' . $s_time . ' AM-' . $e_time.' PM';
-            $time_slot = date("h:i A", strtotime($s_time)).' To '.date("h:i A", strtotime($e_time));
+            $app_time_full_format = date('d-m-Y', strtotime($date)) . ' ' . $s_time . ' AM-' . $e_time . ' PM';
+            $time_slot = date("h:i A", strtotime($s_time)) . ' To ' . date("h:i A", strtotime($e_time));
             $add_date = date('m/d/y');
             $registration_time = time();
             $patient_add_date = $add_date;
             $patient_registration_time = $registration_time;
-           
+
             $data = array(
                 'patient' => $patient,
                 'patientname' => $patientname,
@@ -300,63 +375,64 @@ class Frontend extends MX_Controller
                 'app_time' => $app_time,
                 'app_time_full_format' => $app_time_full_format,
             );
-               $username = $this->input->post('first_name');
-                // Adding New department
-                $this->frontend_model->insertAppointment($data);
+            $username = $this->input->post('first_name');
+            // Adding New department
+            $this->frontend_model->insertAppointment($data);
 
-                if (!empty($sms)) {
-                    $this->sms->sendSmsDuringAppointment($patient, $doctor, $date, $s_time, $e_time);
+            if (!empty($sms)) {
+                $this->sms->sendSmsDuringAppointment($patient, $doctor, $date, $s_time, $e_time);
+            }
+
+            $patient_doctor = $this->patient_model->getPatientById($patient)->doctor;
+
+            $patient_doctors = explode(',', $patient_doctor);
+
+
+
+            if (!in_array($doctor->id, $patient_doctors)) {
+                $patient_doctors[] = $doctor->id;
+                $doctorss = implode(',', $patient_doctors);
+                $data_d = array();
+                $data_d = array('doctor' => $doctorss);
+                $this->patient_model->updatePatient($patient, $data_d);
+            }
+
+            $autoemail = $this->email_model->getAutoEmailByType('appoinment_confirmation');
+
+            if ($autoemail->status == 'Active') {
+                $mail_provider = $this->settings_model->getSettings()->emailtype;
+                $settngs_name = $this->settings_model->getSettings()->system_vendor;
+                $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
+                $data1 = array(
+                    'firstname' => $this->input->post('first_name'),
+                    'lastname' => $this->input->post('last_name'),
+                    'name' => $patientname,
+                    'doctorname' => $doctorname,
+                    'appoinmentdate' => date('d-m-Y', $data['date']),
+                    'meeting_link' =>  $live_meeting_link,
+                    'time_slot' => $time_slot,
+                    'hospital_name' => 'Psicomob'
+                );
+
+                $message1 = $autoemail->message;
+                $messageprint1 = $this->parser->parse_string($message1, $data1);
+                if ($mail_provider == 'Domain Email') {
+                    $this->email->from($email_Settings->admin_email);
                 }
-
-                $patient_doctor = $this->patient_model->getPatientById($patient)->doctor;
-
-                $patient_doctors = explode(',', $patient_doctor);
-
-
-
-                if (!in_array($doctor->id, $patient_doctors)) {
-                    $patient_doctors[] = $doctor->id;
-                    $doctorss = implode(',', $patient_doctors);
-                    $data_d = array();
-                    $data_d = array('doctor' => $doctorss);
-                    $this->patient_model->updatePatient($patient, $data_d);
+                if ($mail_provider == 'Smtp') {
+                    $this->email->from($email_Settings->user, $settngs_name);
                 }
+                $this->email->to($post['email']);
+                $this->email->subject(lang('appointment'));
+                $this->email->message($messageprint1);
+                $this->email->send();
+            }
+            //$this->session->set_flashdata('success', lang('appointment_added_successfully_please_wait_you_will_get_a_confirmation_sms'));
 
-                $autoemail = $this->email_model->getAutoEmailByType('appoinment_confirmation');
-
-                if ($autoemail->status == 'Active') {
-                    $mail_provider = $this->settings_model->getSettings()->emailtype;
-                    $settngs_name = $this->settings_model->getSettings()->system_vendor;
-                    $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
-                    $data1 = array(
-                        'firstname' => $this->input->post('first_name'),
-                        'lastname' => $this->input->post('last_name'),
-                        'name' => $patientname,
-                        'doctorname' => $doctorname,
-                        'appoinmentdate' => date('d-m-Y', $data['date']),
-                        'meeting_link' =>  $live_meeting_link,
-                        'time_slot' => $time_slot,
-                        'hospital_name' => 'Psicomob'
-                    );
-                   
-                    $message1 = $autoemail->message;
-                    $messageprint1 = $this->parser->parse_string($message1, $data1);
-                    if ($mail_provider == 'Domain Email') {
-                        $this->email->from($email_Settings->admin_email);
-                    }
-                    if ($mail_provider == 'Smtp') {
-                        $this->email->from($email_Settings->user, $settngs_name);
-                    }
-                    $this->email->to($post['email']);
-                    $this->email->subject(lang('appointment'));
-                    $this->email->message($messageprint1);
-                    $this->email->send();
-                }
-                          //$this->session->set_flashdata('success', lang('appointment_added_successfully_please_wait_you_will_get_a_confirmation_sms'));
-                  
             $redirect = base_url() . 'frontend/checkout_sucess/';
-           // echo 'deu certo';
-            echo json_encode(array('html' => $redirect, 'redirect' => true)); die;
+            // echo 'deu certo';
+            echo json_encode(array('html' => $redirect, 'redirect' => true));
+            die;
         } elseif ($payment['status'] == 'waiting_payment') {
             $dadosBoleto = $this->session->userdata('transaction');
             $this->crud_model->insert_log_payment($post, 'processando', 'aguardando pagamento boleto');
@@ -445,8 +521,8 @@ class Frontend extends MX_Controller
 
 
 
-   
-    
+
+
 
     public function settings()
     {
@@ -457,7 +533,7 @@ class Frontend extends MX_Controller
         $this->load->view('home/footer'); // just the footer file
     }
 
-   
+
 
     function getAvailableSlotByDoctorByDateByJason()
     {
@@ -472,8 +548,6 @@ class Frontend extends MX_Controller
         }
         echo json_encode($data);
     }
-
-
 }
 
 /* End of file appointment.php */

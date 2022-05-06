@@ -14,9 +14,7 @@
             <li>Desenvolvimento e crescimento profissional.</li><br>
             <li>Planos que cabem no seu bolso.</li><br>
 
-            <label>DATA</label>
-<input type="text" class="date"
-      </div>
+        </div>
         <div class="card z-index-0">
           <div class="card-header text-center pt-4">
             <h5>Faça parte</h5>
@@ -24,12 +22,12 @@
           <div class="row px-xl-5 px-sm-4 px-3">
           </div>
           <div class="card-body">
-          <form method="post" id="myform" action="<?php echo site_url('frontend/salvar_profissional/'); ?>" name="myform" onSubmit="return false">
+            <form method="post" id="myform" action="<?php echo site_url('frontend/salvar_profissional/'); ?>" name="myform" onSubmit="return false">
               <div class="row">
                 <div class="col-md-6">
                   <div class="form-group">
 
-                    <input type="email" class="form-control required w3-round" required id="email" name="email" placeholder="name@example.com">
+                    <input type="email" class="form-control required w3-round email" required id="email" name="email" placeholder="name@example.com">
                   </div>
                 </div>
                 <div class="col-md-6">
@@ -37,23 +35,43 @@
                     <input type="text" placeholder="Nome Completo" class="form-control required w3-round" required name="first_name" id="name" />
                   </div>
                 </div>
-              </div>
-
-              <div class="row">
-               <div class="col-md-6">
+                <div class="col-md-6">
                   <div class="form-group">
-                    <input type="password" class="form-control required w3-round" required id="password" name="password" placeholder="Senha">
+                    <input type="text" placeholder="CPF" class="form-control required w3-round" required name="cpf" id="cpf" />
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input type="text" placeholder="CRP" class="form-control  w3-round"  name="crp" id="crp" />
+                  </div>
+                </div>
+
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <input class="form-control required min" type="password" required id="password" name="password" placeholder="Senha" min="3">
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group has-success">
-                    <input type="text" placeholder="Telefone" id="phone"  name="phone" class="form-control required w3-round" required />
+                    <input type="text" placeholder="Telefone" id="phone" name="phone" class="form-control required w3-round phone" required />
                   </div>
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <select class="form-control required w3-round" required id="exampleFormControlSelect1">
-                    <option value="">Gênero</option>
+                    <select class="form-control required w3-round" required id="exampleFormControlSelect1" name="specialties">
+                      <option value="">Sua especialidade</option>
+                      <option value="Psicólogo(a)">Psicólogo(a)</option>
+                      <option value="Psicanalista(a)">Psicanalista(a)</option>
+                      <option value="Terapeuta">Terapeuta</option>
+                      <option value="Coach">Coach</option>
+                      <option value=""></option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <select class="form-control required w3-round" required id="exampleFormControlSelect1" name="gender">
+                      <option value="">Gênero</option>
                       <option>Masculino</option>
                       <option>Feminino</option>
                       <option>Não Binário</option>
@@ -62,8 +80,8 @@
                 </div>
                 <div class="col-md-6">
                   <div class="form-group">
-                    <select class="form-control required w3-round" required id="exampleFormControlSelect1">
-                    <option value="">Quantos Anos de experiencia?</option>
+                    <select class="form-control required w3-round" required id="exampleFormControlSelect1" name="experience">
+                      <option value="">Quantos Anos de experiencia?</option>
                       <option>1</option>
                       <option>2</option>
                       <option>3</option>
@@ -72,7 +90,12 @@
                     </select>
                   </div>
                 </div>
-                <button type="submit" class="btn btn-primary">Cadastrar</button>
+                <div class="form-check">
+                 
+                  <label class="" for="customCheck1">Li e concordo com os Termos e Condições e Política de Privacidade</label>
+                  <input class="form-check-input required " require type="checkbox" value="1" id="fcustomCheck1" checked="" name="terms">
+                </div>
+                <button class="btn btn-outline-primary btn-block mt-0" id="btn_bt_loader" onclick="validate()">Finalizar</button>
               </div>
             </form>
           </div>
@@ -81,8 +104,4 @@
     </div>
   </div>
 </main>
-  <!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
-  
-
-
-
+<!-- JavaScript (jQuery) libraries, plugins and custom scripts-->
