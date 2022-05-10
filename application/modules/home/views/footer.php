@@ -305,7 +305,12 @@ if ($language == 'english') {
 
     $(document).ready(function () {
         $('#calendar').fullCalendar({
-            lang: 'en',
+            lang: 'pt',
+            prev: 'circle-triangle-w',
+  next: 'circle-triangle-e',
+  prevYear: 'seek-prev',
+  nextYear: 'seek-next',
+           // weekends: false, 
             events: '<?= base_url()?>appointment/getAppointmentByJason',
             header:
                     {

@@ -50,6 +50,18 @@ class Patient_model extends CI_model {
         return $query->result();
     }
 
+    function getCustomersBySearch($search, $order, $dir) {
+        if ($order != null) {
+            $this->db->order_by($order, $dir);
+        } else {
+            $this->db->order_by('id', 'desc');
+        }
+        $this->db->like('id', $search);
+        $this->db->or_like('name', $search);
+        $query = $this->db->get('patient');
+        return $query->result();
+    }
+
     function getPatientByLimit($limit, $start, $order, $dir) {
         if ($order != null) {
             $this->db->order_by($order, $dir);
