@@ -24,8 +24,8 @@ class Profile extends MX_Controller {
         $id = $this->ion_auth->get_user_id();
         $data['profile'] = $this->profile_model->getProfileById($id);
         $data['doctor'] = $this->doctor_model->getDoctorByIonUserId($id);
-        $this->load->view('home/dashboard'); // just the header file
-        $this->load->view('profile', $data);
+        $this->load->view('home/dashboard', $data); // just the header file
+        $this->load->view('profile');
         $this->load->view('home/footer'); // just the footer file
     }
 
@@ -85,30 +85,95 @@ class Profile extends MX_Controller {
             $this->load->view('profile', $data);
             $this->load->view('home/footer'); // just the footer file
         } else {
-            $data = array();
-            $data = array(
-                'name' => $name,
-                'email' => $email,
-                'address' => $address,
-                'phone' => $phone,
-                'cpf' => $cpf,
-                'postal_code' => $postal_code,
-                'country' => $country,
-                'state' => $state,
-                'city' => $city,
-                'district' => $district,
-                'complement' => $complement,
-                'date_of_birth' => $date_of_birth,
-                'number' => $number,
-                'biography' => $biography,
-                'crp' => $crp,
-                'specialties' => $specialties,
-                'facebook' => $facebook,
-                'instagram' => $instagram,
-                'amount_to_pay' => $amount_to_pay,
+            $file_name = $_FILES['img_url']['name'];
+            $file_name_pieces = explode('_', $file_name);
+            $new_file_name = '';
+            $count = 1;
+            foreach ($file_name_pieces as $piece) {
+                if ($count !== 1) {
+                    $piece = ucfirst($piece);
+                }
 
+                $new_file_name .= $piece;
+                $count++;
+            }
+            $config = array(
+                'file_name' => $new_file_name,
+                'upload_path' => "./uploads/",
+                'allowed_types' => "gif|jpg|png|jpeg|pdf",
+                'overwrite' => False,
+                'max_size' => "20480000", // Can be set to particular file size , here it is 2 MB(2048 Kb)
+                'max_height' => "1768",
+                'max_width' => "2024"
             );
 
+            $this->load->library('Upload', $config);
+            $this->upload->initialize($config);
+
+            if ($this->upload->do_upload('img_url')) {
+                $path = $this->upload->data();
+                $img_url = "uploads/" . $path['file_name'];
+                $data = array();
+                $data = array(
+                    'img_url' => $img_url,
+                    'name' => $name,
+                    'email' => $email,
+                    'address' => $address,
+                    'phone' => $phone,
+                   // 'profile' => $profile,
+                    'cpf' => $cpf,
+                   // 'cellphone' => $cellphone,
+                    'postal_code' => $postal_code,
+                    'country' => $country,
+                    'state' => $state,
+                    'city' => $city,
+                    'district' => $district,
+                    'address' => $address,
+                    'complement' => $complement,
+                    'number' => $number,
+                    'date_of_birth' => $date_of_birth,
+                    'biography' => $biography,
+                    'crp' => $crp,
+                    'specialties' => $specialties,
+                    'facebook' => $facebook,
+                    'instagram' => $instagram,
+                    //'linkedin' => $linkedin,
+                  //  'recipient_id' => $recipient_id,
+                    'amount_to_pay' => $amount_to_pay,
+                    
+                );
+            } else {
+                //$error = array('error' => $this->upload->display_errors());
+                $data = array();
+                $data = array(
+                    'name' => $name,
+                    'email' => $email,
+                    'address' => $address,
+                    'phone' => $phone,
+                 //   'profile' => $profile,
+                    'cpf' => $cpf,
+                 //   'cellphone' => $cellphone,
+                    'postal_code' => $postal_code,
+                    'country' => $country,
+                    'state' => $state,
+                    'city' => $city,
+                    'district' => $district,
+                    'address' => $address,
+                    'complement' => $complement,
+                    'number' => $number,
+                    'date_of_birth' => $date_of_birth,
+                    'biography' => $biography,
+                    'crp' => $crp,
+                    'specialties' => $specialties,
+                    'facebook' => $facebook,
+                    'instagram' => $instagram,
+                   // 'linkedin' => $linkedin,
+                  //  'recipient_id' => $recipient_id,
+                    'amount_to_pay' => $amount_to_pay,
+
+                    
+                );
+            }
 
             $username = $this->input->post('name');
             

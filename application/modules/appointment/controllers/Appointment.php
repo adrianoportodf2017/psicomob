@@ -25,14 +25,13 @@ class Appointment extends MX_Controller {
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
         }
-
-
-
         $data['patients'] = $this->patient_model->getPatient();
         $data['doctors'] = $this->doctor_model->getDoctor();
         $data['settings'] = $this->settings_model->getSettings();
+        $id = $this->ion_auth->get_user_id();
+        $data['doctor'] = $this->doctor_model->getDoctorByIonUserId($id);
         $this->load->view('home/dashboard', $data); // just the header file
-        $this->load->view('appointment', $data);
+        $this->load->view('appointment');
         $this->load->view('home/footer'); // just the header file
     }
 
@@ -1144,9 +1143,7 @@ class Appointment extends MX_Controller {
         foreach ($data['appointments'] as $appointment) {
             $i = $i + 1;
 
-            $option1 = '<button type="button" class="btn btn-info btn-xs btn_width editbutton" data-toggle="modal" data-id="' . $appointment->id . '"><i class="fa fa-edit"> ' . lang('edit') . '</i></button>';
 
-            $option2 = '<a class="btn btn-info btn-xs btn_width delete_button" href="appointment/delete?id=' . $appointment->id . '" onclick="return confirm(\'Are you sure you want to delete this item?\');"><i class="fa fa-trash"> </i></a>';
             $patientdetails = $this->patient_model->getPatientById($appointment->patient);
             if (!empty($patientdetails)) {
                 $patientname = ' <a type="button" class="history" data-toggle = "modal" data-id="' . $appointment->patient . '"> ' . $patientdetails->name . '</a>';
@@ -1193,7 +1190,7 @@ class Appointment extends MX_Controller {
                 date('d-m-Y', $appointment->date) . ' <br> ' . $appointment->s_time . '-' . $appointment->e_time,
                 $appointment->remarks,
                 $appointment_status,
-                $option1 . ' ' . $option2 . ' ' . $options7
+                ' ' . $options7
             );
         }
 

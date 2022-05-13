@@ -39,18 +39,9 @@ class Doctor_model extends CI_model {
     }
 
     function getDoctorBySearch($search, $order, $dir) {
-        $this->db->where('role_id', '2');
-        if ($order != null) {
-            $this->db->order_by($order, $dir);
-        } else {
-            $this->db->order_by('id', 'desc');
-        }
-        $this->db->like('id', $search);
-        $this->db->or_like('name', $search);
-        $this->db->or_like('phone', $search);
-        $this->db->or_like('address', $search);
-        $this->db->or_like('email', $search);
-        $this->db->or_like('department', $search);
+        
+        $this->db->where('status', 'active');
+
         $query = $this->db->get('doctor');
         return $query->result();
     }

@@ -1,10 +1,12 @@
 <!--sidebar end-->
 <!--main content start-->
-<section id="main-content">
-    <section class="wrapper site-min-height">
+
+<div class="container-fluid py-4">
         <!-- page start-->
         <div class="row">
         <div class="col-md-8">
+            <div class="card">
+            <div class="card-body">
         <div class="row">
          
     
@@ -20,6 +22,10 @@
                             <form role="form" action="profile/addNew" class="clearfix" method="post" enctype="multipart/form-data">
                             <div class="adv-table editable-table ">
                         <div class="clearfix">
+                        <div class="col-md-6 form-group">                            
+                        <label for="exampleInputEmail1"><?php echo lang('image'); ?></label>
+                                <input  class="form-control"  type="file" name="img_url">
+                            </div>
                                 <div class="col-md-6 form-group">
                                     <label for="exampleInputEmail1"><?php echo lang('name'); ?></label>
                                     <input type="text" class="form-control" name="name" id="exampleInputEmail1" value='<?php
@@ -28,6 +34,7 @@
                                     }
                                     ?>' placeholder="">
                                 </div>
+                                
                                 <div class=" col-md-6 form-group">
                                     <label for="exampleInputEmail1"><?php echo lang('change_password'); ?></label>
                                     <input type="password" class="form-control" name="password" id="exampleInputEmail1" placeholder="********">

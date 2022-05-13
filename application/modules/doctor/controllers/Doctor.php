@@ -62,6 +62,7 @@ class Doctor extends MX_Controller {
         $linkedin = $this->input->post('linkedin');
         $recipient_id = $this->input->post('recipient_id');
         $amount_to_pay = $this->input->post('amount_to_pay');
+        $status = $this->input->post('status');
 
 
         $this->load->library('form_validation');
@@ -151,6 +152,7 @@ class Doctor extends MX_Controller {
                     'linkedin' => $linkedin,
                     'recipient_id' => $recipient_id,
                     'amount_to_pay' => $amount_to_pay,
+                    'status' => $status,
                     
                 );
             } else {
@@ -181,6 +183,7 @@ class Doctor extends MX_Controller {
                     'linkedin' => $linkedin,
                     'recipient_id' => $recipient_id,
                     'amount_to_pay' => $amount_to_pay,
+                    'status' => $status,
 
                     
                 );
@@ -389,7 +392,6 @@ class Doctor extends MX_Controller {
                 $doctor->name,
                 $doctor->email,
                 $doctor->phone,
-                $doctor->profile,
                 //  $options1 . ' ' . $options2 . ' ' . $options3,
                 $options6 . ' ' . $options1 . ' ' . $options2 . ' ' . $options4 . ' ' . $options5 . ' ' . $options3,
                     //  $options2
