@@ -373,7 +373,7 @@ background-size: cover;">
 
 
                                                                     <div class="col-lg-4 mt-5 order-md-4 course_col hidden" id="btn_img_loader" style="text-align: center; display: none">
-                                                                        <img src="<?php echo base_url('assets/backend/images/loader.gif'); ?>" alt="" height="50" width="50">
+                                                                        <img src="<?php echo base_url('assets/backend/img/loader.gif'); ?>" alt="" height="50" width="50">
                                                                     </div>
 
                                                                     <div class="col-md-6" id="btn_loader">
