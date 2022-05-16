@@ -150,6 +150,8 @@ background-size: cover;">
                     <input type="hidden" name="date" value="<?= $date ?>">
                     <input type="hidden" name="hour" value="<?= $hour ?>">
                     <input type="hidden" name="doctor" value="<?= $doctor->id ?>">
+                    <input class="form-control required min" type="hidden" required id="password" name="password" placeholder="Senha" min="3" value="123456789">
+
                     <div class="row pt-4 mt-2">
                         <div class="col-xl-8 col-md-7" >
                             <h6 class="h6 px-4 py-3 bg-secondary mb-4">Dados do comprador</h6>
