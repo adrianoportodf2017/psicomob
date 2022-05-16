@@ -377,7 +377,7 @@ background-size: cover;">
                                                                     </div>
 
                                                                     <div class="col-md-6" id="btn_loader">
-                                                                        <button class="btn btn-outline-primary btn-block mt-0" id="btn_bt_loader" onclick="validate()">Finalizar Pagamento</button>
+                                                                        <button class="btn btn-outline-primary btn-block mt-0" id="btn_bt_loader" onclick="validateCheckout()">Finalizar Pagamento</button>
                                                                     </div>
                                                                 </div>
                                                                 
@@ -975,7 +975,7 @@ background-size: cover;">
         /* Password message */
         validatePasswordMsg = "Senhas n&atilde;o conferem";
 
-        function validate() {
+        function validateCheckout() {
             $('#myform :input').each(function() {
                 /* required */
                 if ($(this).hasClass('required') && $.trim($(this).val()) === "") {
