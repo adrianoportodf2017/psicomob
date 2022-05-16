@@ -74,3 +74,34 @@ echo $cont;
         </div>
       </div>
     </div>
+
+    <div class="modal fade" tabindex="-1" role="dialog" id="cmodal">
+            <div class="modal-dialog modal-lg" role="document" style="width: 80%;">
+                <div class="modal-content">
+                  <div class="card">
+                    <!--
+                    <div class="modal-header">
+                        <h5 class="modal-title"><?php echo lang('patient') . " " . lang('history'); ?></h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    -->
+                    </div>
+                    <div class="card">
+                    <div class="card-body">
+                    <div id='medical_history'>
+                        <div class="col-md-12">
+                    
+                        </div> 
+                        </div> 
+                    </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="col-md-12">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>

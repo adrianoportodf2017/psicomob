@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Appointment extends MX_Controller {
+class Appointment extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
 
         $this->load->model('appointment_model');
@@ -20,7 +22,8 @@ class Appointment extends MX_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
 
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
@@ -35,7 +38,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function request() {
+    public function request()
+    {
 
 
         $data['patients'] = $this->patient_model->getPatient();
@@ -46,7 +50,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function todays() {
+    public function todays()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
         }
@@ -60,7 +65,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function upcoming() {
+    public function upcoming()
+    {
 
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
@@ -74,7 +80,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function myTodays() {
+    public function myTodays()
+    {
         if (!$this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
         }
@@ -88,7 +95,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function calendar() {
+    function calendar()
+    {
 
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
@@ -110,7 +118,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNewView() {
+    public function addNewView()
+    {
 
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
@@ -124,7 +133,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNew() {
+    public function addNew()
+    {
         $id = $this->input->post('id');
         $patient = $this->input->post('patient');
         $doctor = $this->input->post('doctor');
@@ -346,7 +356,8 @@ class Appointment extends MX_Controller {
         }
     }
 
-    function sendSmsDuringAppointment($id, $data, $patient, $doctor, $status) {
+    function sendSmsDuringAppointment($id, $data, $patient, $doctor, $status)
+    {
         //sms
         $set['settings'] = $this->settings_model->getSettings();
         $patientdetails = $this->patient_model->getPatientById($patient);
@@ -392,10 +403,135 @@ class Appointment extends MX_Controller {
         if ($autoemail->status == 'Active') {
             $mail_provider = $this->settings_model->getSettings()->emailtype;
             $settngs_name = $this->settings_model->getSettings()->system_vendor;
-            $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
+            $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);       
             $message1 = $autoemail->message;
             $messageprint1 = $this->parser->parse_string($message1, $data1);
-            if ($mail_provider == 'Domain Email') {
+
+
+     $template =      '
+     <body style="width:100%;font-family:roboto, helvetica neue, helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
+      <div class="es-wrapper-color" style="background-color:#F4F6F7"><!--[if gte mso 9]>
+                <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                    <v:fill type="tile" color="#f4f6f7"></v:fill>
+                </v:background>
+            <![endif]--> 
+       <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+         <tr style="border-collapse:collapse"> 
+          <td valign="top" style="padding:0;Margin:0"> 
+          
+           <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+             <tr style="border-collapse:collapse"> 
+              <td align="center" style="padding:0;Margin:0"> 
+              </td> 
+             </tr> 
+           </table> 
+           <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+             <tr style="border-collapse:collapse"> 
+              <td align="center" style="padding:0;Margin:0"> 
+               <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                 <tr style="border-collapse:collapse"> 
+                  <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px"> 
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                     <tr style="border-collapse:collapse"> 
+                      <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                       <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                         <tr style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;font-size:0px"><img class="adapt-img" src="https://wfxwwh.stripocdn.email/content/guids/CABINET_ba1dc69d2f0c28d345af75441d95b415/images/logopsicomobpngtransparente1768x480.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="560"></td> 
+                         </tr> 
+                         <tr style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;padding-bottom:10px;font-size:0"><img src="https://wfxwwh.stripocdn.email/content/guids/CABINET_23b09dc352206b9a3436692531aaf1f2/images/48401577371549314.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="41"></td> 
+                         </tr> 
+                       </table></td> 
+                     </tr> 
+                     <tr style="border-collapse:collapse"> 
+                      <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                       <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                         <tr style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet</p></td> 
+                         </tr> 
+                       </table></td> 
+                     </tr> 
+                     <tr style="border-collapse:collapse"> 
+                      <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                       <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                         <tr style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet, et vix regione praesent, ut habeo dictas vocent duo. Omnes detracto sea in, no audiam labitur intellegam vim. No esse quot vidit ius. Dicit platonem comprehensam eos ad. Wisi solet inermis cum id. Ne fastidii definiebas cum.</p></td> 
+                         </tr> 
+                         <tr class="es-visible-simple-html-only" style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;padding-top:15px">
+                          <span class="es-button-border" style="border-style:solid;border-color:#345DFE;background:#BAE8E8;border-width:0px;display:inline-block;border-radius:3px;width:auto">
+                         '.$messageprint1.'
+                          </span>
+                          </td> 
+                         </tr> 
+                       </table></td> 
+                     </tr> 
+                   </table></td> 
+                 </tr> 
+               </table></td> 
+             </tr> 
+           </table> 
+           <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+             <tr style="border-collapse:collapse"> 
+              <td align="center" style="padding:0;Margin:0"> 
+               <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                 <tr style="border-collapse:collapse"> 
+                  <td align="left" bgcolor="transparent" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:transparent"> 
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                     <tr style="border-collapse:collapse"> 
+                      <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                       <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                         <tr style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;display:none"></td> 
+                         </tr> 
+                       </table></td> 
+                     </tr> 
+                   </table></td> 
+                 </tr> 
+               </table></td> 
+             </tr> 
+           </table> 
+           <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+             <tr style="border-collapse:collapse"> 
+              <td align="center" style="padding:0;Margin:0"> 
+               <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FAFAFA;width:600px"> 
+                 <tr style="border-collapse:collapse"> 
+                  <td align="left" style="padding:0;Margin:0"> 
+                  </td> 
+                 </tr> 
+                 <tr style="border-collapse:collapse"> 
+                  <td align="left" style="padding:0;Margin:0"> 
+                   </td> 
+                 </tr> 
+                 <tr style="border-collapse:collapse"> 
+                  <td align="left" style="padding:0;Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px"> 
+                   <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                     <tr style="border-collapse:collapse"> 
+                      <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                       <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                         <tr style="border-collapse:collapse"> 
+                          <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:20px;font-size:0"> 
+                           <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                             <tr style="border-collapse:collapse"> 
+                              <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" title="Facebook" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                              <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Ig" title="Instagram" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                             </tr> 
+                           </table></td> 
+                         </tr> 
+                       </table></td> 
+                     </tr> 
+                   </table></td> 
+                 </tr> 
+               </table></td> 
+             </tr> 
+           </table> 
+          </td> 
+         </tr> 
+       </table> 
+      </div>  
+    ' ;
+
+            if ($mail_provider ==   'Domain Email' ) {
                 $this->email->from($email_Settings->admin_email);
             }
             if ($mail_provider == 'Smtp') {
@@ -403,14 +539,15 @@ class Appointment extends MX_Controller {
             }
             $this->email->to($patientdetails->email);
             $this->email->subject(lang('appointment'));
-            $this->email->message($messageprint1);
+            $this->email->message($template);
             $this->email->send();
         }
 
         //end
     }
 
-    function getArrayKey($s_time) {
+    function getArrayKey($s_time)
+    {
         $all_slot = array(
             0 => '12:00 AM',
             1 => '12:05 AM',
@@ -706,7 +843,8 @@ class Appointment extends MX_Controller {
         return $key;
     }
 
-    function getAppointmentByJasonByDoctor() {
+    function getAppointmentByJasonByDoctor()
+    {
 
 
         $id = $this->input->get('id');
@@ -814,7 +952,8 @@ class Appointment extends MX_Controller {
         //  echo json_encode($data);
     }
 
-    function getAppointmentByJason() {
+    function getAppointmentByJason()
+    {
 
 
 
@@ -842,7 +981,7 @@ class Appointment extends MX_Controller {
             $time_slot = $entry->time_slot;
             //var_dump($time_slot);die;
             $time_slot_new = explode(' To ', $time_slot);
-            $start_time = explode(' ', $time_slot_new[0]);            
+            $start_time = explode(' ', $time_slot_new[0]);
             $end_time = explode(' ', $time_slot_new[1]);
             //var_dump($end_time);die;
 
@@ -927,12 +1066,13 @@ class Appointment extends MX_Controller {
             );
         }
 
-         /// echo json_encode($jsonevents);
+        /// echo json_encode($jsonevents);
 
-     echo json_encode($jsonevents);
+        echo json_encode($jsonevents);
     }
 
-    function getAppointmentByDoctorId() {
+    function getAppointmentByDoctorId()
+    {
         $id = $this->input->get('id');
         $data['doctor_id'] = $id;
         $data['appointments'] = $this->appointment_model->getAppointment();
@@ -945,7 +1085,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function editAppointment() {
+    function editAppointment()
+    {
         $data = array();
         $id = $this->input->get('id');
 
@@ -958,7 +1099,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file 
     }
 
-    function editAppointmentByJason() {
+    function editAppointmentByJason()
+    {
         $id = $this->input->get('id');
         $data['appointment'] = $this->appointment_model->getAppointmentById($id);
         $data['patient'] = $this->patient_model->getPatientById($data['appointment']->patient);
@@ -966,7 +1108,8 @@ class Appointment extends MX_Controller {
         echo json_encode($data);
     }
 
-    function treatmentReport() {
+    function treatmentReport()
+    {
         $data['settings'] = $this->settings_model->getSettings();
         $data['doctors'] = $this->doctor_model->getDoctor();
 
@@ -989,7 +1132,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function myAppointments() {
+    function myAppointments()
+    {
         $data['appointments'] = $this->appointment_model->getAppointment();
         $data['settings'] = $this->settings_model->getSettings();
         $user_id = $this->ion_auth->user()->row()->id;
@@ -999,7 +1143,8 @@ class Appointment extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function delete() {
+    function delete()
+    {
         $data = array();
         $id = $this->input->get('id');
         $doctor_id = $this->input->get('doctor_id');
@@ -1012,7 +1157,8 @@ class Appointment extends MX_Controller {
         }
     }
 
-    function getAppointment() {
+    function getAppointment()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1067,7 +1213,7 @@ class Appointment extends MX_Controller {
                 $appointment->phone,
                 $this->settings_model->getSettings()->currency . $this->appointment_model->getDueBalanceByAppointmentId($appointment->id),
                 $options1 . ' ' . $options2 . ' ' . $options3 . ' ' . $options4 . ' ' . $options5,
-                    //  $options2
+                //  $options2
             );
         }
 
@@ -1090,7 +1236,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getAppoinmentList() {
+    function getAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1213,7 +1360,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getRequestedAppointmentList() {
+    function getRequestedAppointmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1324,7 +1472,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getPendingAppoinmentList() {
+    function getPendingAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1437,7 +1586,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getConfirmedAppoinmentList() {
+    function getConfirmedAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1558,7 +1708,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getTreatedAppoinmentList() {
+    function getTreatedAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1679,7 +1830,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getCancelledAppoinmentList() {
+    function getCancelledAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1790,7 +1942,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getTodaysAppoinmentList() {
+    function getTodaysAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1891,7 +2044,8 @@ class Appointment extends MX_Controller {
                 );
                 $i = $i + 1;
             } else {
-                $info1[] = array($appointment->id,
+                $info1[] = array(
+                    $appointment->id,
                     $appointment->patientname,
                     $appointment->doctorname,
                     date('d-m-Y', $appointment->date) . ' <br> ' . $appointment->s_time . '-' . $appointment->e_time,
@@ -1921,7 +2075,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getUpcomingAppoinmentList() {
+    function getUpcomingAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -2030,7 +2185,8 @@ class Appointment extends MX_Controller {
                 } else {
                     $options7 = '';
                 }
-                $info1[] = array($appointment->id,
+                $info1[] = array(
+                    $appointment->id,
                     $appointment->patientname,
                     $appointment->doctorname,
                     date('d-m-Y', $appointment->date) . ' <br> ' . $appointment->s_time . '-' . $appointment->e_time,
@@ -2060,7 +2216,8 @@ class Appointment extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getMyTodaysAppoinmentList() {
+    function getMyTodaysAppoinmentList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -2167,7 +2324,8 @@ class Appointment extends MX_Controller {
                     );
                     $i = $i + 1;
                 } else {
-                    $info1[] = array($appointment->id,
+                    $info1[] = array(
+                        $appointment->id,
                         $appointment->patientname,
                         $appointment->doctorname,
                         date('d-m-Y', $appointment->date) . ' <br> ' . $appointment->s_time . '-' . $appointment->e_time,
@@ -2197,9 +2355,7 @@ class Appointment extends MX_Controller {
 
         echo json_encode($output);
     }
-
 }
 
 /* End of file appointment.php */
     /* Location: ./application/modules/appointment/controllers/appointment.php */
-    

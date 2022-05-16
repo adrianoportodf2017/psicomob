@@ -188,13 +188,134 @@ $this->email->clear();
                     if ($mail_provider == 'Smtp') {
                         $this->email->from($email_settings->user, $settings->system_vendor);
                     }
-                    $message = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_forgot_password', 'ion_auth'), $data, true);
-                   
+                    $messageprint1 = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_forgot_password', 'ion_auth'), $data, true);
+                    $messageprint1 =      '
+                    <body style="width:100%;font-family:roboto, helvetica neue, helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
+                     <div class="es-wrapper-color" style="background-color:#F4F6F7"><!--[if gte mso 9]>
+                               <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                                   <v:fill type="tile" color="#f4f6f7"></v:fill>
+                               </v:background>
+                           <![endif]--> 
+                      <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td valign="top" style="padding:0;Margin:0"> 
+                         
+                          <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="center" style="padding:0;Margin:0"> 
+                             </td> 
+                            </tr> 
+                          </table> 
+                          <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="center" style="padding:0;Margin:0"> 
+                              <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;font-size:0px"><img class="adapt-img" src="https://wfxwwh.stripocdn.email/content/guids/CABINET_ba1dc69d2f0c28d345af75441d95b415/images/logopsicomobpngtransparente1768x480.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="560"></td> 
+                                        </tr> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;padding-bottom:10px;font-size:0"><img src="https://wfxwwh.stripocdn.email/content/guids/CABINET_23b09dc352206b9a3436692531aaf1f2/images/48401577371549314.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="41"></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet</p></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet, et vix regione praesent, ut habeo dictas vocent duo. Omnes detracto sea in, no audiam labitur intellegam vim. No esse quot vidit ius. Dicit platonem comprehensam eos ad. Wisi solet inermis cum id. Ne fastidii definiebas cum.</p></td> 
+                                        </tr> 
+                                        <tr class="es-visible-simple-html-only" style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;padding-top:15px">
+                                         <span class="es-button-border" style="border-style:solid;border-color:#345DFE;background:#BAE8E8;border-width:0px;display:inline-block;border-radius:3px;width:auto">
+                                        '.$messageprint1.'
+                                         </span>
+                                         </td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table> 
+                          <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="center" style="padding:0;Margin:0"> 
+                              <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="left" bgcolor="transparent" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:transparent"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;display:none"></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table> 
+                          <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="center" style="padding:0;Margin:0"> 
+                              <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FAFAFA;width:600px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="left" style="padding:0;Margin:0"> 
+                                 </td> 
+                                </tr> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="left" style="padding:0;Margin:0"> 
+                                  </td> 
+                                </tr> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="left" style="padding:0;Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:20px;font-size:0"> 
+                                          <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" title="Facebook" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                             <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Ig" title="Instagram" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                            </tr> 
+                                          </table></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table> 
+                         </td> 
+                        </tr> 
+                      </table> 
+                     </div>  
+                   ' ;
                     
                     // $this->email->from($admin_email->admin_email, $settings->system_vendor);
                     $this->email->to($user->email);
                     $this->email->subject($settings->system_vendor . ' - ' . $this->lang->line('email_forgotten_password_subject'));
-                    $this->email->message($message);
+                    $this->email->message($messageprint1);
 
                     if ($this->email->send()) {
                         $this->set_message('forgot_password_successful');
@@ -244,13 +365,134 @@ $this->email->clear();
                 $this->ion_auth_model->trigger_events(array('post_password_change', 'password_change_successful'));
                 return $data;
             } else {
-                $message = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
-
+                $messageprint1 = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_forgot_password_complete', 'ion_auth'), $data, true);
+                $messageprint1 =      '
+                <body style="width:100%;font-family:roboto, helvetica neue, helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
+                 <div class="es-wrapper-color" style="background-color:#F4F6F7"><!--[if gte mso 9]>
+                           <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                               <v:fill type="tile" color="#f4f6f7"></v:fill>
+                           </v:background>
+                       <![endif]--> 
+                  <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+                    <tr style="border-collapse:collapse"> 
+                     <td valign="top" style="padding:0;Margin:0"> 
+                     
+                      <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                         </td> 
+                        </tr> 
+                      </table> 
+                      <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                          <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px"> 
+                              <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;font-size:0px"><img class="adapt-img" src="https://wfxwwh.stripocdn.email/content/guids/CABINET_ba1dc69d2f0c28d345af75441d95b415/images/logopsicomobpngtransparente1768x480.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="560"></td> 
+                                    </tr> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-bottom:10px;font-size:0"><img src="https://wfxwwh.stripocdn.email/content/guids/CABINET_23b09dc352206b9a3436692531aaf1f2/images/48401577371549314.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="41"></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet</p></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet, et vix regione praesent, ut habeo dictas vocent duo. Omnes detracto sea in, no audiam labitur intellegam vim. No esse quot vidit ius. Dicit platonem comprehensam eos ad. Wisi solet inermis cum id. Ne fastidii definiebas cum.</p></td> 
+                                    </tr> 
+                                    <tr class="es-visible-simple-html-only" style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:15px">
+                                     <span class="es-button-border" style="border-style:solid;border-color:#345DFE;background:#BAE8E8;border-width:0px;display:inline-block;border-radius:3px;width:auto">
+                                    '.$messageprint1.'
+                                     </span>
+                                     </td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table></td> 
+                        </tr> 
+                      </table> 
+                      <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                          <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" bgcolor="transparent" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:transparent"> 
+                              <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;display:none"></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table></td> 
+                        </tr> 
+                      </table> 
+                      <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                          <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FAFAFA;width:600px"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="padding:0;Margin:0"> 
+                             </td> 
+                            </tr> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="padding:0;Margin:0"> 
+                              </td> 
+                            </tr> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="padding:0;Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px"> 
+                              <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:20px;font-size:0"> 
+                                      <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" title="Facebook" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Ig" title="Instagram" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table></td> 
+                        </tr> 
+                      </table> 
+                     </td> 
+                    </tr> 
+                  </table> 
+                 </div>  
+               ' ;
                 $this->email->clear();
                 $this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
                 $this->email->to($profile->email);
                 $this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_new_password_subject'));
-                $this->email->message($message);
+                $this->email->message($messageprint1);
 
                 if ($this->email->send()) {
                     $this->set_message('password_change_successful');
@@ -353,13 +595,134 @@ $this->email->clear();
                 $this->set_message('activation_email_successful');
                 return $data;
             } else {
-                $message = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_activate', 'ion_auth'), $data, true);
-
+                $messageprint1 = $this->load->view($this->config->item('email_templates', 'ion_auth') . $this->config->item('email_activate', 'ion_auth'), $data, true);
+                $messageprint1 =      '
+                <body style="width:100%;font-family:roboto, helvetica neue, helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
+                 <div class="es-wrapper-color" style="background-color:#F4F6F7"><!--[if gte mso 9]>
+                           <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                               <v:fill type="tile" color="#f4f6f7"></v:fill>
+                           </v:background>
+                       <![endif]--> 
+                  <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+                    <tr style="border-collapse:collapse"> 
+                     <td valign="top" style="padding:0;Margin:0"> 
+                     
+                      <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                         </td> 
+                        </tr> 
+                      </table> 
+                      <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                          <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px"> 
+                              <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;font-size:0px"><img class="adapt-img" src="https://wfxwwh.stripocdn.email/content/guids/CABINET_ba1dc69d2f0c28d345af75441d95b415/images/logopsicomobpngtransparente1768x480.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="560"></td> 
+                                    </tr> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-bottom:10px;font-size:0"><img src="https://wfxwwh.stripocdn.email/content/guids/CABINET_23b09dc352206b9a3436692531aaf1f2/images/48401577371549314.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="41"></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet</p></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet, et vix regione praesent, ut habeo dictas vocent duo. Omnes detracto sea in, no audiam labitur intellegam vim. No esse quot vidit ius. Dicit platonem comprehensam eos ad. Wisi solet inermis cum id. Ne fastidii definiebas cum.</p></td> 
+                                    </tr> 
+                                    <tr class="es-visible-simple-html-only" style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:15px">
+                                     <span class="es-button-border" style="border-style:solid;border-color:#345DFE;background:#BAE8E8;border-width:0px;display:inline-block;border-radius:3px;width:auto">
+                                    '.$messageprint1.'
+                                     </span>
+                                     </td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table></td> 
+                        </tr> 
+                      </table> 
+                      <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                          <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" bgcolor="transparent" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:transparent"> 
+                              <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;display:none"></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table></td> 
+                        </tr> 
+                      </table> 
+                      <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+                        <tr style="border-collapse:collapse"> 
+                         <td align="center" style="padding:0;Margin:0"> 
+                          <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FAFAFA;width:600px"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="padding:0;Margin:0"> 
+                             </td> 
+                            </tr> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="padding:0;Margin:0"> 
+                              </td> 
+                            </tr> 
+                            <tr style="border-collapse:collapse"> 
+                             <td align="left" style="padding:0;Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px"> 
+                              <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                  <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:20px;font-size:0"> 
+                                      <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" title="Facebook" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Ig" title="Instagram" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table></td> 
+                            </tr> 
+                          </table></td> 
+                        </tr> 
+                      </table> 
+                     </td> 
+                    </tr> 
+                  </table> 
+                 </div>  
+               ' ;
                 $this->email->clear();
                 $this->email->from($this->config->item('admin_email', 'ion_auth'), $this->config->item('site_title', 'ion_auth'));
                 $this->email->to($email);
                 $this->email->subject($this->config->item('site_title', 'ion_auth') . ' - ' . $this->lang->line('email_activation_subject'));
-                $this->email->message($message);
+                $this->email->message($messageprint1);
 
                 if ($this->email->send() == TRUE) {
                     $this->ion_auth_model->trigger_events(array('post_account_creation', 'post_account_creation_successful', 'activation_email_successful'));

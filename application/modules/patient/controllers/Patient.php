@@ -3,9 +3,11 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class Patient extends MX_Controller {
+class Patient extends MX_Controller
+{
 
-    function __construct() {
+    function __construct()
+    {
         parent::__construct();
         $this->load->model('patient_model');
         $this->load->model('donor/donor_model');
@@ -25,7 +27,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    public function index() {
+    public function index()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
         }
@@ -37,11 +40,12 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function customers() {
+    public function customers()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
         }
-        
+
         $data = array();
 
         if ($this->ion_auth->in_group(array('Doctor'))) {
@@ -56,19 +60,21 @@ class Patient extends MX_Controller {
         $data['groups'] = $this->donor_model->getBloodBank();
         $data['settings'] = $this->settings_model->getSettings();
         $data['patients'] = $this->patient_model->getPatient();
-        $this->load->view('home/dashboard' , $data); // just the header file
+        $this->load->view('home/dashboard', $data); // just the header file
         $this->load->view('customers');
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function calendar() {
+    public function calendar()
+    {
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard'); // just the header file
         $this->load->view('calendar', $data);
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNewView() {
+    public function addNewView()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
         }
@@ -80,7 +86,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    public function addNew() {
+    public function addNew()
+    {
 
         if ($this->ion_auth->in_group(array('Patient'))) {
             redirect('home/permission');
@@ -269,6 +276,128 @@ class Patient extends MX_Controller {
                         $email_Settings = $this->email_model->getEmailSettingsByType($mail_provider);
                         $message1 = $autoemail->message;
                         $messageprint1 = $this->parser->parse_string($message1, $data1);
+                        $messageprint1 =      '
+                        <body style="width:100%;font-family:roboto, helvetica neue, helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
+                         <div class="es-wrapper-color" style="background-color:#F4F6F7"><!--[if gte mso 9]>
+                                   <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                                       <v:fill type="tile" color="#f4f6f7"></v:fill>
+                                   </v:background>
+                               <![endif]--> 
+                          <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+                            <tr style="border-collapse:collapse"> 
+                             <td valign="top" style="padding:0;Margin:0"> 
+                             
+                              <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" style="padding:0;Margin:0"> 
+                                 </td> 
+                                </tr> 
+                              </table> 
+                              <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" style="padding:0;Margin:0"> 
+                                  <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                          <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;font-size:0px"><img class="adapt-img" src="https://wfxwwh.stripocdn.email/content/guids/CABINET_ba1dc69d2f0c28d345af75441d95b415/images/logopsicomobpngtransparente1768x480.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="560"></td> 
+                                            </tr> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;padding-bottom:10px;font-size:0"><img src="https://wfxwwh.stripocdn.email/content/guids/CABINET_23b09dc352206b9a3436692531aaf1f2/images/48401577371549314.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="41"></td> 
+                                            </tr> 
+                                          </table></td> 
+                                        </tr> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                          <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet</p></td> 
+                                            </tr> 
+                                          </table></td> 
+                                        </tr> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                          <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet, et vix regione praesent, ut habeo dictas vocent duo. Omnes detracto sea in, no audiam labitur intellegam vim. No esse quot vidit ius. Dicit platonem comprehensam eos ad. Wisi solet inermis cum id. Ne fastidii definiebas cum.</p></td> 
+                                            </tr> 
+                                            <tr class="es-visible-simple-html-only" style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;padding-top:15px">
+                                             <span class="es-button-border" style="border-style:solid;border-color:#345DFE;background:#BAE8E8;border-width:0px;display:inline-block;border-radius:3px;width:auto">
+                                            '.$messageprint1.'
+                                             </span>
+                                             </td> 
+                                            </tr> 
+                                          </table></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table> 
+                              <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" style="padding:0;Margin:0"> 
+                                  <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="left" bgcolor="transparent" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:transparent"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                          <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;display:none"></td> 
+                                            </tr> 
+                                          </table></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table> 
+                              <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+                                <tr style="border-collapse:collapse"> 
+                                 <td align="center" style="padding:0;Margin:0"> 
+                                  <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FAFAFA;width:600px"> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="left" style="padding:0;Margin:0"> 
+                                     </td> 
+                                    </tr> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="left" style="padding:0;Margin:0"> 
+                                      </td> 
+                                    </tr> 
+                                    <tr style="border-collapse:collapse"> 
+                                     <td align="left" style="padding:0;Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px"> 
+                                      <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                        <tr style="border-collapse:collapse"> 
+                                         <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                          <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                            <tr style="border-collapse:collapse"> 
+                                             <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:20px;font-size:0"> 
+                                              <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                                <tr style="border-collapse:collapse"> 
+                                                 <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" title="Facebook" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                                 <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Ig" title="Instagram" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                                </tr> 
+                                              </table></td> 
+                                            </tr> 
+                                          </table></td> 
+                                        </tr> 
+                                      </table></td> 
+                                    </tr> 
+                                  </table></td> 
+                                </tr> 
+                              </table> 
+                             </td> 
+                            </tr> 
+                          </table> 
+                         </div>  
+                       ' ;
                         if ($mail_provider == 'Domain Email') {
                             $this->email->from($email_Settings->admin_email);
                         }
@@ -289,6 +418,129 @@ class Patient extends MX_Controller {
                         $base_url = str_replace(array('http://', 'https://', '/'), '', base_url());
                         $subject = $base_url . ' - Patient Registration Details';
                         $message = 'Dear ' . $name . ', Thank you for the registration. <br> Here is your login details.<br> <br> Link: ' . base_url() . 'auth/login <br> Username: ' . $email . ' <br> Password: ' . $password . '<br><br> Thank You, <br>' . $this->settings->title;
+                       
+                       $message =    '
+                       <body style="width:100%;font-family:roboto, helvetica neue, helvetica, arial, sans-serif;-webkit-text-size-adjust:100%;-ms-text-size-adjust:100%;padding:0;Margin:0"> 
+                        <div class="es-wrapper-color" style="background-color:#F4F6F7"><!--[if gte mso 9]>
+                                  <v:background xmlns:v="urn:schemas-microsoft-com:vml" fill="t">
+                                      <v:fill type="tile" color="#f4f6f7"></v:fill>
+                                  </v:background>
+                              <![endif]--> 
+                         <table class="es-wrapper" width="100%" cellspacing="0" cellpadding="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;padding:0;Margin:0;width:100%;height:100%;background-repeat:repeat;background-position:center top"> 
+                           <tr style="border-collapse:collapse"> 
+                            <td valign="top" style="padding:0;Margin:0"> 
+                            
+                             <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                               <tr style="border-collapse:collapse"> 
+                                <td align="center" style="padding:0;Margin:0"> 
+                                </td> 
+                               </tr> 
+                             </table> 
+                             <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                               <tr style="border-collapse:collapse"> 
+                                <td align="center" style="padding:0;Margin:0"> 
+                                 <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                                   <tr style="border-collapse:collapse"> 
+                                    <td align="left" style="Margin:0;padding-top:20px;padding-bottom:20px;padding-left:20px;padding-right:20px"> 
+                                     <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                       <tr style="border-collapse:collapse"> 
+                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                         <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                           <tr style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;font-size:0px"><img class="adapt-img" src="https://wfxwwh.stripocdn.email/content/guids/CABINET_ba1dc69d2f0c28d345af75441d95b415/images/logopsicomobpngtransparente1768x480.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="560"></td> 
+                                           </tr> 
+                                           <tr style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;padding-bottom:10px;font-size:0"><img src="https://wfxwwh.stripocdn.email/content/guids/CABINET_23b09dc352206b9a3436692531aaf1f2/images/48401577371549314.png" alt style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic" width="41"></td> 
+                                           </tr> 
+                                         </table></td> 
+                                       </tr> 
+                                       <tr style="border-collapse:collapse"> 
+                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                         <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                           <tr style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;padding-top:5px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet</p></td> 
+                                           </tr> 
+                                         </table></td> 
+                                       </tr> 
+                                       <tr style="border-collapse:collapse"> 
+                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                         <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                           <tr style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;padding-top:15px"><p style="Margin:0;-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;font-family:roboto, helvetica neue , helvetica, arial, sans-serif;line-height:24px;color:#333333;font-size:16px">Lorem ipsum dolor sit amet, et vix regione praesent, ut habeo dictas vocent duo. Omnes detracto sea in, no audiam labitur intellegam vim. No esse quot vidit ius. Dicit platonem comprehensam eos ad. Wisi solet inermis cum id. Ne fastidii definiebas cum.</p></td> 
+                                           </tr> 
+                                           <tr class="es-visible-simple-html-only" style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;padding-top:15px">
+                                            <span class="es-button-border" style="border-style:solid;border-color:#345DFE;background:#BAE8E8;border-width:0px;display:inline-block;border-radius:3px;width:auto">
+                                           '. $message.'
+                                            </span>
+                                            </td> 
+                                           </tr> 
+                                         </table></td> 
+                                       </tr> 
+                                     </table></td> 
+                                   </tr> 
+                                 </table></td> 
+                               </tr> 
+                             </table> 
+                             <table cellpadding="0" cellspacing="0" class="es-content" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%"> 
+                               <tr style="border-collapse:collapse"> 
+                                <td align="center" style="padding:0;Margin:0"> 
+                                 <table bgcolor="#ffffff" class="es-content-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FFFFFF;width:600px"> 
+                                   <tr style="border-collapse:collapse"> 
+                                    <td align="left" bgcolor="transparent" style="Margin:0;padding-top:10px;padding-bottom:10px;padding-left:20px;padding-right:20px;background-color:transparent"> 
+                                     <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                       <tr style="border-collapse:collapse"> 
+                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                         <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                           <tr style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;display:none"></td> 
+                                           </tr> 
+                                         </table></td> 
+                                       </tr> 
+                                     </table></td> 
+                                   </tr> 
+                                 </table></td> 
+                               </tr> 
+                             </table> 
+                             <table cellpadding="0" cellspacing="0" class="es-footer" align="center" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;table-layout:fixed !important;width:100%;background-color:transparent;background-repeat:repeat;background-position:center top"> 
+                               <tr style="border-collapse:collapse"> 
+                                <td align="center" style="padding:0;Margin:0"> 
+                                 <table bgcolor="#ffffff" class="es-footer-body" align="center" cellpadding="0" cellspacing="0" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px;background-color:#FAFAFA;width:600px"> 
+                                   <tr style="border-collapse:collapse"> 
+                                    <td align="left" style="padding:0;Margin:0"> 
+                                    </td> 
+                                   </tr> 
+                                   <tr style="border-collapse:collapse"> 
+                                    <td align="left" style="padding:0;Margin:0"> 
+                                     </td> 
+                                   </tr> 
+                                   <tr style="border-collapse:collapse"> 
+                                    <td align="left" style="padding:0;Margin:0;padding-bottom:15px;padding-left:20px;padding-right:20px"> 
+                                     <table cellpadding="0" cellspacing="0" width="100%" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                       <tr style="border-collapse:collapse"> 
+                                        <td align="center" valign="top" style="padding:0;Margin:0;width:560px"> 
+                                         <table cellpadding="0" cellspacing="0" width="100%" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                           <tr style="border-collapse:collapse"> 
+                                            <td align="center" style="padding:0;Margin:0;padding-top:15px;padding-bottom:20px;font-size:0"> 
+                                             <table cellpadding="0" cellspacing="0" class="es-table-not-adapt es-social" role="presentation" style="mso-table-lspace:0pt;mso-table-rspace:0pt;border-collapse:collapse;border-spacing:0px"> 
+                                               <tr style="border-collapse:collapse"> 
+                                                <td align="center" valign="top" style="padding:0;Margin:0;padding-right:10px"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/facebook-logo-black.png" alt="Fb" title="Facebook" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                                <td align="center" valign="top" style="padding:0;Margin:0"><a target="_blank" href="https://viewstripo.email" style="-webkit-text-size-adjust:none;-ms-text-size-adjust:none;mso-line-height-rule:exactly;text-decoration:underline;color:#333333;font-size:13px"><img src="https://wfxwwh.stripocdn.email/content/assets/img/social-icons/logo-black/instagram-logo-black.png" alt="Ig" title="Instagram" width="32" style="display:block;border:0;outline:none;text-decoration:none;-ms-interpolation-mode:bicubic"></a></td> 
+                                               </tr> 
+                                             </table></td> 
+                                           </tr> 
+                                         </table></td> 
+                                       </tr> 
+                                     </table></td> 
+                                   </tr> 
+                                 </table></td> 
+                               </tr> 
+                             </table> 
+                            </td> 
+                           </tr> 
+                         </table> 
+                        </div>  
+                      ' ;
                         if ($mail_provider == 'Domain Email') {
                             $this->email->from($emailSettings->admin_email);
                         }
@@ -328,7 +580,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function editPatient() {
+    function editPatient()
+    {
         $data = array();
         $id = $this->input->get('id');
         $data['patient'] = $this->patient_model->getPatientById($id);
@@ -339,14 +592,16 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function editPatientByJason() {
+    function editPatientByJason()
+    {
         $id = $this->input->get('id');
         $data['patient'] = $this->patient_model->getPatientById($id);
         $data['doctor'] = $this->doctor_model->getDoctorById($data['patient']->doctor);
         echo json_encode($data);
     }
 
-    function getPatientByJason() {
+    function getPatientByJason()
+    {
         $id = $this->input->get('id');
         $data['patient'] = $this->patient_model->getPatientById($id);
 
@@ -364,7 +619,8 @@ class Patient extends MX_Controller {
         echo json_encode($data);
     }
 
-    function patientDetails() {
+    function patientDetails()
+    {
         $data = array();
         $id = $this->input->get('id');
         $data['patient'] = $this->patient_model->getPatientById($id);
@@ -373,7 +629,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function report() {
+    function report()
+    {
         $data = array();
         $id = $this->input->get('id');
         $data['settings'] = $this->settings_model->getSettings();
@@ -383,7 +640,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function addDiagnosticReport() {
+    function addDiagnosticReport()
+    {
         $id = $this->input->post('id');
         $invoice = $this->input->post('invoice');
         $patient = $this->input->post('patient');
@@ -427,7 +685,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function patientPayments() {
+    function patientPayments()
+    {
         $data['groups'] = $this->donor_model->getBloodBank();
         $data['settings'] = $this->settings_model->getSettings();
         $this->load->view('home/dashboard'); // just the header file
@@ -435,7 +694,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function caseList() {
+    function caseList()
+    {
         $data['settings'] = $this->settings_model->getSettings();
         $data['patients'] = $this->patient_model->getPatient();
         $data['medical_histories'] = $this->patient_model->getMedicalHistory();
@@ -444,7 +704,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function documents() {
+    function documents()
+    {
         $data['patients'] = $this->patient_model->getPatient();
         $data['files'] = $this->patient_model->getPatientMaterial();
         $this->load->view('home/dashboard'); // just the header file
@@ -452,7 +713,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function myCaseList() {
+    function myCaseList()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             $patient_ion_id = $this->ion_auth->get_user_id();
             $patient_id = $this->patient_model->getPatientByIonUserId($patient_ion_id)->id;
@@ -463,7 +725,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function myDocuments() {
+    function myDocuments()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             $patient_ion_id = $this->ion_auth->get_user_id();
             $patient_id = $this->patient_model->getPatientByIonUserId($patient_ion_id)->id;
@@ -474,7 +737,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function myPrescription() {
+    function myPrescription()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             $patient_ion_id = $this->ion_auth->get_user_id();
             $patient_id = $this->patient_model->getPatientByIonUserId($patient_ion_id)->id;
@@ -487,7 +751,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    public function myPayment() {
+    public function myPayment()
+    {
         if ($this->ion_auth->in_group(array('Patient'))) {
             $patient_ion_id = $this->ion_auth->get_user_id();
             $patient_id = $this->patient_model->getPatientByIonUserId($patient_ion_id)->id;
@@ -499,7 +764,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function myPaymentHistory() {
+    function myPaymentHistory()
+    {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
@@ -543,7 +809,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function deposit() {
+    function deposit()
+    {
         $id = $this->input->post('id');
 
 
@@ -573,15 +840,16 @@ class Patient extends MX_Controller {
 
         $this->load->library('form_validation');
         $this->form_validation->set_error_delimiters('<div class="error">', '</div>');
-// Validating Patient Name Field
+        // Validating Patient Name Field
         $this->form_validation->set_rules('patient', 'Patient', 'trim|min_length[1]|max_length[100]|xss_clean');
-// Validating Deposited Amount Field
+        // Validating Deposited Amount Field
         $this->form_validation->set_rules('deposited_amount', 'Deposited Amount', 'trim|min_length[1]|max_length[100]|xss_clean');
         if ($this->form_validation->run() == FALSE) {
             redirect('patient/myPaymentsHistory');
         } else {
             $data = array();
-            $data = array('patient' => $patient,
+            $data = array(
+                'patient' => $patient,
                 // 'date' => $date,
                 'payment_id' => $payment_id,
                 'deposited_amount' => $deposited_amount,
@@ -694,7 +962,7 @@ class Patient extends MX_Controller {
                             'card_number' => $card_number,
                             'expire_date' => $expire_date,
                             'cvv' => $cvv,
-                                //  'email'=>$patient_email
+                            //  'email'=>$patient_email
                         );
 
                         $this->load->module('authorizenet');
@@ -712,13 +980,14 @@ class Patient extends MX_Controller {
                         $stripe = $this->db->get_where('paymentGateway', array('name =' => 'Stripe'))->row();
                         \Stripe\Stripe::setApiKey($stripe->secret);
                         $charge = \Stripe\Charge::create(array(
-                                    "amount" => $deposited_amount * 100,
-                                    "currency" => "usd",
-                                    "source" => $token
+                            "amount" => $deposited_amount * 100,
+                            "currency" => "usd",
+                            "source" => $token
                         ));
                         $chargeJson = $charge->jsonSerialize();
                         if ($chargeJson['status'] == 'succeeded') {
-                            $data1 = array('patient' => $patient,
+                            $data1 = array(
+                                'patient' => $patient,
                                 'date' => $date,
                                 'payment_id' => $payment_id,
                                 'deposited_amount' => $deposited_amount,
@@ -758,7 +1027,7 @@ class Patient extends MX_Controller {
                             'insertid' => $payment_id,
                             'channel_id' => 'WEB',
                             'industry_type' => 'Retail',
-                                //  'email'=>$patient_email
+                            //  'email'=>$patient_email
                         );
                         //  $this->load->module('paytm/pgRedirects');
                         $this->paytm->PaytmGateway($datapayment);
@@ -791,7 +1060,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function myInvoice() {
+    function myInvoice()
+    {
         $id = $this->input->get('id');
         $data['settings'] = $this->settings_model->getSettings();
         $data['discount_type'] = $this->finance_model->getDiscountType();
@@ -801,7 +1071,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer fi
     }
 
-    function addMedicalHistory() {
+    function addMedicalHistory()
+    {
         $id = $this->input->post('id');
         $patient_id = $this->input->post('patient_id');
 
@@ -880,7 +1151,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    public function diagnosticReport() {
+    public function diagnosticReport()
+    {
         if (!$this->ion_auth->logged_in()) {
             redirect('auth/login', 'refresh');
         }
@@ -899,7 +1171,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the header file
     }
 
-    function medicalHistory() {
+    function medicalHistory()
+    {
         $data = array();
         $id = $this->input->get('id');
 
@@ -1070,17 +1343,19 @@ class Patient extends MX_Controller {
         }
         $this->load->view('home/dashboard'); // just the header file
         $this->load->view('medical_history', $data);
-       $this->load->view('home/footer'); // just the footer file
+        $this->load->view('home/footer'); // just the footer file
     }
 
-    function editMedicalHistoryByJason() {
+    function editMedicalHistoryByJason()
+    {
         $id = $this->input->get('id');
         $data['medical_history'] = $this->patient_model->getMedicalHistoryById($id);
         $data['patient'] = $this->patient_model->getPatientById($data['medical_history']->patient_id);
         echo json_encode($data);
     }
 
-    function getCaseDetailsByJason() {
+    function getCaseDetailsByJason()
+    {
         $id = $this->input->get('id');
         $data['case'] = $this->patient_model->getMedicalHistoryById($id);
         $patient = $data['case']->patient_id;
@@ -1088,7 +1363,8 @@ class Patient extends MX_Controller {
         echo json_encode($data);
     }
 
-    function getPatientByAppointmentByDctorId($doctor_id) {
+    function getPatientByAppointmentByDctorId($doctor_id)
+    {
         $data = array();
         $appointments = $this->appointment_model->getAppointmentByDoctor($doctor_id);
         foreach ($appointments as $appointment) {
@@ -1107,7 +1383,8 @@ class Patient extends MX_Controller {
         return $patients;
     }
 
-    function patientMaterial() {
+    function patientMaterial()
+    {
         $data = array();
         $id = $this->input->get('patient');
         $data['settings'] = $this->settings_model->getSettings();
@@ -1118,7 +1395,8 @@ class Patient extends MX_Controller {
         $this->load->view('home/footer'); // just the footer file
     }
 
-    function addPatientMaterial() {
+    function addPatientMaterial()
+    {
         $title = $this->input->post('title');
         $patient_id = $this->input->post('patient');
         $img_url = $this->input->post('img_url');
@@ -1225,7 +1503,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function deleteCaseHistory() {
+    function deleteCaseHistory()
+    {
         $id = $this->input->get('id');
         $redirect = $this->input->get('redirect');
         $case_history = $this->patient_model->getMedicalHistoryById($id);
@@ -1238,7 +1517,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function deletePatientMaterial() {
+    function deletePatientMaterial()
+    {
         $id = $this->input->get('id');
         $redirect = $this->input->get('redirect');
         $patient_material = $this->patient_model->getPatientMaterialById($id);
@@ -1255,7 +1535,8 @@ class Patient extends MX_Controller {
         }
     }
 
-    function delete() {
+    function delete()
+    {
         $data = array();
         $id = $this->input->get('id');
         $user_data = $this->db->get_where('patient', array('id' => $id))->row();
@@ -1273,7 +1554,8 @@ class Patient extends MX_Controller {
     }
 
 
-    function getCustomers() {
+    function getCustomers()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1338,7 +1620,7 @@ class Patient extends MX_Controller {
                     $patient->phone,
                     $this->settings_model->getSettings()->currency . $this->patient_model->getDueBalanceByPatientId($patient->id),
                     $options1 . ' ' . $options6 . ' ' . $options3 . ' ' . $options4 . ' ' . $options5,
-                        //  $options2
+                    //  $options2
                 );
             }
 
@@ -1349,7 +1631,7 @@ class Patient extends MX_Controller {
                     $patient->phone,
                     $this->settings_model->getSettings()->currency . $this->patient_model->getDueBalanceByPatientId($patient->id),
                     $options1 . ' ' . $options6 . ' ' . $options4,
-                        //  $options2
+                    //  $options2
                 );
             }
 
@@ -1359,7 +1641,7 @@ class Patient extends MX_Controller {
                     $patient->name,
                     $patient->phone,
                     $options1 . ' ' . $options6 . ' ' . $options3,
-                        //  $options2
+                    //  $options2
                 );
             }
         }
@@ -1383,7 +1665,8 @@ class Patient extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getPatient() {
+    function getPatient()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1448,7 +1731,7 @@ class Patient extends MX_Controller {
                     $patient->phone,
                     $this->settings_model->getSettings()->currency . $this->patient_model->getDueBalanceByPatientId($patient->id),
                     $options1 . ' ' . $options6 . ' ' . $options3 . ' ' . $options4 . ' ' . $options5,
-                        //  $options2
+                    //  $options2
                 );
             }
 
@@ -1459,7 +1742,7 @@ class Patient extends MX_Controller {
                     $patient->phone,
                     $this->settings_model->getSettings()->currency . $this->patient_model->getDueBalanceByPatientId($patient->id),
                     $options1 . ' ' . $options6 . ' ' . $options4,
-                        //  $options2
+                    //  $options2
                 );
             }
 
@@ -1469,7 +1752,7 @@ class Patient extends MX_Controller {
                     $patient->name,
                     $patient->phone,
                     $options1 . ' ' . $options6 . ' ' . $options3,
-                        //  $options2
+                    //  $options2
                 );
             }
         }
@@ -1493,7 +1776,8 @@ class Patient extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getPatientPayments() {
+    function getPatientPayments()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1572,7 +1856,8 @@ class Patient extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getCaseList() {
+    function getCaseList()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1631,7 +1916,7 @@ class Patient extends MX_Controller {
                 $patient_details,
                 $case->title,
                 $options3 . ' ' . $options1 . ' ' . $options2
-                    // $options4
+                // $options4
             );
         }
 
@@ -1654,7 +1939,8 @@ class Patient extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getDocuments() {
+    function getDocuments()
+    {
         $requestData = $_REQUEST;
         $start = $requestData['start'];
         $limit = $requestData['length'];
@@ -1726,7 +2012,7 @@ class Patient extends MX_Controller {
                 $document->title,
                 $files,
                 $options1 . ' ' . $options2
-                    // $options4
+                // $options4
             );
         }
 
@@ -1749,7 +2035,8 @@ class Patient extends MX_Controller {
         echo json_encode($output);
     }
 
-    function getMedicalHistoryByJason() {
+    function getMedicalHistoryByJason()
+    {
         $data = array();
 
         $from_where = $this->input->get('from_where');
@@ -1786,7 +2073,7 @@ class Patient extends MX_Controller {
                 $doctor_name = '';
             }
 
-            $timeline[$appointment->date + 1] = '<div class="panel-body profile-activity" >
+            $timeline[$appointment->date + 1] = '
                 <h5 class="pull-left"><span class="label pull-right r-activity">' . lang('appointment') . '</span></h5>
                                             <h5 class="pull-right">' . date('d-m-Y', $appointment->date) . '</h5>
                                             <div class="activity terques">
@@ -1813,144 +2100,6 @@ class Patient extends MX_Controller {
         }
 
 
-        foreach ($data['prescriptions'] as $prescription) {
-            $doctor_details = $this->doctor_model->getDoctorById($prescription->doctor);
-            if (!empty($doctor_details)) {
-                $doctor_name = $doctor_details->name;
-            } else {
-                $doctor_name = '';
-            }
-            $timeline[$prescription->date + 6] = '<div class="panel-body profile-activity" >
-                                           <h5 class="pull-left"><span class="label pull-right r-activity">' . lang('prescription') . '</span></h5>
-                                            <h5 class="pull-right">' . date('d-m-Y', $prescription->date) . '</h5>
-                                            <div class="activity purple">
-                                                <span>
-                                                    <i class="fa fa-medkit"></i>
-                                                </span>
-                                                <div class="activity-desk">
-                                                    <div class="panel col-md-6">
-                                                        <div class="panel-body">
-                                                            <div class="arrow"></div>
-                                                            <i class=" fa fa-calendar"></i>
-                                                            <h4>' . date('d-m-Y', $prescription->date) . '</h4>
-                                                            <p></p>
-                                                            <i class=" fa fa-user-md"></i>
-                                                                <h4>' . $doctor_name . '</h4>
-                                                                    <a class="btn btn-info btn-xs detailsbutton" title="View" href="prescription/viewPrescription?id=' . $prescription->id . '"><i class="fa fa-eye"> View</i></a>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>';
-        }
-        foreach ($labs as $lab) {
-
-            $doctor_details = $this->doctor_model->getDoctorById($lab->doctor);
-            if (!empty($doctor_details)) {
-                $lab_doctor = $doctor_details->name;
-            } else {
-                $lab_doctor = '';
-            }
-
-            $timeline[$lab->date + 3] = '<div class="panel-body profile-activity" >
-                                            <h5 class="pull-left"><span class="label pull-right r-activity">' . lang('lab') . '</span></h5>
-                                            <h5 class="pull-right">' . date('d-m-Y', $lab->date) . '</h5>
-                                            <div class="activity blue">
-                                                <span>
-                                                    <i class="fa fa-flask"></i>
-                                                </span>
-                                                <div class="activity-desk">
-                                                    <div class="panel col-md-6">
-                                                        <div class="panel-body">
-                                                            <div class="arrow"></div>
-                                                            <i class=" fa fa-calendar"></i>
-                                                            <h4>' . date('d-m-Y', $lab->date) . '</h4>
-                                                            <p></p>
-                                                             <i class=" fa fa-user-md"></i>
-                                                                <h4>' . $lab_doctor . '</h4>
-                                                                    <a class="btn btn-xs invoicebutton" title="Lab" style="color: #fff;" href="lab/invoice?id=' . $lab->id . '"><i class="fa fa-file-text"></i>' . lang('report') . '</a>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        </div>';
-        }
-
-        foreach ($medical_histories as $medical_history) {
-            $timeline[$medical_history->date + 4] = '<div class="panel-body profile-activity" >
-                                            <h5 class="pull-left"><span class="label pull-right r-activity">' . lang('case_history') . '</span></h5>
-                                            <h5 class="pull-right">' . date('d-m-Y', $medical_history->date) . '</h5>
-                                            <div class="activity greenn">
-                                                <span>
-                                                    <i class="fa fa-file"></i>
-                                                </span>
-                                                <div class="activity-desk">
-                                                    <div class="panel col-md-6">
-                                                        <div class="panel-body">
-                                                            <div class="arrow"></div>
-                                                            <i class=" fa fa-calendar"></i>
-                                                            <h4>' . date('d-m-Y', $medical_history->date) . '</h4>
-                                                            <p></p>
-                                                             <i class=" fa fa-note"></i> 
-                                                                <p>' . $medical_history->description . '</p>
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        </div>';
-        }
-
-        foreach ($patient_materials as $patient_material) {
-            $timeline[$patient_material->date + 5] = '<div class="panel-body profile-activity" >
-                                           <h5 class="pull-left"><span class="label pull-right r-activity">' . lang('documents') . '</span></h5>
-                                            <h5 class="pull-right">' . date('d-m-Y', $patient_material->date) . '</h5>
-                                            <div class="activity purplee">
-                                                <span>
-                                                    <i class="fa fa-file-o"></i>
-                                                </span>
-                                                <div class="activity-desk">
-                                                    <div class="panel col-md-6">
-                                                        <div class="panel-body">
-                                                            <div class="arrow"></div>
-                                                            <i class=" fa fa-calendar"></i>
-                                                            <h4>' . date('d-m-Y', $patient_material->date) . ' <a class="pull-right" title="' . lang('download') . '"  href="' . $patient_material->url . '" download=""> <i class=" fa fa-download"></i> </a> </h4>
-                                                                
-                                                                 <h4>' . $patient_material->title . '</h4>
-                                                            
-                                                                
-                                                        </div>
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        </div>';
-        }
-
-
-
-
-
-        if (!empty($timeline)) {
-            krsort($timeline);
-            $timeline_value = '';
-            foreach ($timeline as $key => $value) {
-                $timeline_value .= $value;
-            }
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         $all_appointments = '';
         foreach ($appointments as $appointment) {
 
@@ -1963,400 +2112,125 @@ class Patient extends MX_Controller {
 
 
 
-            $patient_appointments = '<tr class = "">
+            $patient_appointments = '  <li class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+            <div class="d-flex align-items-center">
+                <button class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i class="fas fa-arrow-down" aria-hidden="true"></i></button>
+                <div class="d-flex flex-column">
+                    <h6 class="mb-1 text-dark text-sm">'. $patient->name .'</h6>
+                    <span class="text-xs">'. date("d-m-Y", $appointment->date) .' / ' . $appointment->time_slot . '</span>
+                </div>
+            </div>
+            <div class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+               ' . $appointment->status . '
+            </div>
+        </li> ';
 
-        <td>' . date("d-m-Y", $appointment->date) . '
-        </td>
-        <td>' . $appointment->time_slot . '</td>
-        <td>'
-                    . $appointment_doctor . '
-        </td>
-        <td>' . $appointment->status . '</td>
-        <td><a type="button" href="appointment/editAppointment?id=' . $appointment->id . '" class="btn btn-info btn-xs btn_width" title="Edit" data-id="' . $appointment->id . '">' . lang('edit') . '</a></td>
-
-        </tr>';
-
-            $all_appointments .= $patient_appointments;
+            $all_appointments .= $patient_appointments ;
         }
 
 
 
 
-        if (empty($all_appointments)) {
-            $all_appointments = '';
-        }
-
-
-
-        $all_case = '';
-
-        foreach ($medical_histories as $medical_history) {
-            $patient_case = ' <tr class="">
-                                                    <td>' . date("d-m-Y", $medical_history->date) . '</td>
-                                                    <td>' . $medical_history->title . '</td>
-                                                    <td>' . $medical_history->description . '</td>
-                                                </tr>';
-
-            $all_case .= $patient_case;
-        }
-
-
-        if (empty($all_case)) {
-            $all_case = '';
-        }
-        $all_prescription = '';
-
-        foreach ($data['prescriptions'] as $prescription) {
-            $doctor_details = $this->doctor_model->getDoctorById($prescription->doctor);
-            if (!empty($doctor_details)) {
-                $prescription_doctor = $doctor_details->name;
-            } else {
-                $prescription_doctor = '';
-            }
-            $medicinelist = '';
-            if (!empty($prescription->medicine)) {
-                $medicine = explode('###', $prescription->medicine);
-
-                foreach ($medicine as $key => $value) {
-                    $medicine_id = explode('***', $value);
-                    $medicine_details = $this->medicine_model->getMedicineById($medicine_id[0]);
-                    if (!empty($medicine_details)) {
-                        $medicine_name_with_dosage = $medicine_details->name . ' -' . $medicine_id[1];
-                        $medicine_name_with_dosage = $medicine_name_with_dosage . ' | ' . $medicine_id[3] . '<br>';
-                        rtrim($medicine_name_with_dosage, ',');
-                        $medicinelist .= '<p>' . $medicine_name_with_dosage . '</p>';
-                    }
-                }
-            } else {
-                $medicinelist = '';
-            }
-
-            $option1 = '<a class="btn btn-info btn-xs btn_width" href="prescription/viewPrescription?id=' . $prescription->id . '"><i class="fa fa-eye">' . lang('view') . '</i></a>';
-            $prescription_case = ' <tr class="">
-                                                    <td>' . date('m/d/Y', $prescription->date) . '</td>
-                                                    <td>' . $prescription_doctor . '</td>
-                                                    <td>' . $medicinelist . '</td>
-                                                         <td>' . $option1 . '</td>
-                                                </tr>';
-
-            $all_prescription .= $prescription_case;
-        }
-
-
-        if (empty($all_prescription)) {
-            $all_prescription = '';
-        }
-
-
-        $all_lab = '';
-
-        foreach ($labs as $lab) {
-            $doctor_details = $this->doctor_model->getDoctorById($lab->doctor);
-            if (!empty($doctor_details)) {
-                $lab_doctor = $doctor_details->name;
-            } else {
-                $lab_doctor = "";
-            }
-            $option1 = '<a class="btn btn-info btn-xs btn_width" href="lab/invoice?id=' . $lab->id . '"><i class="fa fa-eye">' . lang('report') . '</i></a>';
-            $lab_class = ' <tr class="">
-                                                    <td>' . $lab->id . '</td>
-                                                    <td>' . date("m/d/Y", $lab->date) . '</td>
-                                                    <td>' . $lab_doctor . '</td>
-                                                         <td>' . $option1 . '</td>
-                                                </tr>';
-
-            $all_lab .= $lab_class;
-        }
-
-
-        if (empty($all_lab)) {
-            $all_lab = '';
-        }
-
-
-
-        $all_material = '';
-        foreach ($patient_materials as $patient_material) {
-
-            if (!empty($patient_material->title)) {
-                $patient_documents = $patient_material->title;
-            }
-
-
-            $patient_material = '
-            
-                                            <div class="panel col-md-3"  style="height: 200px; margin-right: 10px; margin-bottom: 36px; background: #f1f1f1; padding: 34px;">
-
-                                                <div class="post-info">
-                                                    <img src="' . $patient_material->url . '" height="100" width="100">
-                                                </div>
-                                                <div class="post-info">
-                                                    
-                                                ' . $patient_documents . '
-
-                                                </div>
-                                                <p></p>
-                                                <div class="post-info">
-                                                    <a class="btn btn-info btn-xs btn_width" href="' . $patient_material->url . '" download> ' . lang("download") . ' </a>
-                                                    <a class="btn btn-info btn-xs btn_width" title="' . lang("delete") . '" href="patient/deletePatientMaterial?id=' . $patient_material->id . '"onclick="return confirm("Are you sure you want to delete this item?");"> X </a>
-                                                </div>
-
-                                                <hr>
-
-                                            </div>';
-            $all_material .= $patient_material;
-        }
-
-        if (empty($all_material)) {
-            $all_material = ' ';
-        }
 
 
         if (!empty($patient->img_url)) {
             $profile_image = '<a href="#">
-                            <img src="' . $patient->img_url . '" alt="">
+                            <img src="'  .base_url().$patient->img_url . '" alt="">
                         </a>';
         } else {
-            $profile_image = '';
+            $profile_image = 'data:image/png;base64,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';
         }
 
 
 
         $data['view'] = '
-        <section class="col-md-3">
-            <header class="panel-heading clearfix">
-                <div class="">
-                    ' . lang("patient") . ' ' . lang("info") . ' 
-                </div>
-
-            </header> 
-
-
-
-
-            <aside class="profile-nav">
-                <section class="">
-                    <div class="user-heading round">
-                        ' . $profile_image . '
-                        <h1>' . $patient->name . '</h1>
-                        <p> ' . $patient->email . ' </p>
-                    </div>
-
-                    <ul class="nav nav-pills nav-stacked">
-                        <li class="active"> ' . lang("patient") . ' ' . lang("name") . '<span class="label pull-right r-activity">' . $patient->name . '</span></li>
-                        <li>  ' . lang("patient_id") . ' <span class="label pull-right r-activity">' . $patient->id . '</span></li>
-                        <li>  ' . lang("phone") . '<span class="label pull-right r-activity">' . $patient->phone . '</span></li>
-                        <li>  ' . lang("email") . '<span class="label pull-right r-activity">' . $patient->email . '</span></li>
-                        <li>  ' . lang("gender") . '<span class="label pull-right r-activity">' . $patient->sex . '</span></li>
-                        <li>  ' . lang("birth_date") . '<span class="label pull-right r-activity">' . $patient->birthdate . '</span></li>
-                        <li style="height: 200px;">  ' . lang("address") . '<span class="pull-right r-activity" style="height: 200px;">' . $patient->address . '</span></li>
-                    </ul>
+           
+        <div class="card card-profile">
+        <img src="'.base_url() . $this->db->get('settings')->row()->logo.'" alt="Image placeholder" class="card-img-top">
+        <div class="row justify-content-center">
+        <div class="col-4 col-lg-4 order-lg-2">
+        <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0">
+        <a href="javascript:;">
+        <img src=" '.$profile_image . '" class="rounded-circle img-fluid border border-2 border-white">
+        </a>
+        </div>
+        </div>
+        </div>
+        <div class="card-header text-center border-0 pt-0 pt-lg-2 pb-4 pb-lg-3">
+        <div class="d-flex justify-content-between">
+        <a href="javascript:;" class="btn btn-sm btn-info mb-0 d-block d-lg-none"><i class="ni ni-collection"></i></a>
+        <a href="mailto:' . $patient->email . '?Subject=Psicomob%20-%20Agendamento" class="btn btn-sm btn-dark float-right mb-0 d-none d-lg-block">Message</a>
+        <a href="mailto:' . $patient->email . '?Subject=Psicomob%20-%20Agendamento" class="btn btn-sm btn-dark float-right mb-0 d-block d-lg-none"><i class="ni ni-email-83"></i></a>
+        </div>
+        </div>
+        <div class="card-body pt-0">
+        <div class="row">
+        <div class="col">
+        <div class="d-flex justify-content-center">
+        <div class="d-grid text-center">
+        </div>
+        <div class="d-grid text-center mx-4">
+        </div>
+        <div class="d-grid text-center">
+        </div>
+        </div>
+        </div>
+        </div>
+        <div class="text-center mt-4">
+        <h5>
+        ' . $patient->name . '<span class="font-weight-light">, ' . $patient->email . ' </span>
+        </h5>
+        <div class="h6 font-weight-300">
+        ' . $patient->birthdate . '
+        </div>
+        <div class="h6 mt-4">
+        ' . $patient->address . '
+        </div>
+        <div>
+        </div>
+        </div>
+        </div>
+        </div>
+                      
 
                 </section>
-            </aside>
-
-
-        </section>
-
-
-
-
-
-        <section class="col-md-9">
-            <header class="panel-heading clearfix">
-                <div class="col-md-7">
-                    ' . lang("history") . ' | ' . $patient->name . '
-                </div>
-
-            </header>
-
-            <section class="panel-body">   
-                <header class="panel-heading tab-bg-dark-navy-blueee">
-                    <ul class="nav nav-tabs">
-                        <li class="active">
-                            <a data-toggle="tab" href="#appointments">' . lang("appointments") . '</a>
-                        </li>
-                        <li class="">
-                            <a data-toggle="tab" href="#home">' . lang("case_history") . '</a>
-                        </li>
-                         <li class="">
-                            <a data-toggle="tab" href="#prescription">' . lang("prescription") . '</a>
-                        </li>
-                        
-                        <li class="">
-                            <a data-toggle="tab" href="#lab">' . lang("lab") . '</a>
-                        </li>
-                        
-                        <li class="">
-                            <a data-toggle="tab" href="#profile">' . lang("documents") . '</a>
-                        </li>
-                         
-                        <li class="">
-                            <a data-toggle="tab" href="#timeline">' . lang("timeline") . '</a> 
-                        </li>
-                    </ul>
-                </header>
-                <div class="panel">
-                    <div class="tab-content">
-                        <div id="appointments" class="tab-pane active">
-                            <div class="">
-
-                                <div class="adv-table editable-table ">
-                                    <table class="table table-striped table-hover table-bordered" id="">
-                                        <thead>
-                                            <tr>
-                                                <th>' . lang("date") . '</th>
-                                                <th>' . lang("time_slot") . '</th>
-                                                <th>' . lang("doctor") . '</th>
-                                                <th>' . lang("status") . '</th>
-                                                <th>' . lang("option") . '</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ' . $all_appointments . '
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="home" class="tab-pane">
-                            <div class="">
-
-
-
-                                <div class="adv-table editable-table ">
-
-
-                                    <table class="table table-striped table-hover table-bordered" id="">
-                                        <thead>
-                                            <tr>
-                                                <th>' . lang("date") . '</th>
-                                                <th>' . lang("title") . '</th>
-                                                <th>' . lang("description") . '</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ' . $all_case . '
-                                        </tbody>
-                                    </table>
-
-
-                                </div>
-                            </div>
-                        </div>
-            
-                                    <div id="prescription" class="tab-pane">
-                                           <div class="">
-
-
-
-                                       <div class="adv-table editable-table ">
-
-
-                                    <table class="table table-striped table-hover table-bordered" id="">
-                                        <thead>
-                                            <tr>
-                                                <th>' . lang("date") . '</th>
-                                                <th>' . lang("doctor") . '</th>
-                                                <th>' . lang("medicine") . '</th>
-                                                <th>' . lang("options") . '</th>
-
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            ' . $all_prescription . '
-                                        </tbody>
-                                    </table>
-
-
-                                </div>
-                            </div>
-                        </div>
-                        <div id="lab" class="tab-pane"> <div class="">
-                                <div class="adv-table editable-table ">
-                                    <table class="table table-striped table-hover table-bordered" id="">
-                                        <thead>
-                                            <tr>
-                                                <th>' . lang("id") . '</th>
-                                                <th>' . lang("date") . '</th>
-                                                <th>' . lang("doctor") . '</th>
-                                                <th>' . lang("options") . '</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>'
-                . $all_lab .
-                '</tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                           
-                        <div id="profile" class="tab-pane"> <div class="">
-
-                                <div class="adv-table editable-table ">
-                                    <div class="">
-                                        ' . $all_material . '
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="timeline" class="tab-pane"> 
-                            <div class="">
-                                <div class="">
-                                    <section class="panel ">
-                                        <header class="panel-heading">
-                                            Timeline
-                                        </header>
-
-
-                                        ' . $timeline_value . '
-
-                            </section>
-                        </div>
-                    </div>
+                '.$all_appointments .  '</ul>
+                       
+                      
                 </div>
             </div>
         </div>
-    </section>
-
-</section>
-
-
-
-</section>';
+    </div>';
 
 
         echo json_encode($data);
     }
 
-    public function getPatientinfo() {
-// Search term
+    public function getPatientinfo()
+    {
+        // Search term
         $searchTerm = $this->input->post('searchTerm');
 
-// Get users
+        // Get users
         $response = $this->patient_model->getPatientInfo($searchTerm);
 
         echo json_encode($response);
     }
 
-    public function getPatientinfoWithAddNewOption() {
-// Search term
+    public function getPatientinfoWithAddNewOption()
+    {
+        // Search term
         $searchTerm = $this->input->post('searchTerm');
         //$doctor =   $this->id; 
         $id = $this->doctor_model->getDoctorByIonUserId($this->ion_auth->get_user_id())->id;
-       //var_dump($id);die;
+        //var_dump($id);die;
 
-// Get users
+        // Get users
         $response = $this->patient_model->getPatientinfoWithAddNewOption($searchTerm, $id);
 
         echo json_encode($response);
     }
-
 }
 
 /* End of file patient.php */
     /* Location: ./application/modules/patient/controllers/patient.php */
-    
